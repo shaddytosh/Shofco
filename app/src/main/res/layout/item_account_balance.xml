@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/size_8">
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/base_cardview"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="@dimen/size_8"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="@color/primary"
+        app:strokeWidth="1dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="16dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="16dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="16dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_end="16dp" />
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@+id/guideline4"
+                app:layout_constraintStart_toStartOf="@+id/guideline1"
+                app:layout_constraintTop_toTopOf="@+id/guideline3"
+                app:layout_constraintVertical_bias="0.0"
+                app:srcCompat="@android:drawable/ic_menu_info_details"
+                app:tint="@color/primary" />
+
+
+            <TextView
+                android:id="@+id/tv_account_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                tools:text="Share Capital"
+                android:textColor="#00255E"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+                app:layout_constraintStart_toEndOf="@+id/imageView2"
+                app:layout_constraintTop_toTopOf="@+id/imageView2"
+                app:layout_constraintVertical_bias="0.5" />
+
+            <ImageView
+                android:id="@+id/iv_show_blance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:padding="4dp"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_account_name"
+                app:layout_constraintEnd_toStartOf="@+id/guideline2"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/tv_account_name"
+                app:layout_constraintTop_toTopOf="@+id/tv_account_name"
+                app:srcCompat="@drawable/baseline_remove_red_eye_24"
+                app:tint="@color/primary" />
+
+            <View
+                android:id="@+id/view3"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="16dp"
+                android:background="#CECECE"
+                app:layout_constraintEnd_toStartOf="@+id/guideline2"
+                app:layout_constraintStart_toStartOf="@+id/guideline1"
+                app:layout_constraintTop_toBottomOf="@+id/tv_account_name" />
+
+            <TextView
+                android:id="@+id/tv_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                tools:text="Account balances as of 1 Aug 2023 at 12:39"
+                android:textColor="#838383"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@+id/guideline1"
+                app:layout_constraintTop_toBottomOf="@+id/view3" />
+
+            <ImageView
+                android:id="@+id/imageView9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_balance_code"
+                app:layout_constraintStart_toStartOf="@+id/guideline1"
+                app:layout_constraintTop_toTopOf="@+id/tv_balance_code"
+                app:srcCompat="@android:drawable/presence_invisible"
+                app:tint="@color/primary" />
+
+            <TextView
+                android:id="@+id/tv_balance_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="12dp"
+                tools:text="SHA"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/imageView9"
+                app:layout_constraintTop_toBottomOf="@+id/tv_date" />
+
+            <ImageView
+                android:id="@+id/imageView10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_amount"
+                app:layout_constraintStart_toStartOf="@+id/guideline1"
+                app:layout_constraintTop_toTopOf="@+id/tv_amount"
+                app:srcCompat="@android:drawable/presence_invisible"
+                app:tint="@color/primary" />
+
+            <TextView
+                android:id="@+id/tv_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="12dp"
+                tools:text="KES 998,000"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/imageView10"
+                app:layout_constraintTop_toBottomOf="@+id/tv_balance_code" />
+
+            <TextView
+                android:id="@+id/iv_show_statement"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/view_statement"
+                style="@style/NHIFActionTextButtonNoCorners"
+                android:backgroundTint="@color/primary"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_amount"
+                app:layout_constraintTop_toTopOf="@+id/tv_amount"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:srcCompat="@drawable/baseline_remove_red_eye_24"/>
+
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/card_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:constraint_referenced_ids="tv_date,view3,imageView9,tv_balance_code,imageView10,tv_amount, iv_show_statement"
+                tools:visibility="gone" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,158 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+
+    <style name="NHIFActionTextButton" parent="Widget.MaterialComponents.TextView">
+        <item name="android:background">@drawable/bg_new_entry_fab</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/text_button</item>
+        <item name="android:paddingStart" >50dp</item>
+        <item name="android:paddingTop">16dp</item>
+        <item name="android:paddingEnd" >50dp</item>
+        <item name="android:paddingBottom">16dp</item>
+        <item name="strokeColor">@color/white_day_night</item>
+        <item name="strokeWidth">2dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="drawableTint">@color/white</item>
+    </style>
+
+    <style name="RoundedCornersDialog" parent="Theme.MaterialComponents.DayNight.Dialog">
+        <item name="dialogCornerRadius">16dp</item>
+        <item name="android:windowMinWidthMajor">90%</item>
+        <item name="android:windowMinWidthMinor">90%</item>
+        <item name="android:windowAnimationStyle">@style/SuccessDialogAnimation</item>
+    </style>
+
+    <style name="RoundedCornersDialogFull" parent="Theme.MaterialComponents.DayNight.Dialog">
+        <item name="dialogCornerRadius">0dp</item>
+        <item name="android:windowMinWidthMajor">100%</item>
+        <item name="android:windowMinWidthMinor">100%</item>
+        <item name="android:windowAnimationStyle">@style/SuccessDialogAnimation</item>
+    </style>
+
+    <style name="SuccessDialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/in_from_top</item>
+        <item name="android:windowExitAnimation">@anim/out_from_top</item>
+    </style>
+    <dimen name="text_button">14sp</dimen>
+    <dimen name="_12px">12dp</dimen>
+    <dimen name="_15px">15dp</dimen>
+    <dimen name="_18px">18dp</dimen>
+
+    <style name="CustomBottomSheetDialog" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/CustomBottomSheet</item>
+
+    </style>
+
+    <style name="CustomBottomSheet" parent="Widget.MaterialComponents.BottomSheet">
+        <item name="shapeAppearanceOverlay">@style/CustomShapeAppearanceBottomSheetDialog</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
+
+    </style>
+
+    <style name="CustomShapeAppearanceBottomSheetDialog" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">16dp</item>
+        <item name="cornerSizeTopLeft">16dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+    </style>
+
+    <style name="groupStyle">
+        <item name="android:background">@drawable/rectangle_feature_home</item>
+    </style>
+
+    <style name="CornerRadiusImage" parent="">
+        <item name="cornerSize">@dimen/_12px</item>
+    </style>
+
+    <style name="CornerRadiusImage15" parent="">
+        <item name="cornerSize">@dimen/_15px</item>
+    </style>
+
+    <style name="CornerRadiusImage18" parent="">
+        <item name="cornerSize">@dimen/_18px</item>
+    </style>
+
+    <style name="CornerRadiusImageProfile" parent="">
+        <item name="cornerSizeTopLeft">@dimen/_12px</item>
+        <item name="cornerSizeBottomRight">@dimen/_12px</item>
+    </style>
+
+    <style name="CornerRadiusImageDelete" parent="">
+        <item name="cornerSizeTopLeft">@dimen/_12px</item>
+        <item name="cornerSizeTopRight">@dimen/_12px</item>
+    </style>
+
+    <style name="NHIFActionTextButtonNoCorners" parent="Widget.MaterialComponents.TextView">
+        <item name="android:background">@drawable/bg_new_entry_fab_2</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/text_button</item>
+        <item name="android:paddingStart" >16dp</item>
+        <item name="android:paddingTop">16dp</item>
+        <item name="android:paddingEnd" >16dp</item>
+        <item name="android:paddingBottom">16dp</item>
+        <item name="strokeColor">@color/white_day_night</item>
+        <item name="strokeWidth">2dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="drawableTint">@color/white</item>
+    </style>
+
+    <style name="MyCardView" parent="@style/Widget.MaterialComponents.CardView">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.MaterialCardView.Cut</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.MaterialCardView.Cut" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">@dimen/size_24</item>
+        <item name="cornerSizeTopLeft">@dimen/size_24</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+    </style>
+
+    <style name="MyCardViewFlatTop" parent="@style/Widget.MaterialComponents.CardView">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.MaterialCardView.CutFlatTop</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.MaterialCardView.CutFlatTop" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">0dp</item>
+        <item name="cornerSizeTopLeft">0dp</item>
+        <item name="cornerSizeBottomRight">@dimen/size_24</item>
+        <item name="cornerSizeBottomLeft">@dimen/size_24</item>
+    </style>
+
+    <style name="TextInputLayoutAppearance" parent="Widget.Design.TextInputLayout">
+        <item name="colorControlNormal">@color/colorPrimary</item>
+        <item name="colorControlActivated">@android:color/black</item>
+        <item name="colorControlHighlight">@color/colorPrimaryDark</item>
+    </style>
+
+    <style name="EditTextAppearance" parent="Widget.AppCompat.EditText">
+        <item name="colorControlNormal">@color/colorPrimary</item>
+        <item name="colorControlActivated">@color/colorPrimary</item>
+        <item name="colorControlHighlight">@color/colorPrimary</item>
+    </style>
+
+    <style name="DatePickerDialogTheme" parent="Theme.MaterialComponents.Light.Dialog.Alert">
+        <item name="colorAccent">@color/secondary_alt</item>
+        <item name="dialogCornerRadius">16dp</item>
+        <item name="android:windowMinWidthMajor">90%</item>
+        <item name="android:windowMinWidthMinor">90%</item>
+        <item name="android:windowAnimationStyle">@style/SuccessDialogAnimation</item>
+        <item name="android:buttonBarPositiveButtonStyle">@style/DatePickerPositiveButtonStyle</item>
+    </style>
+
+    <style name="DatePickerPositiveButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/white_day_night</item>
+        <item name="android:backgroundTint">@color/secondary_alt</item>
+    </style>
+
+
+
+</resources>
+
+

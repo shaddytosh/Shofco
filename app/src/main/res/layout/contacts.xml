@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:id="@+id/rootLayoutConfirmPin"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:paddingBottom="?actionBarSize">
+
+<ImageView
+    android:id="@+id/iv_close"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:contentDescription="@string/close"
+    android:src="@drawable/baseline_close_24"
+    android:layout_margin="@dimen/grid_1"
+    android:layout_alignParentEnd="true" />
+
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/size_24">
+
+    <EditText
+        android:id="@+id/etSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Search Contacts"
+        android:inputType="text"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ListView
+        android:id="@+id/ListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/etSearch"/>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+</RelativeLayout>
+

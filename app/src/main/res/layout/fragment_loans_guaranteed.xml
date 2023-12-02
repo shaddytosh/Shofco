@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipeToRefresh"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/coordinator"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/ThemeOverlay.MaterialComponents.Toolbar.Surface"
+            app:title="Loans Guaranteed"
+            app:titleTextColor="@color/primary"
+            app:navigationIconTint="@color/primary"
+            android:background="@color/background"
+            app:navigationIcon="@drawable/baseline_arrow_back_24"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginTop="?actionBarSize">
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/ll_data"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <ke.co.shofcosacco.app.utils.ZoomableImageView
+                            android:id="@+id/imageView"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"/>
+
+                        <TextView
+                            android:id="@+id/tv_download"
+                            style="@style/NHIFActionTextButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_20px"
+                            android:layout_marginTop="@dimen/_20px"
+                            android:layout_marginEnd="@dimen/_20px"
+                            android:textColor="@color/white"
+                            android:visibility="gone"
+                            android:text="@string/download_now"/>
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/ll_loading"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <com.airbnb.lottie.LottieAnimationView
+                            android:layout_width="200dp"
+                            android:layout_height="200dp"
+                            app:lottie_loop="true"
+                            app:lottie_autoPlay="true"
+                            android:layout_gravity="center"
+                            app:lottie_rawRes="@raw/loading_animation"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_empty"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginTop="@dimen/size_20"
+                        android:visibility="gone">
+
+                        <com.airbnb.lottie.LottieAnimationView
+                            android:layout_width="200dp"
+                            android:layout_height="200dp"
+                            app:lottie_loop="false"
+                            app:lottie_autoPlay="true"
+                            android:layout_gravity="center"
+                            app:lottie_rawRes="@raw/not_found"/>
+
+                        <TextView
+                            android:id="@+id/tv_not_found_message"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/size_24"
+                            android:layout_marginEnd="@dimen/size_24"
+                            android:text="@string/no_loans_guaranteed_found"
+                            android:gravity="center"
+                            android:singleLine="false"
+                            android:textColor="?colorOnSurface"
+                            android:layout_marginTop="@dimen/size_20"
+                            android:layout_marginBottom="@dimen/size_20"/>
+
+                        <TextView
+                            android:id="@+id/btn_go_back"
+                            style="@style/NHIFActionTextButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/size_24"
+                            android:layout_marginEnd="@dimen/size_24"
+                            android:layout_marginTop="@dimen/size_24"
+                            android:layout_marginBottom="@dimen/size_24"
+                            android:backgroundTint="@color/primary"
+                            android:text="@string/go_back" />
+
+                    </LinearLayout>
+
+
+
+                </LinearLayout>
+
+            </androidx.core.widget.NestedScrollView>
+
+        </LinearLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

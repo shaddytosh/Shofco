@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/coordinator"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:navigationIcon="@drawable/baseline_arrow_back_24"
+        app:titleTextColor="@color/primary"
+        app:navigationIconTint="@color/primary"
+        android:background="@color/background"
+        app:title="Set New Pin"
+        style="@style/ThemeOverlay.MaterialComponents.Toolbar.Surface"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="?actionBarSize">
+
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/enter_otp_sent_to_your_phone"
+                    android:textAlignment="center"
+                    android:layout_marginTop="@dimen/size_20"
+                    android:layout_marginStart="@dimen/size_20"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="@dimen/size_20"
+                    android:textAppearance="?attr/textAppearanceHeadline5"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/name" />
+
+
+                <ke.co.shofcosacco.app.utils.OtpComponent
+                    android:id="@+id/otp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:inputType="numberPassword"
+                    app:otp="123456"
+                    android:textSize="19sp"
+                    android:layout_marginTop="@dimen/size_20"
+                    android:layout_marginStart="@dimen/size_20"
+                    android:layout_marginEnd="@dimen/size_20"
+                    android:layout_marginBottom="@dimen/size_20"
+                    android:textColor="?attr/colorOnSurface"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/title" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_old_pin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/size_20"
+                    android:layout_marginEnd="@dimen/size_20"
+                    android:layout_marginBottom="@dimen/size_20"
+                    app:hintTextColor="@color/primary_to_white"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:endIconMode="password_toggle">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/txt_old_pin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/old_pin"
+                        android:inputType="numberPassword"
+                        android:maxLength="5"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_new_pin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/size_20"
+                    android:layout_marginEnd="@dimen/size_20"
+                    app:hintTextColor="@color/primary_to_white"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:endIconMode="password_toggle">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/txt_new_pin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/new_pin"
+                        android:inputType="numberPassword"
+                        android:maxLength="5"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_confirm_new_pin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/size_20"
+                    android:layout_marginEnd="@dimen/size_20"
+                    android:layout_marginTop="@dimen/size_20"
+                    app:hintTextColor="@color/primary_to_white"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:endIconMode="password_toggle"
+                    android:layout_marginBottom="@dimen/size_20">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/txt_confirm_new_pin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/confirm_new_pin"
+                        android:inputType="numberPassword"
+                        android:maxLength="5"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tv_change"
+                style="@style/NHIFActionTextButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/size_20"
+                android:text="@string/change" />
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

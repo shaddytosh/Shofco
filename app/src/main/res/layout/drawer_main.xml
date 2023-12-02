@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:clickable="true"
+    android:focusable="true"
+    android:background="@color/background"
+    android:layout_marginBottom="?actionBarSize">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <LinearLayout
+            android:background="@color/primary"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:orientation="horizontal"
+            android:paddingStart="10dp"
+            android:paddingEnd="30dp"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/iv_profile_image"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:src="@drawable/profile_circle_svgrepo_com__1_"
+                android:contentDescription="@null"
+                app:tint="@color/white_day_night" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginStart="16dp">
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:textColor="@color/white_day_night"
+                    android:layout_marginTop="10dp"
+                    tools:text="Shadrack Kipkoech"/>
+                <TextView
+                    android:id="@+id/tv_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:textColor="@color/white_day_night"
+                    android:layout_marginTop="4dp"
+                    tools:text="0798 *** 583"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_my_profile"
+            android:textAllCaps="false"
+            android:gravity="start|center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/my_profile"
+            android:drawablePadding="20dp"
+            android:background="?selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:textStyle="bold"
+            android:textColor="?colorOnSurface"
+            android:padding="20dp"
+            app:drawableStartCompat="@drawable/baseline_manage_accounts_24" />
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:background="@color/grey"
+            android:layout_marginEnd="@dimen/size_20"
+            android:layout_marginStart="@dimen/size_20"/>
+
+        <TextView
+            android:id="@+id/tv_invite"
+            android:textAllCaps="false"
+            android:gravity="start|center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/invite_a_friend"
+            android:drawablePadding="20dp"
+            android:background="?selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:textStyle="bold"
+            android:textColor="?colorOnSurface"
+            android:padding="20dp"
+            app:drawableStartCompat="@drawable/baseline_person_add_alt_1_24" />
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:background="@color/grey"
+            android:layout_marginEnd="@dimen/size_20"
+            android:layout_marginStart="@dimen/size_20"/>
+        <TextView
+            android:id="@+id/tv_settings"
+            android:textAllCaps="false"
+            android:gravity="start|center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/settings"
+            android:drawablePadding="20dp"
+            android:background="?selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:textStyle="bold"
+            android:textColor="?colorOnSurface"
+            android:padding="20dp"
+            app:drawableStartCompat="@drawable/baseline_settings_24"/>
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:background="@color/grey"
+            android:layout_marginEnd="@dimen/size_20"
+            android:layout_marginStart="@dimen/size_20"/>
+
+
+        <TextView
+            android:id="@+id/tv_log_out"
+            android:textAllCaps="false"
+            android:gravity="start|center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/log_out"
+            android:drawablePadding="20dp"
+            android:background="?selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:textStyle="bold"
+            android:textColor="?colorOnSurface"
+            android:padding="20dp"
+            app:drawableStartCompat="@drawable/baseline_logout_24" />
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:background="@color/grey"
+            android:layout_marginEnd="@dimen/size_20"
+            android:layout_marginStart="@dimen/size_20"/>
+
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

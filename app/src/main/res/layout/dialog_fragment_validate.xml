@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rootLayoutConfirmPin"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="?actionBarSize"
+    android:background="?colorSurface">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/size_24">
+
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_24"
+            android:text="@string/enter_national_id"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:textAppearance="?attr/textAppearanceHeadline5"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_member_no"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/member_number"
+            android:layout_marginTop="@dimen/size_20"
+            app:hintTextColor="@color/primary_to_white"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:startIconDrawable="@drawable/baseline_credit_card_24"
+            app:layout_constraintTop_toBottomOf="@id/title">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txt_member_no"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textCapCharacters"
+                android:maxLines="1"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/tv_begin_registration"
+            style="@style/NHIFActionTextButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_24"
+            android:layout_marginBottom="@dimen/size_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/til_member_no"
+            android:text="@string/begin_registration" />
+
+        <TextView
+            android:id="@+id/tv_close"
+            style="@style/NHIFActionTextButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_24"
+            android:layout_marginBottom="@dimen/size_24"
+            android:background="@drawable/round_corner"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:textColor="@color/red"
+            app:layout_constraintTop_toBottomOf="@id/tv_begin_registration"
+            android:text="@string/close" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</RelativeLayout>

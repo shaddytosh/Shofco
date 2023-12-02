@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cvFeature"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_180px"
+        app:cardBackgroundColor="@color/primary"
+        app:shapeAppearanceOverlay="@style/CornerRadiusImage"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.github.siyamed.shapeimageview.RoundedImageView
+                android:id="@+id/ivHomeFeature2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                android:src="@drawable/chuna_bg"
+                android:visibility="visible"
+                app:siRadius="@dimen/_10px"
+                tools:ignore="ContentDescription"
+                tools:src="@drawable/chuna_bg" />
+        </RelativeLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

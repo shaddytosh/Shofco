@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primary">#0db2ac</color> <!-- Green -->
+    <color name="secondary">#0db2ac</color> <!-- Red -->
+    <color name="secondary_alt">#0fb5e7</color>
+    <color name="secondary_blue">#0fb5e7</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="transparent">#00000000</color>
+    <color name="white_day_night">#FFFFFF</color>
+    <color name="primary_to_white">#00995B</color>
+    <color name="background">#E3E0E0</color>
+    <color name="grey">#F1EDED</color>
+    <color name="green">#1B5E20</color>
+    <color name="red">#BF360C</color>
+    <color name="light_blue">#e6f2ff</color>
+
+<!--    <color name="secondary">#77BD43</color> &lt;!&ndash; Red &ndash;&gt;-->
+<!--    <color name="secondary_alt">#77BD43</color>-->
+
+
+    <color name="colorBackground">@android:color/white</color>
+    <color name="colorMeetingInvitationStart">#17A0DB</color>
+    <color name="colorMeetingInvitationEnd">#FB6C6D</color>
+
+    <color name="colorPrimary">#0db2ac</color>
+    <color name="colorPrimaryDark">#0db2ac</color>
+    <color name="colorAccent">#E21C21</color>
+
+
+    <color name="otpViewColor">#4017A0DB</color>
+
+    <color name="errorColor">#B71C1C</color>
+    <color name="infoColor">#0F4C81</color>
+    <color name="successColor">#4CAF50</color>
+    <color name="colorInactive">#BDBDBD</color>
+    <color name="colorSelectedItem">#2617A0DB</color>
+    <color name="colorAccept">#4CAF50</color>
+    <color name="colorReject">#F44336</color>
+
+    <color name="colorIconDark">@android:color/black</color>
+    <color name="colorIconLight">@android:color/white</color>
+    <color name="colorTextDark">@android:color/black</color>
+    <color name="colorTextLight">@android:color/white</color>
+
+</resources>

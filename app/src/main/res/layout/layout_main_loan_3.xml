@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:baselineAligned="false">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cv_loans_guaranteed"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:cardElevation="8dp"
+        android:layout_marginStart="@dimen/size_20"
+        android:layout_marginEnd="@dimen/size_20"
+        android:layout_marginTop="@dimen/size_8"
+        app:cardCornerRadius="8dp"
+        android:layout_marginBottom="@dimen/size_20"
+        android:layout_weight="1"
+        android:clickable="true"
+        android:focusable="true"
+        app:strokeColor="@color/primary"
+        app:strokeWidth="1dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_margin="@dimen/size_8">
+
+            <ImageButton
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/checked_success_svgrepo_com"
+                android:background="@drawable/background_transparent"
+                android:contentDescription="@string/loans_guaranteed"
+                android:clickable="false"
+                android:focusable="false"
+                app:tint="@color/primary" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/loans_guaranteed"
+                android:textSize="12sp"
+                android:lines="2"
+                android:gravity="center"/>
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cv_detailed_statement"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:cardElevation="8dp"
+        android:layout_marginStart="@dimen/size_20"
+        android:layout_marginEnd="@dimen/size_20"
+        android:layout_marginTop="@dimen/size_8"
+        app:cardCornerRadius="8dp"
+        android:layout_marginBottom="@dimen/size_20"
+        android:layout_weight="1"
+        android:clickable="true"
+        android:focusable="true"
+        app:strokeColor="@color/primary"
+        app:strokeWidth="1dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_margin="@dimen/size_8">
+
+            <ImageButton
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/chart_business_and_finance_svgrepo_com"
+                android:background="@drawable/background_transparent"
+                android:contentDescription="@string/detailed_statement"
+                android:clickable="false"
+                android:focusable="false" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/detailed_statement"
+                android:textSize="12sp"
+                android:lines="2"
+                android:gravity="center"/>
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+</LinearLayout>

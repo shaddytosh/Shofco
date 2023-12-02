@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootLayoutConfirmPin"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="?actionBarSize">
+
+    <ImageView
+        android:id="@+id/iv_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/close"
+        android:src="@drawable/baseline_close_24"
+        android:layout_margin="@dimen/grid_1"
+        android:layout_alignParentEnd="true" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/size_24">
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:textAppearance="?attr/textAppearanceHeadline6"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/enter_otp_sent_to" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_24"
+            android:text="@string/verify_otp_to_continue"
+            android:textAppearance="?attr/textAppearanceHeadline5"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/name" />
+
+
+        <ke.co.shofcosacco.app.utils.OtpComponent
+            android:id="@+id/otp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_24"
+            android:gravity="center"
+            android:inputType="numberPassword"
+            app:otp="1234"
+            android:textSize="@dimen/text_14"
+            android:textColor="?attr/colorOnSurface"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title" />
+
+        <TextView
+            android:id="@+id/tv_verify_otp"
+            style="@style/NHIFActionTextButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/size_24"
+            android:layout_marginEnd="@dimen/size_24"
+            android:layout_marginTop="@dimen/size_24"
+            android:layout_marginBottom="@dimen/size_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/otp"
+            android:text="@string/verify" />
+
+        <TextView
+            android:id="@+id/tv_resend_otp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_margin="@dimen/size_24"
+            android:background="?selectableItemBackground"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_verify_otp"
+            android:text="@string/resend_otp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</RelativeLayout>

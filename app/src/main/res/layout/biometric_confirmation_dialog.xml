@@ -1,0 +1,53 @@
+<!-- res/layout/biometric_confirmation_dialog.xml -->
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Do you want to add the current login to biometric authentication?"
+        android:textSize="16sp"
+        android:textAlignment="center"
+        android:textColor="?android:textColorPrimary"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp">
+
+        <Button
+            android:id="@+id/positive_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Yes"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:clickable="true"
+            android:backgroundTint="@color/green"/>
+
+        <View
+            android:layout_width="20dp"
+            android:layout_height="match_parent"
+            android:background="?android:colorBackground" />
+
+        <Button
+            android:id="@+id/negative_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="No"
+            android:textSize="16sp"
+            android:backgroundTint="@color/red"
+            android:textColor="?android:textColorPrimary"
+            android:gravity="center"
+            android:clickable="true"/>
+    </LinearLayout>
+
+</LinearLayout>

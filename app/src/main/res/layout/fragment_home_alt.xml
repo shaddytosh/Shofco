@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipeToRefresh"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/homepage_gradient_fade">
+
+    <RelativeLayout
+        android:id="@+id/rootActivityCart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:navigationIcon="@drawable/baseline_menu_24"
+            app:navigationIconTint="@color/primary"
+            style="@style/ThemeOverlay.MaterialComponents.Toolbar.Surface"
+            app:layout_constraintTop_toTopOf="parent"
+            app:title="@string/app_name_full"
+            app:titleTextColor="@color/primary">
+
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:src="@drawable/logo"
+                android:visibility="gone"
+                tools:ignore="ContentDescription"/>
+
+            <FrameLayout
+                android:id="@+id/frame_notification"
+                style="?attr/actionButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:focusable="true"
+                android:layout_gravity="end">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/baseline_notifications_24"
+                    android:contentDescription="@string/notifications"
+                    app:tint="@color/primary" />
+
+                <TextView
+                    android:id="@+id/notification_badge"
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:layout_gravity="end|top"
+                    android:background="@drawable/notification_round_bg"
+                    android:gravity="center"
+                    android:text="@string/_0"
+                    android:textColor="?colorSurface"
+                    android:textSize="11sp"
+                    android:visibility="gone"/>
+
+            </FrameLayout>
+
+        </com.google.android.material.appbar.MaterialToolbar>
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/scrollerCartActivity"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="?actionBarSize">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardElevation="0dp"
+                    app:cardBackgroundColor="@color/background">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:background="@drawable/cardview_rounded_bottom_corners">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/size_20"
+                            android:orientation="vertical"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent">
+
+                            <TextView
+                                android:id="@+id/tv_greeting"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                tools:text="Good morning Shadrack"
+                                android:textColor="?colorSurface"
+                                android:textStyle="bold"
+                                android:textSize="18sp"/>
+
+                            <TextView
+                                android:id="@+id/tv_last_login"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/tv_greeting"
+                                tools:text="Last login 1 Aug 2023 at 12:39"
+                                android:textColor="@color/white"/>
+
+                            <ImageView
+                                android:id="@+id/iv_profile"
+                                android:layout_width="64dp"
+                                android:layout_height="64dp"
+                                android:src="@drawable/profile_circle_svgrepo_com__1_"
+                                app:tint="@color/white"
+                                android:contentDescription="@string/my_profile"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:cardElevation="4dp"
+                            android:layout_marginStart="@dimen/size_20"
+                            android:layout_marginEnd="@dimen/size_20"
+                            android:layout_marginTop="@dimen/size_8"
+                            android:outlineProvider="none"
+                            app:cardCornerRadius="16dp"
+                            android:layout_marginBottom="@dimen/size_20">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/size_20"
+                                android:orientation="vertical"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent">
+
+                                <include
+                                    android:id="@+id/partial_action"
+                                    android:layout_height="wrap_content"
+                                    android:layout_width="match_parent"
+                                    layout="@layout/partial_action"/>
+
+                            </LinearLayout>
+
+                        </com.google.android.material.card.MaterialCardView>
+
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+                <TextView
+                    android:id="@+id/textView9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="@dimen/size_8"
+                    android:text="@string/let_s_action"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="@+id/guideline"
+                    app:layout_constraintTop_toBottomOf="@+id/view" />
+
+
+
+                <include
+                    android:id="@+id/layout_one"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    layout="@layout/layout_one"
+                    android:layout_marginTop="@dimen/size_8"/>
+
+                <include
+                    android:id="@+id/layout_two"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    layout="@layout/layout_two"/>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/ll_carousel"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginStart="@dimen/size_8"
+                        android:text="@string/deals"
+                        android:textSize="16sp"/>
+
+
+                    <org.imaginativeworld.whynotimagecarousel.ImageCarousel
+                        android:id="@+id/carousel"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        app:imageScaleType="fitXY"
+                        app:showNavigationButtons="false"
+                        android:layout_margin="@dimen/size_20"
+                        app:autoPlay="true"
+                        app:autoPlayDelay="5000"
+                        app:infiniteCarousel="true"
+                        app:touchToPause="true"
+                        app:imagePlaceholder="@drawable/chuna_bg"
+                        />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </androidx.core.widget.NestedScrollView>
+
+
+    </RelativeLayout>
+
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

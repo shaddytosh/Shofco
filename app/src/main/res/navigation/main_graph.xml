@@ -1,0 +1,690 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/launcher">
+
+    <fragment
+        android:id="@+id/launcher"
+        android:name="ke.co.shofcosacco.ui.auth.LauncherFragment"
+        android:label="fragment_launcher_screen"
+        tools:layout="@layout/fragment_launcher">
+        <action
+            android:id="@+id/action_launcher_to_login_options"
+            app:destination="@id/login_options"
+            app:enterAnim="@anim/in_from_right"
+            app:exitAnim="@anim/out_from_left"
+            app:popEnterAnim="@anim/in_from_left"
+            app:popExitAnim="@anim/out_to_right"
+            app:popUpTo="@id/launcher"
+            app:popUpToInclusive="true"/>
+
+        <action
+            android:id="@+id/action_launcher_to_login"
+            app:destination="@id/login"
+            app:enterAnim="@anim/in_from_right"
+            app:exitAnim="@anim/out_from_left"
+            app:popEnterAnim="@anim/in_from_left"
+            app:popExitAnim="@anim/out_to_right"/>
+
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/login_options"
+        android:name="ke.co.shofcosacco.ui.auth.LoginOptionsFragment"
+        tools:layout="@layout/fragment_login_options">
+
+        <action
+            android:id="@+id/action_login_options_to_login"
+            app:destination="@id/login"
+            app:enterAnim="@anim/in_from_right"
+            app:exitAnim="@anim/out_from_left"
+            app:popEnterAnim="@anim/in_from_left"
+            app:popExitAnim="@anim/out_to_right"/>
+
+        <action
+            android:id="@+id/action_login_options_to_register"
+            app:destination="@id/register"
+            app:enterAnim="@anim/in_from_right"
+            app:exitAnim="@anim/out_from_left"
+            app:popEnterAnim="@anim/in_from_left"
+            app:popExitAnim="@anim/out_to_right"/>
+
+        <action
+            android:id="@+id/action_login_to_open_account"
+            app:destination="@+id/register_one"
+            app:enterAnim="@anim/in_from_right"
+            app:exitAnim="@anim/out_from_left"
+            app:popEnterAnim="@anim/in_from_left"
+            app:popExitAnim="@anim/out_to_right"/>
+
+
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/register_one"
+        android:name="ke.co.shofcosacco.ui.onboarding.RegisterOneFragment"
+        tools:layout="@layout/fragment_register_one">
+
+        <action
+            android:id="@+id/action_register_one_to_login_options"
+            app:destination="@id/login_options"
+            app:enterAnim="@anim/in_from_right"
+            app:exitAnim="@anim/out_from_left"
+            app:popEnterAnim="@anim/in_from_left"
+            app:popExitAnim="@anim/out_to_right"
+            app:popUpTo="@id/login_options"
+            app:popUpToInclusive="true" />
+
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/login"
+        android:name="ke.co.shofcosacco.ui.auth.LoginFragment"
+        tools:layout="@layout/fragment_login">
+
+        <action
+            android:id="@+id/action_login_to_main"
+            app:destination="@id/main"
+            app:enterAnim="@anim/in_from_right"
+            app:exitAnim="@anim/out_from_left"
+            app:popEnterAnim="@anim/in_from_left"
+            app:popExitAnim="@anim/out_to_right"
+            app:popUpTo="@id/login"
+            app:popUpToInclusive="true" />
+
+        <action
+            android:id="@+id/action_login_to_register"
+            app:destination="@id/register"
+            app:enterAnim="@anim/in_from_right"
+            app:exitAnim="@anim/out_from_left"
+            app:popEnterAnim="@anim/in_from_left"
+            app:popExitAnim="@anim/out_to_right"/>
+
+        <action
+            android:id="@+id/action_login_to_reset_pin"
+            app:destination="@id/reset_pin"
+            app:enterAnim="@anim/in_from_right"
+            app:exitAnim="@anim/out_from_left"
+            app:popEnterAnim="@anim/in_from_left"
+            app:popExitAnim="@anim/out_to_right"/>
+
+        <action
+            android:id="@+id/action_login_to_change_pin"
+            app:destination="@id/change_pin"
+            app:enterAnim="@anim/in_from_right"
+            app:exitAnim="@anim/out_from_left"
+            app:popEnterAnim="@anim/in_from_left"
+            app:popExitAnim="@anim/out_to_right"/>
+
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/register"
+        android:name="ke.co.shofcosacco.ui.auth.RegisterFragment"
+        tools:layout="@layout/fragment_register">
+
+        <action
+            android:id="@+id/action_register_to_login"
+            app:destination="@id/login"
+            app:enterAnim="@anim/in_from_right"
+            app:exitAnim="@anim/out_from_left"
+            app:popEnterAnim="@anim/in_from_left"
+            app:popExitAnim="@anim/out_to_right"
+            app:popUpTo="@id/login"
+            app:popUpToInclusive="true" />
+
+        <argument android:name="member_no" app:argType="string"/>
+
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/reset_pin"
+        android:name="ke.co.shofcosacco.ui.auth.ResetPinFragment"
+        tools:layout="@layout/fragment_reset_pin">
+
+        <action
+            android:id="@+id/action_reset_pin_to_login"
+            app:destination="@id/login"
+            app:enterAnim="@anim/in_from_right"
+            app:exitAnim="@anim/out_from_left"
+            app:popEnterAnim="@anim/in_from_left"
+            app:popExitAnim="@anim/out_to_right"
+            app:popUpTo="@id/login"
+            app:popUpToInclusive="true" />
+
+        <argument android:name="member_no" app:argType="string"/>
+
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/main"
+        android:name="ke.co.shofcosacco.ui.main.MainFragment"
+        tools:layout="@layout/fragment_main">
+
+        <action
+            android:id="@+id/action_main_to_launcher"
+            app:destination="@id/launcher"
+            app:enterAnim="@anim/in_from_right"
+            app:exitAnim="@anim/out_from_left"
+            app:popEnterAnim="@anim/in_from_left"
+            app:popExitAnim="@anim/out_to_right"
+            app:popUpTo="@id/main"
+            app:popUpToInclusive="true" />
+
+        <action
+            android:id="@+id/action_main_to_login"
+            app:destination="@id/login"
+            app:enterAnim="@anim/in_from_right"
+            app:exitAnim="@anim/out_from_left"
+            app:popEnterAnim="@anim/in_from_left"
+            app:popExitAnim="@anim/out_to_right"
+            app:popUpTo="@id/main"
+            app:popUpToInclusive="true"
+            app:launchSingleTop="true"/>
+
+        <action
+            android:id="@+id/action_main_to_deposits"
+            app:destination="@id/deposits"
+            app:enterAnim="@anim/in_from_right"
+            app:exitAnim="@anim/out_from_left"
+            app:popEnterAnim="@anim/in_from_left"
+            app:popExitAnim="@anim/out_to_right" />
+
+        <action
+            android:id="@+id/action_main_to_main_loans"
+            app:destination="@id/main_loan"
+            app:enterAnim="@anim/in_from_right"
+            app:exitAnim="@anim/out_from_left"
+            app:popEnterAnim="@anim/in_from_left"
+            app:popExitAnim="@anim/out_to_right" />
+
+        <action
+            android:id="@+id/action_main_to_my_bills"
+            app:destination="@id/my_bills"
+            app:enterAnim="@anim/in_from_right"
+            app:exitAnim="@anim/out_from_left"
+            app:popEnterAnim="@anim/in_from_left"
+            app:popExitAnim="@anim/out_to_right" />
+
+        <action
+            android:id="@+id/action_main_to_statements"
+            app:destination="@id/statements"
+            app:enterAnim="@anim/in_from_right"
+            app:exitAnim="@anim/out_from_left"
+            app:popEnterAnim="@anim/in_from_left"
+            app:popExitAnim="@anim/out_to_right" />
+
+        <action
+            android:id="@+id/action_main_to_loyalty_points"
+            app:destination="@id/loyalty_points"
+            app:enterAnim="@anim/in_from_right"
+            app:exitAnim="@anim/out_from_left"
+            app:popEnterAnim="@anim/in_from_left"
+            app:popExitAnim="@anim/out_to_right" />
+
+        <action
+            android:id="@+id/action_main_to_my_account"
+            app:destination="@id/my_account"
+            app:enterAnim="@anim/in_from_right"
+            app:exitAnim="@anim/out_from_left"
+            app:popEnterAnim="@anim/in_from_left"
+            app:popExitAnim="@anim/out_to_right" />
+
+        <action
+            android:id="@+id/action_main_to_notifications"
+            app:destination="@id/notifications"
+            app:enterAnim="@anim/in_from_right"
+            app:exitAnim="@anim/out_from_left"
+            app:popEnterAnim="@anim/in_from_left"
+            app:popExitAnim="@anim/out_to_right" />
+
+        <action
+            android:id="@+id/action_main_to_balances"
+            app:destination="@id/balances"
+            app:enterAnim="@anim/in_from_right"
+            app:exitAnim="@anim/out_from_left"
+            app:popEnterAnim="@anim/in_from_left"
+            app:popExitAnim="@anim/out_to_right" />
+
+        <action
+            android:id="@+id/action_main_to_profile"
+            app:destination="@id/profile"
+            app:enterAnim="@anim/in_from_right"
+            app:exitAnim="@anim/out_from_left"
+            app:popEnterAnim="@anim/in_from_left"
+            app:popExitAnim="@anim/out_to_right" />
+
+        <action
+            android:id="@+id/action_main_to_account_balance_statement"
+            app:destination="@id/account_balance_statement"
+            app:enterAnim="@anim/in_from_right"
+            app:exitAnim="@anim/out_from_left"
+            app:popEnterAnim="@anim/in_from_left"
+            app:popExitAnim="@anim/out_to_right"
+            />
+
+
+        <action
+            android:id="@+id/action_main_to_transfer"
+            app:destination="@id/transfer"
+            app:enterAnim="@anim/in_from_right"
+            app:exitAnim="@anim/out_from_left"
+            app:popEnterAnim="@anim/in_from_left"
+            app:popExitAnim="@anim/out_to_right" />
+
+        <action
+            android:id="@+id/action_main_to_change_pin"
+            app:destination="@id/change_pin"
+            app:enterAnim="@anim/in_from_right"
+            app:exitAnim="@anim/out_from_left"
+            app:popEnterAnim="@anim/in_from_left"
+            app:popExitAnim="@anim/out_to_right"/>
+
+        <action
+            android:id="@+id/action_main_to_send_to_mobile"
+            app:destination="@id/send_to_mobile"
+            app:enterAnim="@anim/in_from_right"
+            app:exitAnim="@anim/out_from_left"
+            app:popEnterAnim="@anim/in_from_left"
+            app:popExitAnim="@anim/out_to_right" />
+
+        <action
+            android:id="@+id/action_main_to_reports"
+            app:destination="@id/reports"
+            app:enterAnim="@anim/in_from_right"
+            app:exitAnim="@anim/out_from_left"
+            app:popEnterAnim="@anim/in_from_left"
+            app:popExitAnim="@anim/out_to_right"/>
+
+        <action
+            android:id="@+id/action_main_to_next_of_kin"
+            app:destination="@id/next_of_kin"
+            app:enterAnim="@anim/in_from_right"
+            app:exitAnim="@anim/out_from_left"
+            app:popEnterAnim="@anim/in_from_left"
+            app:popExitAnim="@anim/out_to_right"/>
+
+
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/account_balance_statement"
+        android:name="ke.co.shofcosacco.ui.statements.AccountBalanceStatementFragment"
+        tools:layout="@layout/fragment_account_balance_statement">
+
+        <action
+            android:id="@+id/action_account_balance_statement_to_statements"
+            app:destination="@id/statements"
+            app:enterAnim="@anim/in_from_right"
+            app:exitAnim="@anim/out_from_left"
+            app:popEnterAnim="@anim/in_from_left"
+            app:popExitAnim="@anim/out_to_right" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/loans"
+        android:name="ke.co.shofcosacco.ui.loans.LoansFragment"
+        tools:layout="@layout/fragment_loans">
+
+        <action
+            android:id="@+id/action_loans_to_loan_statements"
+            app:destination="@id/loan_statements"
+            app:enterAnim="@anim/in_from_right"
+            app:exitAnim="@anim/out_from_left"
+            app:popEnterAnim="@anim/in_from_left"
+            app:popExitAnim="@anim/out_to_right" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/my_bills"
+        android:name="ke.co.shofcosacco.ui.reports.ReportsFragment"
+        tools:layout="@layout/fragment_reports">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/statements"
+        android:name="ke.co.shofcosacco.ui.statements.StatementsFragment"
+        tools:layout="@layout/fragment_reports">
+
+        <argument android:name="bal_code" app:argType="string"/>
+        <argument android:name="account_name" app:argType="string"/>
+
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/loan_statements"
+        android:name="ke.co.shofcosacco.ui.loans.LoanStatementsFragment"
+        tools:layout="@layout/fragment_loan_statements">
+
+        <argument android:name="loanNo" app:argType="string"/>
+        <argument android:name="loanName" app:argType="string"/>
+
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/main_loan"
+        android:name="ke.co.shofcosacco.ui.loans.MainLoansFragment"
+        tools:layout="@layout/fragment_loan_statements">
+
+        <action
+            android:id="@+id/action_main_loan_to_loans"
+            app:destination="@id/loans"
+            app:enterAnim="@anim/in_from_right"
+            app:exitAnim="@anim/out_from_left"
+            app:popEnterAnim="@anim/in_from_left"
+            app:popExitAnim="@anim/out_to_right" />
+
+
+        <action
+            android:id="@+id/action_main_loan_to_loan_product"
+            app:destination="@id/loan_product"
+            app:enterAnim="@anim/in_from_right"
+            app:exitAnim="@anim/out_from_left"
+            app:popEnterAnim="@anim/in_from_left"
+            app:popExitAnim="@anim/out_to_right" />
+
+        <action
+            android:id="@+id/action_main_loan_to_repay_loan"
+            app:destination="@id/repay_loan"
+            app:enterAnim="@anim/in_from_right"
+            app:exitAnim="@anim/out_from_left"
+            app:popEnterAnim="@anim/in_from_left"
+            app:popExitAnim="@anim/out_to_right" />
+
+
+        <action
+            android:id="@+id/action_main_loan_to_detailed_statement"
+            app:destination="@id/detailed_statement"
+            app:enterAnim="@anim/in_from_right"
+            app:exitAnim="@anim/out_from_left"
+            app:popEnterAnim="@anim/in_from_left"
+            app:popExitAnim="@anim/out_to_right" />
+
+        <action
+            android:id="@+id/action_main_loan_to_loans_guaranteed"
+            app:destination="@id/loans_guaranteed"
+            app:enterAnim="@anim/in_from_right"
+            app:exitAnim="@anim/out_from_left"
+            app:popEnterAnim="@anim/in_from_left"
+            app:popExitAnim="@anim/out_to_right" />
+
+        <action
+            android:id="@+id/action_main_loan_to__member_is_loan_quaranteed"
+            app:destination="@id/_member_is_loan_quaranteed"
+            app:enterAnim="@anim/in_from_right"
+            app:exitAnim="@anim/out_from_left"
+            app:popEnterAnim="@anim/in_from_left"
+            app:popExitAnim="@anim/out_to_right" />
+
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/loyalty_points"
+        android:name="ke.co.shofcosacco.ui.loyaltyPoints.LoyaltyPointsFragment"
+        tools:layout="@layout/fragment_loyalty_points">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/loans_guaranteed"
+        android:name="ke.co.shofcosacco.ui.loans.LoansGuaranteedFragment"
+        tools:layout="@layout/fragment_loans_guaranteed">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/_member_is_loan_quaranteed"
+        android:name="ke.co.shofcosacco.ui.loans.MemberIsLoansGuaranteedFragment"
+        tools:layout="@layout/fragment_member_is_loan_quaranteed">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/my_account"
+        android:name="ke.co.shofcosacco.ui.profile.MyAccountFragment"
+        tools:layout="@layout/fragment_my_account">
+
+        <action
+            android:id="@+id/action_my_account_to_statements"
+            app:destination="@id/statements"
+            app:enterAnim="@anim/in_from_right"
+            app:exitAnim="@anim/out_from_left"
+            app:popEnterAnim="@anim/in_from_left"
+            app:popExitAnim="@anim/out_to_right"
+            />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/notifications"
+        android:name="ke.co.shofcosacco.ui.notifications.NotificationsFragment"
+        tools:layout="@layout/fragment_notifications">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/balances"
+        android:name="ke.co.shofcosacco.ui.profile.BalancesFragment"
+        tools:layout="@layout/fragment_balances">
+
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/profile"
+        android:name="ke.co.shofcosacco.ui.profile.ProfileFragment"
+        tools:layout="@layout/fragment_profile">
+        <action
+            android:id="@+id/action_profile_to_login"
+            app:destination="@id/login"
+            app:enterAnim="@anim/in_from_right"
+            app:exitAnim="@anim/out_from_left"
+            app:popEnterAnim="@anim/in_from_left"
+            app:popExitAnim="@anim/out_to_right"
+            app:popUpTo="@id/main"
+            app:popUpToInclusive="true" />
+
+        <action
+            android:id="@+id/action_profile_to_change_pin"
+            app:destination="@id/change_pin"
+            app:enterAnim="@anim/in_from_right"
+            app:exitAnim="@anim/out_from_left"
+            app:popEnterAnim="@anim/in_from_left"
+            app:popExitAnim="@anim/out_to_right"/>
+
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/change_pin"
+        android:name="ke.co.shofcosacco.ui.auth.ChangePinFragment"
+        tools:layout="@layout/fragment_change_pin">
+        <action
+            android:id="@+id/action_change_pin_to_login"
+            app:destination="@id/login"
+            app:enterAnim="@anim/in_from_right"
+            app:exitAnim="@anim/out_from_left"
+            app:popEnterAnim="@anim/in_from_left"
+            app:popExitAnim="@anim/out_to_right"
+            app:popUpTo="@id/main"
+            app:popUpToInclusive="true" />
+
+
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/transfer"
+        android:name="ke.co.shofcosacco.ui.transafer.TransferFragment"
+        tools:layout="@layout/fragment_transfer">
+
+        <argument android:name="limit" app:argType="string"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/loan_product"
+        android:name="ke.co.shofcosacco.ui.loans.LoanProductFragment"
+        tools:layout="@layout/fragment_loan_product">
+
+        <action
+            android:id="@+id/action_loan_product_to_apply_loan"
+            app:destination="@id/apply_loan"
+            app:enterAnim="@anim/in_from_right"
+            app:exitAnim="@anim/out_from_left"
+            app:popEnterAnim="@anim/in_from_left"
+            app:popExitAnim="@anim/out_to_right" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/apply_loan"
+        android:name="ke.co.shofcosacco.ui.loans.ApplyLoanFragment"
+        tools:layout="@layout/fragment_apply_loan">
+
+        <argument android:name="loanProduct" app:argType="ke.co.shofcosacco.app.models.LoanProduct"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/repay_loan"
+        android:name="ke.co.shofcosacco.ui.loans.RepayLoanFragment"
+        tools:layout="@layout/fragment_repay_loan">
+
+        <action
+            android:id="@+id/action_repay_loan_to_repay_loan2"
+            app:destination="@id/repay_loan2"
+            app:enterAnim="@anim/in_from_right"
+            app:exitAnim="@anim/out_from_left"
+            app:popEnterAnim="@anim/in_from_left"
+            app:popExitAnim="@anim/out_to_right" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/repay_loan2"
+        android:name="ke.co.shofcosacco.ui.loans.RepayLoan2Fragment"
+        tools:layout="@layout/fragment_repay_loan2">
+
+        <argument android:name="loanBalance" app:argType="ke.co.shofcosacco.app.models.LoanBalance"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/deposits"
+        android:name="ke.co.shofcosacco.ui.deposits.DepositsFragment"
+        tools:layout="@layout/fragment_deposits">
+
+        <action
+            android:id="@+id/action_deposit_to_deposit_from_mobile"
+            app:destination="@id/deposit_from_mobile"
+            app:enterAnim="@anim/in_from_right"
+            app:exitAnim="@anim/out_from_left"
+            app:popEnterAnim="@anim/in_from_left"
+            app:popExitAnim="@anim/out_to_right" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/deposit_from_mobile"
+        android:name="ke.co.shofcosacco.ui.deposits.DepositFromMobileFragment"
+        tools:layout="@layout/fragment_deposit_from_mobile">
+
+        <argument app:argType="string" android:name="account_no"/>
+        <argument app:argType="string" android:name="account_name"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/send_to_mobile"
+        android:name="ke.co.shofcosacco.ui.transafer.SendToMobileFragment"
+        tools:layout="@layout/fragment_send_to_mobile">
+
+        <argument android:name="limit" app:argType="string"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/next_of_kin"
+        android:name="ke.co.shofcosacco.ui.nextOfKin.NextOfKinFragment"
+        tools:layout="@layout/fragment_next_of_kin">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/detailed_statement"
+        android:name="ke.co.shofcosacco.ui.loans.DetailedStatementFragment"
+        tools:layout="@layout/fragment_detailed_statement">
+
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/reports"
+        android:name="ke.co.shofcosacco.ui.reports.ReportsFragment"
+        tools:layout="@layout/fragment_reports">
+
+        <action
+            android:id="@+id/action_main_to_detailed_statement"
+            app:destination="@id/detailed_statement"
+            app:enterAnim="@anim/in_from_right"
+            app:exitAnim="@anim/out_from_left"
+            app:popEnterAnim="@anim/in_from_left"
+            app:popExitAnim="@anim/out_to_right" />
+
+        <action
+            android:id="@+id/action_main_to_loans_guaranteed"
+            app:destination="@id/loans_guaranteed"
+            app:enterAnim="@anim/in_from_right"
+            app:exitAnim="@anim/out_from_left"
+            app:popEnterAnim="@anim/in_from_left"
+            app:popExitAnim="@anim/out_to_right" />
+
+        <action
+            android:id="@+id/action_main_to__member_is_loan_quaranteed"
+            app:destination="@id/_member_is_loan_quaranteed"
+            app:enterAnim="@anim/in_from_right"
+            app:exitAnim="@anim/out_from_left"
+            app:popEnterAnim="@anim/in_from_left"
+            app:popExitAnim="@anim/out_to_right" />
+
+        <action
+            android:id="@+id/action_reports_to_savings_statements"
+            app:destination="@id/savings_statements"
+            app:enterAnim="@anim/in_from_right"
+            app:exitAnim="@anim/out_from_left"
+            app:popEnterAnim="@anim/in_from_left"
+            app:popExitAnim="@anim/out_to_right" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/savings_statements"
+        android:name="ke.co.shofcosacco.ui.statements.SavingsStatementFragment"
+        tools:layout="@layout/fragment_savings_statement">
+
+        <action
+            android:id="@+id/action_savings_statements_to_statements"
+            app:destination="@id/statements"
+            app:enterAnim="@anim/in_from_right"
+            app:exitAnim="@anim/out_from_left"
+            app:popEnterAnim="@anim/in_from_left"
+            app:popExitAnim="@anim/out_to_right" />
+
+
+    </fragment>
+
+
+
+</navigation>
