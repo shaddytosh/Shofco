@@ -35,7 +35,9 @@ import ke.co.shofcosacco.app.utils.Constants;
 import ke.co.shofcosacco.app.utils.TextValidator;
 import ke.co.shofcosacco.ui.auth.AuthViewModel;
 import ke.co.shofcosacco.ui.auth.OtpConfirmationDialogFragment;
+import ke.co.shofcosacco.ui.deposits.DepositsFragment;
 import ke.co.shofcosacco.ui.home.NotSuccessDialogFragment;
+import ke.co.shofcosacco.ui.main.MainFragment;
 import ke.co.shofcosacco.ui.main.SuccessDialogFragment;
 
 public class RepayLoan2Fragment extends BaseFragment {
@@ -162,6 +164,26 @@ public class RepayLoan2Fragment extends BaseFragment {
                 sourceAccountNumber = sourceAccountAdapter.getItem(position).getAccountNo();
                 binding.tilSpinnerSourceAccount.setHint(sourceAccounts.get(0).toString());
             }
+        });
+
+        binding.ivHome.setOnClickListener(view -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+            builder.setTitle("Confirmation");
+            builder.setMessage("Are you sure you want to navigate to the home screen?");
+            builder.setPositiveButton("Yes", (dialogInterface, i) -> {
+                if (RepayLoan2Fragment.this.getParentFragment() != null && RepayLoan2Fragment.this.getParentFragment() instanceof MainFragment) {
+                    ((MainFragment) RepayLoan2Fragment.this.getParentFragment()).navigateToHome();
+                }else {
+                    navigateUp();
+                }
+            });
+            builder.setNegativeButton("No", (dialogInterface, i) -> {
+                // Dismiss the dialog if "No" is clicked
+                dialogInterface.dismiss();
+            });
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
         });
 
         return binding.getRoot();

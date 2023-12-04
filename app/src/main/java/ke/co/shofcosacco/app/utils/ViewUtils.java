@@ -1,5 +1,6 @@
 package ke.co.shofcosacco.app.utils;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;

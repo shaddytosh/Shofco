@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -29,6 +30,8 @@ import ke.co.shofcosacco.app.utils.EditTextValidator;
 import ke.co.shofcosacco.app.utils.TextValidator;
 import ke.co.shofcosacco.ui.auth.AuthViewModel;
 import ke.co.shofcosacco.ui.home.NotSuccessDialogFragment;
+import ke.co.shofcosacco.ui.loyaltyPoints.LoyaltyPointsFragment;
+import ke.co.shofcosacco.ui.main.MainFragment;
 import ke.co.shofcosacco.ui.main.SuccessDialogFragment;
 
 public class DepositFromMobileFragment extends BaseFragment {
@@ -156,6 +159,26 @@ public class DepositFromMobileFragment extends BaseFragment {
                 dialogFragment.show(getChildFragmentManager(), dialogFragment.getTag());
 
             }
+        });
+
+        binding.ivHome.setOnClickListener(view -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+            builder.setTitle("Confirmation");
+            builder.setMessage("Are you sure you want to navigate to the home screen?");
+            builder.setPositiveButton("Yes", (dialogInterface, i) -> {
+                if (DepositFromMobileFragment.this.getParentFragment() != null && DepositFromMobileFragment.this.getParentFragment() instanceof MainFragment) {
+                    ((MainFragment) DepositFromMobileFragment.this.getParentFragment()).navigateToHome();
+                }else {
+                    navigateUp();
+                }
+            });
+            builder.setNegativeButton("No", (dialogInterface, i) -> {
+                // Dismiss the dialog if "No" is clicked
+                dialogInterface.dismiss();
+            });
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
         });
 
         return binding.getRoot();

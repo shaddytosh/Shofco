@@ -248,6 +248,7 @@ public class AuthViewModel extends AndroidViewModel {
         securePrefs.saveMemberNo(null);
         securePrefs.saveFirstName(null);
         securePrefs.saveToken(null);
+
     }
 
     public void saveTokenAndMemberNo(String token, String memberNo, String userType) throws GeneralSecurityException, IOException {

@@ -21,7 +21,17 @@
             app:layout_constraintTop_toTopOf="parent"
             app:title="My Account"
             app:titleTextColor="@color/primary"
-            android:background="@color/background"/>
+            android:background="@color/background">
+            <ImageView
+                android:id="@+id/iv_home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/baseline_home_24"
+                android:layout_gravity="end"
+                android:layout_marginEnd="@dimen/size_20"
+                app:tint="@color/primary" />
+
+        </com.google.android.material.appbar.MaterialToolbar>
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/scrollerCartActivity"

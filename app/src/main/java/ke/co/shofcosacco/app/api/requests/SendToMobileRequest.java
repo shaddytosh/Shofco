@@ -21,6 +21,8 @@ public class SendToMobileRequest implements Serializable {
     public String phone;
     @SerializedName("otp_code")
     public String otp_code;
+    @SerializedName("member_no")
+    public String member_no;
 
 
 

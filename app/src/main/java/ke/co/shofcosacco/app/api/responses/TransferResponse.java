@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 
 public class TransferResponse implements Serializable {
-    @SerializedName("status")
+    @SerializedName("success")
     public String success;
     @SerializedName("description")
     public String description;

@@ -99,11 +99,25 @@ public class ContactsDialogFragment extends DialogFragment {
 
 
         if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(requireActivity(), new String[]{Manifest.permission.READ_CONTACTS}, 100);
-
+            // Permission is not granted, request it
+            if (shouldShowRequestPermissionRationale(Manifest.permission.READ_CONTACTS)) {
+                // Provide additional rationale if needed and then request the permission
+                // For example, you can show a dialog explaining why the permission is needed
+                if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+                    // Permission is not granted, request it
+                    ActivityCompat.requestPermissions(requireActivity(), new String[]{Manifest.permission.READ_CONTACTS}, 100);
+                } else {
+                    // Permission has already been granted, proceed with reading contacts
+                    readContacts();
+                }            } else {
+                // No explanation needed, request the permission
+                ActivityCompat.requestPermissions(requireActivity(), new String[]{Manifest.permission.READ_CONTACTS}, 100);
+            }
         } else {
+            // Permission has already been granted, proceed with reading contacts
             readContacts();
         }
+
 
         // Set a click listener for the ListView items
         binding.ListView.setOnItemClickListener((parent, view, position, id) -> {
@@ -186,13 +200,13 @@ public class ContactsDialogFragment extends DialogFragment {
                 }
 
                 // Filter only mobile phone numbers
-                if (phoneType == ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE) {
+//                if (phoneType == ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE) {
                     phoneNumber = phoneNumberWithSpaces.replaceAll("\\s", "");
 
                     // Check for duplicates before adding to the list
                     if (!contactExists(contactsList, name, phoneNumber)) {
                         contactsList.add(new Contacts(name, phoneNumber));
-                    }
+//                    }
                 }
             }
 

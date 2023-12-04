@@ -27,7 +27,9 @@ import ke.co.shofcosacco.app.navigation.BaseFragment;
 import ke.co.shofcosacco.app.utils.Constants;
 import ke.co.shofcosacco.ui.auth.AuthViewModel;
 import ke.co.shofcosacco.ui.auth.LiveDataViewModel;
+import ke.co.shofcosacco.ui.deposits.DepositsFragment;
 import ke.co.shofcosacco.ui.home.NotSuccessDialogFragment;
+import ke.co.shofcosacco.ui.main.MainFragment;
 
 public class MyAccountFragment extends BaseFragment implements AccountBalanceBosaAdapter.Listener, AccountBalanceFosaAdapter.Listener {
 
@@ -87,6 +89,26 @@ public class MyAccountFragment extends BaseFragment implements AccountBalanceBos
                     liveDataViewModel.getAccountBalancesFosaLiveData().getValue().accountBalanceFosa);
         }
 
+
+        binding.ivHome.setOnClickListener(view -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+            builder.setTitle("Confirmation");
+            builder.setMessage("Are you sure you want to navigate to the home screen?");
+            builder.setPositiveButton("Yes", (dialogInterface, i) -> {
+                if (MyAccountFragment.this.getParentFragment() != null && MyAccountFragment.this.getParentFragment() instanceof MainFragment) {
+                    ((MainFragment) MyAccountFragment.this.getParentFragment()).navigateToHome();
+                }else {
+                    navigateUp();
+                }
+            });
+            builder.setNegativeButton("No", (dialogInterface, i) -> {
+                // Dismiss the dialog if "No" is clicked
+                dialogInterface.dismiss();
+            });
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        });
 
         return binding.getRoot();
 

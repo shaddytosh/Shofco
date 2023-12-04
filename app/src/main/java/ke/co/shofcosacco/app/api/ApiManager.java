@@ -567,6 +567,7 @@ public class ApiManager {
         request.appType = Constants.SOURCE;
         request.phone = phone;
         request.otp_code = otp;
+        request.member_no = getAccountNumber();
 
         return new APIResponse<>(api.sendToMobile(request).execute());
     }

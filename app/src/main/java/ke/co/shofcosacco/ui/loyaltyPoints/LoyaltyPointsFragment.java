@@ -61,6 +61,7 @@ public class LoyaltyPointsFragment extends BaseFragment {
 
         getLoyalty();
 
+
         return binding.getRoot();
 
     }

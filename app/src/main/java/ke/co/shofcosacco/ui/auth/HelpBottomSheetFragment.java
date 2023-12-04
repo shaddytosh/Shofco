@@ -79,7 +79,7 @@ public class HelpBottomSheetFragment extends BottomSheetDialogFragment {
 
     private void openLocation(){
 
-        String strUri = "http://maps.google.com/maps?q=loc:" + "-1.3137532003185601" + "," + "36.780213878321916" + " ( SHOFCO SACCO )";
+        String strUri = "http://maps.google.com/maps?q=loc:" + "-1.3159342948978476" + "," + "36.783172014792626" + " ( SHOFCO SACCO )";
         Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(strUri));
         intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");
         startActivity(intent);

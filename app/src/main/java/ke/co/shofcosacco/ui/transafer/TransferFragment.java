@@ -39,7 +39,9 @@ import ke.co.shofcosacco.app.utils.TextValidator;
 import ke.co.shofcosacco.ui.auth.AuthViewModel;
 import ke.co.shofcosacco.ui.auth.LiveDataViewModel;
 import ke.co.shofcosacco.ui.auth.OtpConfirmationDialogFragment;
+import ke.co.shofcosacco.ui.deposits.DepositsFragment;
 import ke.co.shofcosacco.ui.home.NotSuccessDialogFragment;
+import ke.co.shofcosacco.ui.main.MainFragment;
 import ke.co.shofcosacco.ui.main.SuccessDialogFragment;
 
 public class TransferFragment extends BaseFragment {
@@ -141,6 +143,26 @@ public class TransferFragment extends BaseFragment {
         binding.btnGoBack.setOnClickListener(v -> navigateUp());
 
         binding.tvTransfer.setOnClickListener(v -> transfer());
+
+        binding.ivHome.setOnClickListener(view -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+            builder.setTitle("Confirmation");
+            builder.setMessage("Are you sure you want to navigate to the home screen?");
+            builder.setPositiveButton("Yes", (dialogInterface, i) -> {
+                if (TransferFragment.this.getParentFragment() != null && TransferFragment.this.getParentFragment() instanceof MainFragment) {
+                    ((MainFragment) TransferFragment.this.getParentFragment()).navigateToHome();
+                }else {
+                    navigateUp();
+                }
+            });
+            builder.setNegativeButton("No", (dialogInterface, i) -> {
+                // Dismiss the dialog if "No" is clicked
+                dialogInterface.dismiss();
+            });
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        });
 
         return binding.getRoot();
     }

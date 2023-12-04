@@ -79,7 +79,7 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="imagePath" value="$USER_HOME$/Downloads/358727006_959661645078053_2120218873272763624_n.jpg" />
+                                                <entry key="imagePath" value="$USER_HOME$/Downloads/shofco-sacco-Logo-Official-transparent.png" />
                                                 <entry key="scalingPercent" value="59" />
                                               </map>
                                             </option>
@@ -307,7 +307,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:$USER_HOME$/Library/Android/sdk/icons/material/materialicons/search/baseline_search_24.xml" />
+                                      <entry key="url" value="file:$USER_HOME$/Library/Android/sdk/icons/material/materialicons/fingerprint/baseline_fingerprint_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -318,7 +318,7 @@
                         <option name="values">
                           <map>
                             <entry key="color" value="ffffff" />
-                            <entry key="outputName" value="baseline_search_24" />
+                            <entry key="outputName" value="baseline_fingerprint_24" />
                             <entry key="sourceFile" value="$USER_HOME$/Downloads/eye-off-svgrepo-com.svg" />
                           </map>
                         </option>

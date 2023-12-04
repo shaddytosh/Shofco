@@ -3,6 +3,7 @@ package ke.co.shofcosacco.ui.loans;
 
 import static ke.co.shofcosacco.app.utils.Constants.STATUS_CODE_SUCCESS;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.graphics.pdf.PdfRenderer;
@@ -27,6 +28,8 @@ import co.ke.shofcosacco.databinding.FragmentMemberIsLoanQuaranteedBinding;
 import ke.co.shofcosacco.app.navigation.BaseFragment;
 import ke.co.shofcosacco.app.utils.PdfUtils;
 import ke.co.shofcosacco.ui.auth.AuthViewModel;
+import ke.co.shofcosacco.ui.deposits.DepositsFragment;
+import ke.co.shofcosacco.ui.main.MainFragment;
 
 public class MemberIsLoansGuaranteedFragment extends BaseFragment {
 
@@ -73,6 +76,25 @@ public class MemberIsLoansGuaranteedFragment extends BaseFragment {
 
         });
 
+        binding.ivHome.setOnClickListener(view -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+            builder.setTitle("Confirmation");
+            builder.setMessage("Are you sure you want to navigate to the home screen?");
+            builder.setPositiveButton("Yes", (dialogInterface, i) -> {
+                if (MemberIsLoansGuaranteedFragment.this.getParentFragment() != null && MemberIsLoansGuaranteedFragment.this.getParentFragment() instanceof MainFragment) {
+                    ((MainFragment) MemberIsLoansGuaranteedFragment.this.getParentFragment()).navigateToHome();
+                }else {
+                    navigateUp();
+                }
+            });
+            builder.setNegativeButton("No", (dialogInterface, i) -> {
+                // Dismiss the dialog if "No" is clicked
+                dialogInterface.dismiss();
+            });
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        });
 
         return binding.getRoot();
     }

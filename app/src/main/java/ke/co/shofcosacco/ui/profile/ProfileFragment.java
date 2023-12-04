@@ -3,19 +3,24 @@ package ke.co.shofcosacco.ui.profile;
 
 
 
+import static android.content.Context.MODE_PRIVATE;
 import static ke.co.shofcosacco.app.utils.Constants.STATUS_CODE_SUCCESS;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +31,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.biometric.BiometricPrompt;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.lifecycle.ViewModelProvider;
@@ -64,7 +70,7 @@ public class ProfileFragment extends BaseFragment {
     private AuthViewModel authViewModel;
     private LiveDataViewModel liveDataViewModel;
     private AppDatabase appDatabase;
-    
+
     public ProfileFragment() {
         // Required empty public constructor
     }
@@ -145,10 +151,65 @@ public class ProfileFragment extends BaseFragment {
 
         loadDataFromDb(authViewModel.getPhone());
 
+        String biometric = authViewModel.getBiometric();
+
+        binding.switchMaterialSettingsDrakMode.setChecked(biometric != null && biometric.equals("true"));
+
+        binding.switchMaterialSettingsDrakMode.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked){
+                showBiometricPrompt();
+            }else {
+                try {
+                    authViewModel.saveBiometric("false");
+                } catch (GeneralSecurityException | IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+
+
+
         return binding.getRoot();
 
     }
 
+
+
+    private void showBiometricPrompt() {
+        BiometricPrompt.PromptInfo promptInfo = new BiometricPrompt.PromptInfo.Builder()
+                .setTitle("Biometric Login")
+                .setSubtitle("Use your fingerprint or face recognition")
+                .setNegativeButtonText("Cancel")
+                .build();
+
+
+        BiometricPrompt biometricPrompt = new BiometricPrompt(requireActivity(), ContextCompat.getMainExecutor(requireContext()),
+                new BiometricPrompt.AuthenticationCallback() {
+                    @Override
+                    public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
+                        super.onAuthenticationSucceeded(result);
+                        // Biometric authentication succeeded, proceed with login
+                        try {
+                            authViewModel.saveBiometric("true");
+                        } catch (GeneralSecurityException | IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+
+                    @Override
+                    public void onAuthenticationFailed() {
+                        super.onAuthenticationFailed();
+                        // Biometric authentication failed
+                        // Handle accordingly
+
+                    }
+                });
+
+        biometricPrompt.authenticate(promptInfo);
+
+
+
+    }
 
     private void getProfile(){
 
@@ -437,6 +498,10 @@ public class ProfileFragment extends BaseFragment {
             }
         });
         loadDataFromDb(authViewModel.getPhone());
+        String biometric = authViewModel.getBiometric();
+
+        binding.switchMaterialSettingsDrakMode.setChecked(biometric != null && biometric.equals("true"));
+
 
 
     }

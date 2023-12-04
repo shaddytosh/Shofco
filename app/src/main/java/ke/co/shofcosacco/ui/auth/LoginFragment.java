@@ -132,6 +132,7 @@ public class LoginFragment extends BaseFragment {
                                 authViewModel.saveTokenAndMemberNo(apiResponse.body().token, memberNo, apiResponse.body().usertype);
                                 authViewModel.saveUser(apiResponse.body().email,apiResponse.body().member_no,apiResponse.body().name,apiResponse.body().mobile_no,apiResponse.body().id_no);
                                 authViewModel.saveAccountNo(memberNo);
+                                authViewModel.saveBiometricDetails(memberNo,password);
 
                                 navigate(LoginFragmentDirections.actionLoginToMain());
                             } catch (GeneralSecurityException | IOException e) {
@@ -256,53 +257,48 @@ public class LoginFragment extends BaseFragment {
         dialogFragment.show(getChildFragmentManager(),dialogFragment.getTag());
     }
 
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//
-//        String biometric = authViewModel.getBiometric();
-//        if (biometric != null){
-//            new Handler().postDelayed(() -> {
-//                if (getFragmentManager() != null && !getFragmentManager().isStateSaved()) {
-//                    showBiometricPrompt(authViewModel.getMID(), authViewModel.getMPIN());
-//                }
-//            }, 100);
-//        }
-//
-//    }
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        String biometric = authViewModel.getBiometric();
+        if (biometric != null && biometric.equals("true") && authViewModel.getMID() != null && authViewModel.getMPIN() != null){
+            new Handler().postDelayed(() -> {
+                if (getFragmentManager() != null && !getFragmentManager().isStateSaved()) {
+                    showBiometricPrompt(authViewModel.getMID(), authViewModel.getMPIN());
+                }
+            }, 100);
+        }
+
+    }
 
 
-//    private void showBiometricPrompt(String memberNo, String password) {
-//        BiometricPrompt.PromptInfo promptInfo = new BiometricPrompt.PromptInfo.Builder()
-//                .setTitle("Biometric Login")
-//                .setSubtitle("Use your fingerprint or face recognition")
-//                .setNegativeButtonText("Cancel")
-//                .build();
-//
-//        BiometricPrompt biometricPrompt = new BiometricPrompt(requireActivity(), ContextCompat.getMainExecutor(requireContext()),
-//                new BiometricPrompt.AuthenticationCallback() {
-//                    @Override
-//                    public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
-//                        super.onAuthenticationSucceeded(result);
-//                        // Biometric authentication succeeded, proceed with login
-//                        try {
-//                            authViewModel.saveBiometric("true");
-//                            login(memberNo,password);
-//                        } catch (GeneralSecurityException | IOException e) {
-//                            throw new RuntimeException(e);
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onAuthenticationFailed() {
-//                        super.onAuthenticationFailed();
-//                        // Biometric authentication failed
-//                        // Handle accordingly
-//                    }
-//                });
-//
-//        biometricPrompt.authenticate(promptInfo);
-//    }
+    private void showBiometricPrompt(String memberNo, String password) {
+        BiometricPrompt.PromptInfo promptInfo = new BiometricPrompt.PromptInfo.Builder()
+                .setTitle("Biometric Login")
+                .setSubtitle("Use your fingerprint or face recognition")
+                .setNegativeButtonText("Cancel")
+                .build();
+
+        BiometricPrompt biometricPrompt = new BiometricPrompt(requireActivity(), ContextCompat.getMainExecutor(requireContext()),
+                new BiometricPrompt.AuthenticationCallback() {
+                    @Override
+                    public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
+                        super.onAuthenticationSucceeded(result);
+                        // Biometric authentication succeeded, proceed with login
+                        login(memberNo, password);
+                    }
+
+                    @Override
+                    public void onAuthenticationFailed() {
+                        super.onAuthenticationFailed();
+                        // Biometric authentication failed
+                        // Handle accordingly
+                    }
+                });
+
+        biometricPrompt.authenticate(promptInfo);
+    }
 //
 
 

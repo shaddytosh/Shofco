@@ -1,6 +1,7 @@
 package ke.co.shofcosacco.ui.loans;
 
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -19,6 +20,8 @@ import co.ke.shofcosacco.databinding.FragmentLoanStatementsBinding;
 import ke.co.shofcosacco.app.models.LoanStatement;
 import ke.co.shofcosacco.app.navigation.BaseFragment;
 import ke.co.shofcosacco.ui.auth.AuthViewModel;
+import ke.co.shofcosacco.ui.deposits.DepositsFragment;
+import ke.co.shofcosacco.ui.main.MainFragment;
 
 public class LoanStatementsFragment extends BaseFragment implements LoanStatementAdapter.Listener {
 
@@ -60,6 +63,26 @@ public class LoanStatementsFragment extends BaseFragment implements LoanStatemen
         });
 
         getStatement(loanNo, loanName);
+
+        binding.ivHome.setOnClickListener(view -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+            builder.setTitle("Confirmation");
+            builder.setMessage("Are you sure you want to navigate to the home screen?");
+            builder.setPositiveButton("Yes", (dialogInterface, i) -> {
+                if (LoanStatementsFragment.this.getParentFragment() != null && LoanStatementsFragment.this.getParentFragment() instanceof MainFragment) {
+                    ((MainFragment) LoanStatementsFragment.this.getParentFragment()).navigateToHome();
+                }else {
+                    navigateUp();
+                }
+            });
+            builder.setNegativeButton("No", (dialogInterface, i) -> {
+                // Dismiss the dialog if "No" is clicked
+                dialogInterface.dismiss();
+            });
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        });
 
         return binding.getRoot();
 

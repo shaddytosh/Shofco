@@ -5,13 +5,13 @@ import static ke.co.shofcosacco.app.utils.Constants.DISMISS;
 import static ke.co.shofcosacco.app.utils.Constants.STATUS_CODE_INVALID_EXPIRED_TOKEN;
 import static ke.co.shofcosacco.app.utils.Constants.STATUS_CODE_INVALID_TOKEN;
 import static ke.co.shofcosacco.app.utils.Constants.STATUS_CODE_SUCCESS;
-import static ke.co.shofcosacco.app.utils.Constants.VALIDATE_TO_REGISTER;
 import static ke.co.shofcosacco.app.utils.Constants.VERIFY_OTP;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -34,7 +34,6 @@ import java.util.List;
 
 import co.ke.shofcosacco.R;
 import co.ke.shofcosacco.databinding.FragmentSendToMobileBinding;
-import ke.co.shofcosacco.app.models.Eligibility;
 import ke.co.shofcosacco.app.models.SourceAccount;
 import ke.co.shofcosacco.app.navigation.BaseFragment;
 import ke.co.shofcosacco.app.utils.Constants;
@@ -134,29 +133,29 @@ public class SendToMobileFragment extends BaseFragment {
             accountType = "1";
         });
 
-        binding.cvAirtel.setOnClickListener(v->{
-            binding.cvMpesa.setBackgroundColor(getResources().getColor(R.color.white));
-            binding.cvAirtel.setBackgroundColor(getResources().getColor(R.color.primary));
-            binding.cvTelkom.setBackgroundColor(getResources().getColor(R.color.white));
-            binding.tvMpesa.setTextColor(getResources().getColor(R.color.primary));
-            binding.tvAirtel.setTextColor(getResources().getColor(R.color.white));
-            binding.tvTelkom.setTextColor(getResources().getColor(R.color.primary));
-            Vibrator vb = (Vibrator)   requireContext().getSystemService(Context.VIBRATOR_SERVICE);
-            vb.vibrate(50);
-            accountType = "2";
-        });
-
-        binding.cvTelkom.setOnClickListener(v->{
-            binding.cvMpesa.setBackgroundColor(getResources().getColor(R.color.white));
-            binding.cvAirtel.setBackgroundColor(getResources().getColor(R.color.white));
-            binding.cvTelkom.setBackgroundColor(getResources().getColor(R.color.primary));
-            binding.tvMpesa.setTextColor(getResources().getColor(R.color.primary));
-            binding.tvAirtel.setTextColor(getResources().getColor(R.color.primary));
-            binding.tvTelkom.setTextColor(getResources().getColor(R.color.white));
-            Vibrator vb = (Vibrator)   requireContext().getSystemService(Context.VIBRATOR_SERVICE);
-            vb.vibrate(50);
-            accountType = "3";
-        });
+//        binding.cvAirtel.setOnClickListener(v->{
+//            binding.cvMpesa.setBackgroundColor(getResources().getColor(R.color.white));
+//            binding.cvAirtel.setBackgroundColor(getResources().getColor(R.color.primary));
+//            binding.cvTelkom.setBackgroundColor(getResources().getColor(R.color.white));
+//            binding.tvMpesa.setTextColor(getResources().getColor(R.color.primary));
+//            binding.tvAirtel.setTextColor(getResources().getColor(R.color.white));
+//            binding.tvTelkom.setTextColor(getResources().getColor(R.color.primary));
+//            Vibrator vb = (Vibrator)   requireContext().getSystemService(Context.VIBRATOR_SERVICE);
+//            vb.vibrate(50);
+//            accountType = "2";
+//        });
+//
+//        binding.cvTelkom.setOnClickListener(v->{
+//            binding.cvMpesa.setBackgroundColor(getResources().getColor(R.color.white));
+//            binding.cvAirtel.setBackgroundColor(getResources().getColor(R.color.white));
+//            binding.cvTelkom.setBackgroundColor(getResources().getColor(R.color.primary));
+//            binding.tvMpesa.setTextColor(getResources().getColor(R.color.primary));
+//            binding.tvAirtel.setTextColor(getResources().getColor(R.color.primary));
+//            binding.tvTelkom.setTextColor(getResources().getColor(R.color.white));
+//            Vibrator vb = (Vibrator)   requireContext().getSystemService(Context.VIBRATOR_SERVICE);
+//            vb.vibrate(50);
+//            accountType = "3";
+//        });
 
         binding.radioSelf.setChecked(true);
         binding.phoneNumberEditTextForgotPassword.setText(authViewModel.getPhone() != null ? String.format("0%s", authViewModel.getPhone().substring( authViewModel.getPhone().length()  -9)) : null);
@@ -184,6 +183,22 @@ public class SendToMobileFragment extends BaseFragment {
             }
         });
 
+        binding.ivHome.setOnClickListener(view -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+            builder.setTitle("Confirmation");
+            builder.setMessage("Are you sure you want to navigate to the home screen?");
+            builder.setPositiveButton("Yes", (dialogInterface, i) -> navigateUp());
+            builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    // Dismiss the dialog if "No" is clicked
+                    dialogInterface.dismiss();
+                }
+            });
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        });
 
         return binding.getRoot();
     }
@@ -372,12 +387,7 @@ public class SendToMobileFragment extends BaseFragment {
             boolean isSuccess = apiResponse2 != null && apiResponse2.isSuccessful();
             if (isSuccess) {
                 if (apiResponse2.body().statusCode.equals(STATUS_CODE_SUCCESS)){
-                    Eligibility eligibility = apiResponse2.body().sendToMobile;
-                    if (eligibility.status.equals("true")) {
-                        successDialog(eligibility.description);
-                    }else {
-                        notSuccessDialog(eligibility.description);
-                    }
+                    successDialog(apiResponse2.body().statusDesc);
                 }else {
                     notSuccessDialog(apiResponse2.body().statusDesc);
                 }

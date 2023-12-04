@@ -58,7 +58,7 @@
     <string name="email_address_">Email Address</string>
     <string name="change_pin">Change Pin</string>
     <string name="log_out_text">Do you want to log out?</string>
-    <string name="welcome_back">Welcome back!</string>
+    <string name="welcome_back">Welcome to Shofco Sacco</string>
     <string name="sign_in_to_continue">Sign in to continue</string>
     <string name="old_pin">Old Pin</string>
     <string name="view_statement">View Statement</string>
@@ -112,7 +112,7 @@
     <string name="enter_pin">Enter PIN</string>
     <string name="need_help">Need Help?</string>
     <string name="location_text">Harry Thuku Road -University of Nairobi Main Campus Engineering Section</string>
-    <string name="values">Contact Info\nPhone: +254700160012\nEmail: info@shofcosacco.com\nAddress: P.O.BOX 8303–00200, Nairobi\nOpen: Mon-Fri: 8.00 AM-5.00 PM</string>
+    <string name="values">Contact Info\nPhone: +254700160012\nEmail: info@shofcosacco.com\nAddress: P.O.BOX 8303–00200, Nairobi\nOpen: Mon-Fri: 8.00 AM - 4.00 PM\n\nOpen: Saturday: 8.00 AM - 12:30 PM</string>
     <string name="enter_national_id">Enter National ID</string>
     <string name="forgot_pin">Forgot Pin?</string>
     <string name="answer">Answer</string>
@@ -167,6 +167,9 @@
     <string name="view_all">View All</string>
     <string name="balance">Balance</string>
     <string name="our_sectors">Our Sectors</string>
+    <string name="enable_fingerprint">Enable Fingerprint</string>
+    <string name="transactions">Transactions</string>
+    <string name="click_on_the_dates_to_filter">Click on the dates to filter</string>
 
 
 </resources>

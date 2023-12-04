@@ -55,11 +55,8 @@ public class LauncherFragment extends BaseFragment {
                 launcherBinding.getRoot().post(()-> {
                     token = authViewModel.getToken();
 
-                    memberNo = authViewModel.getMemberNo();
-
-                    if (token !=null  && memberNo!=null){
-//                        navigate(LauncherFragmentDirections.actionLauncherToLogin());
-                        navigate(LauncherFragmentDirections.actionLauncherToLoginOptions());
+                    if (token !=null){
+                        navigate(LauncherFragmentDirections.actionLauncherToLogin());
 
                     }else {
                         navigate(LauncherFragmentDirections.actionLauncherToLoginOptions());

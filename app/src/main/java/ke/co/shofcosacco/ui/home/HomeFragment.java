@@ -320,7 +320,7 @@ public class HomeFragment extends BaseFragment implements RecentTransactionsAdap
     }
 
     private void startInactivityTimer() {
-        final long TIMEOUT = 60 * 50000; // 1 minute
+        final long TIMEOUT = 60 * 1000; // 1 minute
         final Runnable runnable = new Runnable() {
             @Override
             public void run() {
@@ -374,8 +374,10 @@ public class HomeFragment extends BaseFragment implements RecentTransactionsAdap
                 recentTransactionsAdapter.submitList(miniStatements);
                 binding.statementRecyclerView.setVisibility(!miniStatements.isEmpty() ? View.VISIBLE : View.GONE);
 
-                binding.tvShowBalance.setText(String.format("%s %s", Constants.CURRENCY, !miniStatements.isEmpty() ? apiResponse.body().balance: 0));
-                binding.tvHideBalance.setText(String.format("%s %s", Constants.CURRENCY, balance));
+                binding.tvShowBalance.setText(String.format("%s %s", Constants.CURRENCY, !miniStatements.isEmpty() ? apiResponse.body().balance: 0.00));
+                binding.tvHideBalance.setText(String.format("%s %s", Constants.CURRENCY, !miniStatements.isEmpty() ? apiResponse.body().balance: 0.00));
+                binding.tvBalanceView.setText(!miniStatements.isEmpty() ? apiResponse.body().bal_code: "Balance");
+
             }else {
                 showEmptyState();
             }
@@ -393,4 +395,6 @@ public class HomeFragment extends BaseFragment implements RecentTransactionsAdap
     public void onClick(Dashboard item) {
 
     }
+
+
 }

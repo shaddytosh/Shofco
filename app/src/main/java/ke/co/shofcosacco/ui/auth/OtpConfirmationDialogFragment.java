@@ -43,7 +43,7 @@ public class OtpConfirmationDialogFragment extends DialogFragment {
     private DialogOtpConfirmationBinding binding;
     private AuthViewModel authViewModel;
     private String sourceAccountNumber, amount,phoneNumber, mOTP;
-    private SmsBroadcastReceiver smsBroadcastReceiver;
+//    private SmsBroadcastReceiver smsBroadcastReceiver;
 
     public OtpConfirmationDialogFragment() {
         // Required empty public constructor
@@ -93,7 +93,7 @@ public class OtpConfirmationDialogFragment extends DialogFragment {
 
         binding.tvResendOtp.setOnClickListener(v -> resendOtp());
 
-        startSmsUserConsent();
+//        startSmsUserConsent();
 
         return binding.getRoot();
 
@@ -106,7 +106,7 @@ public class OtpConfirmationDialogFragment extends DialogFragment {
             return;
         }
 
-        if (mOTP.equals(code)){
+        if (mOTP != null && mOTP.equals(code)){
             Intent result = new Intent();
 
             result.putExtra("sourceAccountNumber", sourceAccountNumber);
@@ -118,6 +118,9 @@ public class OtpConfirmationDialogFragment extends DialogFragment {
                 getParentFragment().onActivityResult(VERIFY_OTP, RESULT_OK, result);
             }
             dismiss();
+        }else {
+            Toast.makeText(requireContext(), "Wrong OTP code", Toast.LENGTH_SHORT).show();
+
         }
 
     }
@@ -127,15 +130,10 @@ public class OtpConfirmationDialogFragment extends DialogFragment {
                 "Requesting OTP. Please wait...", true);
         authViewModel.sendOtp(authViewModel.getMemberNo(),"OTP").observe(getViewLifecycleOwner(), apiResponse1 -> {
             progressDialog1.dismiss();
+            binding.otp.setOtp(null);
             if (apiResponse1 != null && apiResponse1.isSuccessful()) {
                 if (apiResponse1.body().success.equals(STATUS_CODE_SUCCESS)) {
-                    OtpConfirmationDialogFragment dialogFragment = new OtpConfirmationDialogFragment();
-                    Bundle args = new Bundle();
-                    args.putString("sourceAccountNumber",sourceAccountNumber);
-                    args.putString("amount",amount);
-                    args.putString("phoneNumber",phoneNumber);
-                    dialogFragment.setArguments(args);
-                    dialogFragment.show(getChildFragmentManager(), dialogFragment.getTag());
+                   mOTP = apiResponse1.body().otp;
                 }
                 else {
 
@@ -204,31 +202,31 @@ public class OtpConfirmationDialogFragment extends DialogFragment {
             verifyOtp();
         }
     }
-    private void registerBroadcastReceiver() {
-        smsBroadcastReceiver = new SmsBroadcastReceiver();
-        smsBroadcastReceiver.smsBroadcastReceiverListener =
-                new SmsBroadcastReceiver.SmsBroadcastReceiverListener() {
-                    @Override
-                    public void onSuccess(Intent intent) {
-                        startActivityForResult(intent, REQ_USER_CONSENT);
-                    }
-                    @Override
-                    public void onFailure() {
-                    }
-                };
-        IntentFilter intentFilter = new IntentFilter(SmsRetriever.SMS_RETRIEVED_ACTION);
-        requireContext().registerReceiver(smsBroadcastReceiver, intentFilter);
-    }
-    @Override
-    public void onStart() {
-        super.onStart();
-        registerBroadcastReceiver();
-    }
-    @Override
-    public void onStop() {
-        super.onStop();
-        requireContext().unregisterReceiver(smsBroadcastReceiver);
-    }
+//    private void registerBroadcastReceiver() {
+//        smsBroadcastReceiver = new SmsBroadcastReceiver();
+//        smsBroadcastReceiver.smsBroadcastReceiverListener =
+//                new SmsBroadcastReceiver.SmsBroadcastReceiverListener() {
+//                    @Override
+//                    public void onSuccess(Intent intent) {
+//                        startActivityForResult(intent, REQ_USER_CONSENT);
+//                    }
+//                    @Override
+//                    public void onFailure() {
+//                    }
+//                };
+//        IntentFilter intentFilter = new IntentFilter(SmsRetriever.SMS_RETRIEVED_ACTION);
+//        requireContext().registerReceiver(smsBroadcastReceiver, intentFilter);
+//    }
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        registerBroadcastReceiver();
+//    }
+//    @Override
+//    public void onStop() {
+//        super.onStop();
+//        requireContext().unregisterReceiver(smsBroadcastReceiver);
+//    }
 
 
 }

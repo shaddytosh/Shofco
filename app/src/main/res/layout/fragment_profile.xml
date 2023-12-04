@@ -232,6 +232,35 @@
                                     android:textSize="18sp"
                                     android:lines="2"/>
 
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:textAllCaps="false"
+                                        android:gravity="start|center_vertical"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:text="Login With Fingerprint"
+                                        android:layout_weight="1"
+                                        android:background="?selectableItemBackground"
+                                        android:clickable="true"
+                                        android:focusable="true"
+                                        android:drawablePadding="20dp"
+                                        android:padding="20dp"
+                                        app:drawableStartCompat="@drawable/baseline_fingerprint_24" />
+
+                                    <com.google.android.material.switchmaterial.SwitchMaterial
+                                        android:id="@+id/switchMaterial_settings_drakMode"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:layout_marginEnd="@dimen/size_20"
+                                        android:textSize="15sp" />
+
+                                </LinearLayout>
+
 
                             </LinearLayout>
 

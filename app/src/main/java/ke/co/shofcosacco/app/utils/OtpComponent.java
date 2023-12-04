@@ -84,7 +84,7 @@ public class OtpComponent extends LinearLayout {
         mOtp = typedArray.getString(R.styleable.OtpComponent_otp);
         mLength = typedArray.getInt(R.styleable.OtpComponent_length, 6);
         mTextSize = typedArray.getInt(R.styleable.OtpComponent_android_textSize,
-                context.getResources().getDimensionPixelSize(R.dimen.text_14));
+                context.getResources().getDimensionPixelSize(R.dimen.text_11));
 
         typedArray.recycle();
         init();

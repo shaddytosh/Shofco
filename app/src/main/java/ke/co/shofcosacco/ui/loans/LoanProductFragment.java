@@ -5,6 +5,7 @@ import static ke.co.shofcosacco.app.utils.Constants.STATUS_CODE_INVALID_EXPIRED_
 import static ke.co.shofcosacco.app.utils.Constants.STATUS_CODE_INVALID_TOKEN;
 import static ke.co.shofcosacco.app.utils.Constants.STATUS_CODE_SUCCESS;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -28,6 +29,8 @@ import ke.co.shofcosacco.app.models.LoanProduct;
 import ke.co.shofcosacco.app.navigation.BaseFragment;
 import ke.co.shofcosacco.ui.auth.AuthViewModel;
 import ke.co.shofcosacco.ui.auth.LiveDataViewModel;
+import ke.co.shofcosacco.ui.deposits.DepositsFragment;
+import ke.co.shofcosacco.ui.main.MainFragment;
 
 public class LoanProductFragment extends BaseFragment implements LoanProductAdapter.Listener {
 
@@ -75,6 +78,25 @@ public class LoanProductFragment extends BaseFragment implements LoanProductAdap
             displayData(liveDataViewModel.getLoanProductsResponseLiveData().getValue());
         }
 
+        binding.ivHome.setOnClickListener(view -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+            builder.setTitle("Confirmation");
+            builder.setMessage("Are you sure you want to navigate to the home screen?");
+            builder.setPositiveButton("Yes", (dialogInterface, i) -> {
+                if (LoanProductFragment.this.getParentFragment() != null && LoanProductFragment.this.getParentFragment() instanceof MainFragment) {
+                    ((MainFragment) LoanProductFragment.this.getParentFragment()).navigateToHome();
+                }else {
+                    navigateUp();
+                }
+            });
+            builder.setNegativeButton("No", (dialogInterface, i) -> {
+                // Dismiss the dialog if "No" is clicked
+                dialogInterface.dismiss();
+            });
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        });
 
         return binding.getRoot();
 

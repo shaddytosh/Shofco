@@ -54,10 +54,15 @@
                 tools:replace="android:resource" />
         </provider>
 
+
         <receiver
             android:name="ke.co.shofcosacco.ui.auth.SmsBroadcastReceiver"
             android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.android.gms.auth.api.phone.SMS_RETRIEVED"/>
+            </intent-filter>
         </receiver>
+
     </application>
 
 </manifest>

@@ -1,6 +1,7 @@
 package ke.co.shofcosacco.ui.statements;
 
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -23,6 +24,7 @@ import ke.co.shofcosacco.app.models.AccountBalanceFosa;
 import ke.co.shofcosacco.app.navigation.BaseFragment;
 import ke.co.shofcosacco.ui.auth.AuthViewModel;
 import ke.co.shofcosacco.ui.auth.LiveDataViewModel;
+import ke.co.shofcosacco.ui.deposits.DepositsFragment;
 import ke.co.shofcosacco.ui.main.MainFragment;
 import ke.co.shofcosacco.ui.main.MainFragmentDirections;
 
@@ -89,6 +91,26 @@ public class AccountBalanceStatementFragment extends BaseFragment implements Acc
             displayData(liveDataViewModel.getAccountBalancesBosaLiveData().getValue().accountBalanceBosa,
                     liveDataViewModel.getAccountBalancesFosaLiveData().getValue().accountBalanceFosa);
         }
+        binding.ivHome.setOnClickListener(view -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+            builder.setTitle("Confirmation");
+            builder.setMessage("Are you sure you want to navigate to the home screen?");
+            builder.setPositiveButton("Yes", (dialogInterface, i) -> {
+                if (AccountBalanceStatementFragment.this.getParentFragment() != null && AccountBalanceStatementFragment.this.getParentFragment() instanceof MainFragment) {
+                    ((MainFragment) AccountBalanceStatementFragment.this.getParentFragment()).navigateToHome();
+                }else {
+                    navigateUp();
+                }
+            });
+            builder.setNegativeButton("No", (dialogInterface, i) -> {
+                // Dismiss the dialog if "No" is clicked
+                dialogInterface.dismiss();
+            });
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        });
+
         return binding.getRoot();
 
     }

@@ -81,11 +81,10 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:textColor="@color/white_day_night"
-                                android:text="@string/balance"
+                                android:text="@string/dashes"
                                 android:gravity="center"
                                 android:layout_gravity="center"
                                 android:textStyle="bold"
-                                android:textSize="20sp"
                                 android:layout_marginTop="@dimen/size_8"
                                 app:layout_constraintTop_toBottomOf="@id/tv_first_name"/>
 
@@ -247,7 +246,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:layout_marginStart="16dp"
-                        android:text="@string/let_s_action"
+                        android:text="@string/transactions"
+                        android:textStyle="bold"
                         android:textSize="16sp"
                         app:layout_constraintStart_toStartOf="@+id/guideline"
                         app:layout_constraintTop_toBottomOf="@+id/view" />
@@ -277,6 +277,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:text="@string/recent_transactions"
+                            android:textStyle="bold"
                             android:textAlignment="textStart"
                             android:layout_weight="1"
                             android:textSize="16sp"/>
@@ -287,6 +288,7 @@
                             android:layout_height="wrap_content"
                             android:textAlignment="textEnd"
                             android:text="@string/view_all"
+                            android:textStyle="bold"
                             android:layout_weight="1"
                             android:layout_marginEnd="@dimen/size_8"
                             android:background="?selectableItemBackground"/>
