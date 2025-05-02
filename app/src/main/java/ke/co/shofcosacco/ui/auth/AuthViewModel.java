@@ -13,10 +13,12 @@ import javax.inject.Inject;
 
 import ke.co.shofcosacco.app.MainApplication;
 import ke.co.shofcosacco.app.api.APIResponse;
+import ke.co.shofcosacco.app.api.requests.AddNextOfKinRequest;
 import ke.co.shofcosacco.app.api.responses.AccountBalanceBosaResponse;
 import ke.co.shofcosacco.app.api.responses.AccountBalanceFosaResponse;
 import ke.co.shofcosacco.app.api.responses.CarouselResponse;
 import ke.co.shofcosacco.app.api.responses.ChangePinResponse;
+import ke.co.shofcosacco.app.api.responses.CountiesResponse;
 import ke.co.shofcosacco.app.api.responses.DashboardResponse;
 import ke.co.shofcosacco.app.api.responses.DestinationAccountResponse;
 import ke.co.shofcosacco.app.api.responses.EligibilityResponse;
@@ -95,8 +97,8 @@ public class AuthViewModel extends AndroidViewModel {
     }
 
 
-    public LiveData<APIResponse<RegisterResponse>> registerOne(String names, String nationalId, String telephone, String email) {
-        return authRepository.registerOne(names,nationalId,telephone,email);
+    public LiveData<APIResponse<RegisterResponse>> registerOne(AddNextOfKinRequest addNextOfKinRequest) {
+        return authRepository.registerOne(addNextOfKinRequest);
     }
 
 
@@ -194,8 +196,25 @@ public class AuthViewModel extends AndroidViewModel {
         return authRepository.memberIsLoanGuaranteed();
     }
 
+
+    public LiveData<APIResponse<CountiesResponse>> getCounties() {
+        return authRepository.getCounties();
+    }
+
+    public LiveData<APIResponse<CountiesResponse>> getSubCounty(String countyCode) {
+        return authRepository.getSubCounty(countyCode);
+    }
+
+    public LiveData<APIResponse<CountiesResponse>> getWards(String subCountyCode) {
+        return authRepository.getWards(subCountyCode);
+    }
+
     public LiveData<APIResponse<ReportsResponse>> getDetailedStatement(String dateFrom, String dateTo) {
         return authRepository.getDetailedStatement(dateFrom, dateTo);
+    }
+
+    public LiveData<APIResponse<ReportsResponse>> FnGetCoroselImages() {
+        return authRepository.FnGetCoroselImages();
     }
 
     public String getToken() {

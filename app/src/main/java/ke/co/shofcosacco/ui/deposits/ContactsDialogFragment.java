@@ -1,21 +1,12 @@
 package ke.co.shofcosacco.ui.deposits;
 
 import static android.app.Activity.RESULT_OK;
-import static ke.co.shofcosacco.app.utils.Constants.STATUS_CODE_SUCCESS;
-import static ke.co.shofcosacco.app.utils.Constants.VERIFY_OTP;
 
 import android.Manifest;
-import android.app.ProgressDialog;
-import android.content.ContentResolver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.pm.PackageManager;
-import android.content.res.Configuration;
 import android.database.Cursor;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.Editable;
@@ -25,35 +16,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.ViewModelProvider;
-
-import com.airbnb.lottie.L;
-import com.google.android.gms.auth.api.phone.SmsRetriever;
-import com.google.android.gms.auth.api.phone.SmsRetrieverClient;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import co.ke.shofcosacco.R;
 import co.ke.shofcosacco.databinding.ContactsBinding;
-import co.ke.shofcosacco.databinding.DialogOtpConfirmationBinding;
 import ke.co.shofcosacco.app.models.Contacts;
-import ke.co.shofcosacco.app.models.SourceAccount;
-import ke.co.shofcosacco.ui.auth.AuthViewModel;
-import ke.co.shofcosacco.ui.auth.SmsBroadcastReceiver;
 
 
 public class ContactsDialogFragment extends DialogFragment {

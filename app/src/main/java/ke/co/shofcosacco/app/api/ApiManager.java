@@ -22,6 +22,7 @@ import javax.inject.Singleton;
 import ke.co.shofcosacco.app.api.deserializer.ResponseDeserializer;
 import ke.co.shofcosacco.app.api.requests.AccountBalanceRequest;
 import ke.co.shofcosacco.app.api.requests.AccountSummaryRequest;
+import ke.co.shofcosacco.app.api.requests.AddNextOfKinRequest;
 import ke.co.shofcosacco.app.api.requests.ChangePasswordRequest;
 import ke.co.shofcosacco.app.api.requests.DashboardRequest;
 import ke.co.shofcosacco.app.api.requests.EligibilityRequest;
@@ -48,6 +49,7 @@ import ke.co.shofcosacco.app.api.requests.ValidateRequest;
 import ke.co.shofcosacco.app.api.responses.AccountBalanceBosaResponse;
 import ke.co.shofcosacco.app.api.responses.AccountBalanceFosaResponse;
 import ke.co.shofcosacco.app.api.responses.ChangePinResponse;
+import ke.co.shofcosacco.app.api.responses.CountiesResponse;
 import ke.co.shofcosacco.app.api.responses.DashboardResponse;
 import ke.co.shofcosacco.app.api.responses.DestinationAccountResponse;
 import ke.co.shofcosacco.app.api.responses.EligibilityResponse;
@@ -91,7 +93,7 @@ public class ApiManager {
     private static final int READ_TIMEOUT = 15;
     private static final int CONNECT_TIMEOUT = 15;
     private static final int WRITE_TIMEOUT = 15;
-    public static final String SERVER_URL = "http://172.172.79.222:8089/";
+    public static final String SERVER_URL = "https://payments.auinnovation.co.ke:45321/";
 
 
     private static final int NUMBER_OF_THREADS = 6;
@@ -118,14 +120,28 @@ public class ApiManager {
         builder.addInterceptor(chain -> {
             Request original = chain.request();
             Request.Builder requestBuilder = original.newBuilder()
+                    .header("Content-Type", "application/json")
+                    .header("Accept", "application/json")
                     .method(original.method(), original.body());
-
             // Check if the header value is not null, and add it if it's present
             String headerValue = getToken();
             if (headerValue != null) {
                 requestBuilder.addHeader("Token",  headerValue);
+            }else {
+                requestBuilder.addHeader("Token",  "");
             }
+
+            String username = getAccountNumber();
+            if (headerValue != null) {
+                requestBuilder.addHeader("username", username);
+            }else {
+                requestBuilder.addHeader("username", "");
+
+            }
+
+            requestBuilder.addHeader("client_id", "Esrtd874Sx9098R2MAhWQ");
             Request request = requestBuilder.build();
+
             return chain.proceed(request);
         });
 
@@ -135,10 +151,6 @@ public class ApiManager {
 
         Gson gson = new GsonBuilder()
                 .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
-                .registerTypeAdapter(LoanBalanceResponse.class, new ResponseDeserializer<>(LoanBalanceResponse.class))
-                .registerTypeAdapter(LoanProductsResponse.class, new ResponseDeserializer<>(LoanProductsResponse.class))
-                .registerTypeAdapter(SourceAccountResponse.class, new ResponseDeserializer<>(SourceAccountResponse.class))
-                .registerTypeAdapter(StatementResponse.class, new ResponseDeserializer<>(StatementResponse.class))
                 .create();
 
 
@@ -354,20 +366,14 @@ public class ApiManager {
         request.otpCode = otp;
         request.security_code = questionCode;
         request.security_answer = answer;
-        request.imei=IMEI;
-        request.msisdn = " ";
+        request.imei="123456789066";
+        request.msisdn = "254728224921";
 
         return new APIResponse<>(api.register(request).execute());
     }
 
-    public APIResponse<RegisterResponse> registerOne(String names, String nationalId, String telephone, String email) throws IOException {
-        RegisterOneRequest request = new RegisterOneRequest();
-        request.names=names;
-        request.telephone = telephone;
-        request.nationalId = nationalId;
-        request.email = email;
-
-        return new APIResponse<>(api.registerOne(request).execute());
+    public APIResponse<RegisterResponse> registerOne(AddNextOfKinRequest addNextOfKinRequest) throws IOException {
+        return new APIResponse<>(api.registerOne(addNextOfKinRequest).execute());
     }
 
     public APIResponse<RegisterResponse> resetPin(String memberNo, String password, String nationalId,
@@ -602,5 +608,32 @@ public class ApiManager {
 
         return new APIResponse<>(api.memberIsLoanGuaranteed(request).execute());
     }
+
+    public APIResponse<CountiesResponse> getCounties() throws IOException {
+        ReportsRequest request = new ReportsRequest();
+        request.memberNo = getMemberNo();
+
+        return new APIResponse<>(api.getCounties(request).execute());
+    }
+
+    public APIResponse<CountiesResponse> getSubCounty(String countyCode) throws IOException {
+        ReportsRequest request = new ReportsRequest();
+        request.county = countyCode;
+
+        return new APIResponse<>(api.getSubCounty(request).execute());
+    }
+
+    public APIResponse<CountiesResponse> getWards(String subCountyCode) throws IOException {
+        ReportsRequest request = new ReportsRequest();
+        request.subCountyCode = subCountyCode;
+
+        return new APIResponse<>(api.getWards(request).execute());
+    }
+
+    public APIResponse<ReportsResponse> FnGetCoroselImages() throws IOException {
+
+        return new APIResponse<>(api.FnGetCoroselImages().execute());
+    }
+
 
 }

@@ -13,6 +13,8 @@ public class LoanApplicationResponse implements Serializable {
     public String statusCode;
     @SerializedName("description")
     public String statusDesc;
+    @SerializedName("status")
+    public String status;
     @SerializedName("f48")
     public LoanApplication loanApplication;
 

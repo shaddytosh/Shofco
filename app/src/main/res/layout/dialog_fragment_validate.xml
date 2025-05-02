@@ -46,7 +46,7 @@
                 android:id="@+id/txt_member_no"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textCapCharacters"
+                android:inputType="number"
                 android:maxLines="1"/>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -60,7 +60,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/til_member_no"
-            android:text="@string/begin_registration" />
+            android:text="@string/activate_" />
 
         <TextView
             android:id="@+id/tv_close"

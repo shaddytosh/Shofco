@@ -83,6 +83,8 @@ public class RecentTransactionsAdapter extends ListAdapter<Dashboard, RecentTran
 
     @Override
     public int getItemCount() {
-        return 5;
+        int currentListSize = getCurrentList().size(); // Replace 'yourList' with the actual list you are using
+        // Return the minimum of currentListSize and 5
+        return Math.min(currentListSize, 5);
     }
 }

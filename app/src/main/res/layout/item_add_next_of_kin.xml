@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+    <!-- Name -->
+    <TextView
+        android:id="@+id/textName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Name: John Doe"
+        android:textSize="16sp"
+        android:textColor="@android:color/black"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/remove_button"
+        app:layout_constraintHorizontal_bias="0"/>
+
+    <!-- Date of Birth -->
+    <TextView
+        android:id="@+id/textDateOfBirth"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="DOB: 01/01/1990"
+        android:textSize="14sp"
+        android:textColor="@android:color/black"
+        app:layout_constraintTop_toBottomOf="@id/textName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/remove_button"
+        app:layout_constraintHorizontal_bias="0"/>
+
+    <!-- National ID -->
+    <TextView
+        android:id="@+id/textIdNo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="ID: 12345678"
+        android:textSize="14sp"
+        android:textColor="@android:color/black"
+        app:layout_constraintTop_toBottomOf="@id/textDateOfBirth"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/remove_button"
+        app:layout_constraintHorizontal_bias="0"/>
+
+    <!-- Phone Number -->
+    <TextView
+        android:id="@+id/textTelephone"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Tel: 0712345678"
+        android:textSize="14sp"
+        android:textColor="@android:color/black"
+        app:layout_constraintTop_toBottomOf="@id/textIdNo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/remove_button"
+        app:layout_constraintHorizontal_bias="0"/>
+
+    <!-- Email -->
+    <TextView
+        android:id="@+id/textEmail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Email: john.doe@example.com"
+        android:textSize="14sp"
+        android:textColor="@android:color/black"
+        app:layout_constraintTop_toBottomOf="@id/textTelephone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/remove_button"
+        app:layout_constraintHorizontal_bias="0"/>
+
+    <!-- Town -->
+    <TextView
+        android:id="@+id/textTown"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Town: Nairobi"
+        android:textSize="14sp"
+        android:textColor="@android:color/black"
+        app:layout_constraintTop_toBottomOf="@id/textEmail"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/remove_button"
+        app:layout_constraintHorizontal_bias="0"/>
+
+    <!-- Address -->
+    <TextView
+        android:id="@+id/textAddress"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Address: 123 Street, Box 456"
+        android:textSize="14sp"
+        android:textColor="@android:color/black"
+        app:layout_constraintTop_toBottomOf="@id/textTown"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/remove_button"
+        app:layout_constraintHorizontal_bias="0"/>
+
+    <!-- Allocation -->
+    <TextView
+        android:id="@+id/textAllocation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Allocation: 50%"
+        android:textSize="14sp"
+        android:textColor="@android:color/black"
+        app:layout_constraintTop_toBottomOf="@id/textAddress"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/remove_button"
+        app:layout_constraintHorizontal_bias="0"
+        android:layout_marginBottom="@dimen/size_8"/>
+
+    <!-- Remove Button -->
+    <ImageView
+        android:id="@+id/remove_button"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="8dp"
+        android:src="@drawable/baseline_delete_forever_24"
+        android:contentDescription="@string/remove"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:tint="@color/red" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/grey"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="@dimen/size_8"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

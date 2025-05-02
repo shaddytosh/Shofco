@@ -9,7 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProvider;
 
 
-
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -46,6 +47,13 @@ public class LauncherFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
+
+        try {
+            authViewModel.removeLoggedInUser();
+        } catch (GeneralSecurityException | IOException e) {
+            throw new RuntimeException(e);
+        }
+
         if (mTimer!=null)
             mTimer.cancel();
         mTimer = new Timer("launch");

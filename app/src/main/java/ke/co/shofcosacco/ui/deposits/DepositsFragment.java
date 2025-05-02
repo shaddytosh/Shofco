@@ -17,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import co.ke.shofcosacco.R;
@@ -149,22 +150,33 @@ public class DepositsFragment extends BaseFragment implements DepositAccountBala
 
     private void displayData(List<AccountBalanceBosa> accountBalanceBosa,List<AccountBalanceFosa> accountBalanceFosa){
 
-        boolean isBosaEmpty = accountBalanceBosa.isEmpty();
-        boolean isFosaEmpty = accountBalanceFosa.isEmpty();
+        List<AccountBalanceBosa> safeAccountBalanceBosa = accountBalanceBosa == null ? new ArrayList<>() : accountBalanceBosa;
+
+        boolean isBosaEmpty = safeAccountBalanceBosa.isEmpty();
+
+        List<AccountBalanceFosa> safeAccountBalanceFosa = accountBalanceFosa == null ? new ArrayList<>() : accountBalanceFosa;
+
+        boolean isFosaEmpty = safeAccountBalanceFosa.isEmpty();
 
         binding.llEmpty.setVisibility(isBosaEmpty && isFosaEmpty ? View.VISIBLE : View.GONE);
-        binding.llLoading.setVisibility(isBosaEmpty && isFosaEmpty ? View.VISIBLE : View.GONE);
-        binding.llData.setVisibility(!isBosaEmpty && !isFosaEmpty ? View.VISIBLE : View.GONE);
-
-
+        binding.llLoading.setVisibility(View.GONE);
+        binding.llData.setVisibility(!isBosaEmpty || !isFosaEmpty ? View.VISIBLE : View.GONE);
 
         accountBalanceBosaAdapter.submitList(accountBalanceBosa);
         accountBalanceFosaAdapter.submitList(accountBalanceFosa);
 
-        binding.bosarecyclerView.setVisibility(accountBalanceBosa.size() > 0 ? View.VISIBLE : View.GONE);
-        binding.fosarecyclerView.setVisibility(accountBalanceBosa.size() > 0 ? View.VISIBLE : View.GONE);
-        binding.tvBosa.setVisibility(accountBalanceBosa.size() > 0 ? View.VISIBLE : View.GONE);
-        binding.tvFosa.setVisibility(accountBalanceFosa.size() > 0 ? View.VISIBLE : View.GONE);
+        if (accountBalanceBosa != null) {
+            binding.bosarecyclerView.setVisibility(accountBalanceBosa.size() > 0 ? View.VISIBLE : View.GONE);
+        }
+        if (accountBalanceFosa != null) {
+            binding.fosarecyclerView.setVisibility(accountBalanceFosa.size() > 0 ? View.VISIBLE : View.GONE);
+        }
+        if (accountBalanceBosa != null) {
+            binding.tvBosa.setVisibility(accountBalanceBosa.size() > 0 ? View.VISIBLE : View.GONE);
+        }
+        if (accountBalanceFosa != null) {
+            binding.tvFosa.setVisibility(accountBalanceFosa.size() > 0 ? View.VISIBLE : View.GONE);
+        }
     }
 
     @Override
@@ -179,7 +191,7 @@ public class DepositsFragment extends BaseFragment implements DepositAccountBala
 
 
     public void onBackPressed() {
-       navigateUp();
+        navigateUp();
     }
 
     @Override
@@ -197,11 +209,11 @@ public class DepositsFragment extends BaseFragment implements DepositAccountBala
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-         if (requestCode == DISMISS && resultCode == Activity.RESULT_OK && data != null) {
-           getAccountBalancesBosaFree();
+        if (requestCode == DISMISS && resultCode == Activity.RESULT_OK && data != null) {
+            getAccountBalancesBosaFree();
         }else if (requestCode == 3000 && resultCode == Activity.RESULT_OK && data != null) {
             notSuccessDialog(data.getStringExtra("message"));
-         }
+        }
     }
 
     private void notSuccessDialog(String message){

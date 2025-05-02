@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import co.ke.shofcosacco.R;
@@ -27,7 +28,6 @@ import ke.co.shofcosacco.app.navigation.BaseFragment;
 import ke.co.shofcosacco.app.utils.Constants;
 import ke.co.shofcosacco.ui.auth.AuthViewModel;
 import ke.co.shofcosacco.ui.auth.LiveDataViewModel;
-import ke.co.shofcosacco.ui.deposits.DepositsFragment;
 import ke.co.shofcosacco.ui.home.NotSuccessDialogFragment;
 import ke.co.shofcosacco.ui.main.MainFragment;
 
@@ -78,7 +78,7 @@ public class MyAccountFragment extends BaseFragment implements AccountBalanceBos
 
         binding.swipeToRefresh.setOnRefreshListener(() -> {
             binding.swipeToRefresh.setRefreshing(false);
-           transactionCost();
+            transactionCost();
         });
 
         if (liveDataViewModel.getAccountBalancesBosaLiveData().getValue() == null ||
@@ -155,7 +155,7 @@ public class MyAccountFragment extends BaseFragment implements AccountBalanceBos
                 }
             }else {
                 notSuccessDialog(Constants.API_ERROR);
-               showEmptyState();
+                showEmptyState();
             }
         });
     }
@@ -179,6 +179,9 @@ public class MyAccountFragment extends BaseFragment implements AccountBalanceBos
             } else {
                 binding.llEmpty.setVisibility(View.VISIBLE);
                 binding.llData.setVisibility(View.GONE);
+
+                getAccountBalancesFosa(null);
+                liveDataViewModel.setAccountBalancesBosaLiveData(null);
             }
         });
     }
@@ -194,26 +197,44 @@ public class MyAccountFragment extends BaseFragment implements AccountBalanceBos
             } else {
                 binding.llEmpty.setVisibility(View.VISIBLE);
                 binding.llData.setVisibility(View.GONE);
+                displayData(accountBalanceBosa, null);
+                liveDataViewModel.setAccountBalancesFosaLiveData(null);
             }
         });
     }
 
     private void displayData(List<AccountBalanceBosa> accountBalanceBosa,List<AccountBalanceFosa> accountBalanceFosa){
 
-        boolean isBosaEmpty = accountBalanceBosa.isEmpty();
-        boolean isFosaEmpty = accountBalanceFosa.isEmpty();
+
+        List<AccountBalanceBosa> safeAccountBalanceBosa = accountBalanceBosa == null ? new ArrayList<>() : accountBalanceBosa;
+
+        boolean isBosaEmpty = safeAccountBalanceBosa.isEmpty();
+
+        List<AccountBalanceFosa> safeAccountBalanceFosa = accountBalanceFosa == null ? new ArrayList<>() : accountBalanceFosa;
+
+        boolean isFosaEmpty = safeAccountBalanceFosa.isEmpty();
+
+
 
         binding.llEmpty.setVisibility(isBosaEmpty && isFosaEmpty ? View.VISIBLE : View.GONE);
-        binding.llLoading.setVisibility(isBosaEmpty && isFosaEmpty ? View.VISIBLE : View.GONE);
-        binding.llData.setVisibility(!isBosaEmpty && !isFosaEmpty ? View.VISIBLE : View.GONE);
+        binding.llLoading.setVisibility(View.GONE);
+        binding.llData.setVisibility(!isBosaEmpty || !isFosaEmpty ? View.VISIBLE : View.GONE);
 
         accountBalanceBosaAdapter.submitList(accountBalanceBosa);
         accountBalanceFosaAdapter.submitList(accountBalanceFosa);
 
-        binding.bosarecyclerView.setVisibility(accountBalanceBosa.size() > 0 ? View.VISIBLE : View.GONE);
-        binding.fosarecyclerView.setVisibility(accountBalanceFosa.size() > 0 ? View.VISIBLE : View.GONE);
-        binding.tvBosa.setVisibility(accountBalanceBosa.size() > 0 ? View.VISIBLE : View.GONE);
-        binding.tvFosa.setVisibility(accountBalanceFosa.size() > 0 ? View.VISIBLE : View.GONE);
+        if (accountBalanceBosa != null) {
+            binding.bosarecyclerView.setVisibility(accountBalanceBosa.size() > 0 ? View.VISIBLE : View.GONE);
+        }
+        if (accountBalanceFosa != null) {
+            binding.fosarecyclerView.setVisibility(accountBalanceFosa.size() > 0 ? View.VISIBLE : View.GONE);
+        }
+        if (accountBalanceBosa != null) {
+            binding.tvBosa.setVisibility(accountBalanceBosa.size() > 0 ? View.VISIBLE : View.GONE);
+        }
+        if (accountBalanceFosa != null) {
+            binding.tvFosa.setVisibility(accountBalanceFosa.size() > 0 ? View.VISIBLE : View.GONE);
+        }
     }
 
     @Override

@@ -106,6 +106,16 @@
 
                     </com.google.android.material.textfield.TextInputLayout>
 
+                    <TextView
+                        android:id="@+id/tv_check_eligibility"
+                        style="@style/NHIFActionTextButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/size_20"
+                        android:layout_marginStart="@dimen/size_20"
+                        android:backgroundTint="@color/secondary_alt"
+                        android:text="@string/check_eligibility"/>
+
 
                     <TextView
                         android:id="@+id/tv_apply_loan"

@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.gms.auth.api.phone.SmsRetriever;
@@ -217,7 +218,7 @@ public class ChangePinFragment extends BaseFragment {
                     }
                 };
         IntentFilter intentFilter = new IntentFilter(SmsRetriever.SMS_RETRIEVED_ACTION);
-        requireContext().registerReceiver(smsBroadcastReceiver, intentFilter);
+        ContextCompat.registerReceiver(requireContext(), smsBroadcastReceiver,intentFilter, ContextCompat.RECEIVER_EXPORTED);
     }
     @Override
     public void onStart() {

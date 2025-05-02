@@ -309,27 +309,11 @@ public class TransferFragment extends BaseFragment {
                      finalAmount = amount;
                     positiveButton.setOnClickListener(v -> {
 
-                        ProgressDialog progressDialog1 = ProgressDialog.show(getContext(), "",
-                                "Requesting OTP. Please wait...", true);
-                        authViewModel.sendOtp(authViewModel.getMemberNo(),"TRANSFER").observe(getViewLifecycleOwner(), apiResponse1 -> {
-                            progressDialog1.dismiss();
-                            if (apiResponse1 != null && apiResponse1.isSuccessful()) {
-                                if (apiResponse1.body().success.equals(STATUS_CODE_SUCCESS)) {
-                                    OtpConfirmationDialogFragment dialogFragment = new OtpConfirmationDialogFragment();
-                                    Bundle args = new Bundle();
-                                    args.putString("mOTP", apiResponse1.body().otp);
-                                    dialogFragment.setArguments(args);
-                                    dialogFragment.show(getChildFragmentManager(), dialogFragment.getTag());
-                                }
-                                else {
-                                    notSuccessDialog(apiResponse1.body().description);
-                                }
-                            } else {
-
-                                notSuccessDialog("An error occurred. Please try again later");
-
-                            }
-                        });
+                        OtpConfirmationDialogFragment dialogFragment = new OtpConfirmationDialogFragment();
+                        Bundle args = new Bundle();
+                        args.putString("mOTP", authViewModel.getMPIN());
+                        dialogFragment.setArguments(args);
+                        dialogFragment.show(getChildFragmentManager(), dialogFragment.getTag());
 
                         alertDialog.dismiss();
                     });

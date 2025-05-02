@@ -48,6 +48,7 @@ import java.util.List;
 
 import co.ke.shofcosacco.R;
 import co.ke.shofcosacco.databinding.FragmentHomeBinding;
+import ke.co.shofcosacco.app.api.responses.ReportsResponse;
 import ke.co.shofcosacco.app.api.responses.StatementResponse;
 import ke.co.shofcosacco.app.models.Carousel;
 import ke.co.shofcosacco.app.models.Dashboard;
@@ -271,17 +272,52 @@ public class HomeFragment extends BaseFragment implements RecentTransactionsAdap
         carousel.setInfiniteCarousel(true);
         carousel.setTouchToPause(true);
 
-        List<CarouselItem> list = new ArrayList<>();
 
-        list.add(new CarouselItem("https://shofcosacco.com/wp-content/uploads/2023/11/inigo-de-la-maza-s285sDw5Ikc-unsplash-1024x683.jpg", "Mama Mboga"));
-        list.add(new CarouselItem("https://shofcosacco.com/wp-content/uploads/2023/11/DSC_3087-1-1-1024x684.jpg", "Boda Boda"));
-        list.add(new CarouselItem("https://shofcosacco.com/wp-content/uploads/2023/11/niels-steeman-9oHlADjtBTQ-unsplash-1024x683.jpg", "Salaries"));
-        list.add(new CarouselItem("https://shofcosacco.com/wp-content/uploads/2023/11/cytonn-photography-n95VMLxqM2I-unsplash-1024x684.jpg", "Business Community"));
-        list.add(new CarouselItem("https://shofcosacco.com/wp-content/uploads/2023/11/devin-avery-lhAy4wmkjSk-unsplash-1024x683.jpg", "Youth Community"));
+        authViewModel.FnGetCoroselImages().observe(getViewLifecycleOwner(), listAPIResponse -> {
+            if (listAPIResponse != null && listAPIResponse.isSuccessful()) {
+                if (listAPIResponse.body().statusCode != null && listAPIResponse.body().statusCode.equals(STATUS_CODE_SUCCESS)) {
+                    List<ReportsResponse.Carousel> carouselList = listAPIResponse.body().carouselList;
+
+                    if (carouselList != null && !carouselList.isEmpty()) {
+                        // Create a new list to hold carousel items
+                        List<CarouselItem> carouselItems = new ArrayList<>();
+
+                        // Loop through each carousel item from the API response
+                        for (ReportsResponse.Carousel carouselItem : carouselList) {
+                            String  imageUrl = carouselItem.url;
+                            if (imageUrl != null) {
+                                // Use the URI to add the image to the carousel
+                                carouselItems.add(new CarouselItem(imageUrl, ""));
+                            }
+                        }
 
 
+                        // Check if we have valid items to display
+                        if (!carouselItems.isEmpty()) {
+                            // Set the carousel data
+                            binding.carousel.addData(carouselItems);
+                            binding.carousel.setVisibility(View.VISIBLE);
+                            binding.deals.setVisibility(View.VISIBLE);
 
-        carousel.addData(list);
+                        } else {
+                            binding.carousel.setVisibility(View.GONE); // No valid images
+                            binding.deals.setVisibility(View.GONE);
+
+                        }
+                    } else {
+                        binding.carousel.setVisibility(View.GONE); // Empty list
+                        binding.deals.setVisibility(View.GONE);
+                    }
+                } else {
+                    binding.carousel.setVisibility(View.GONE);
+                    binding.deals.setVisibility(View.GONE);// API returned error
+                }
+            } else {
+                binding.carousel.setVisibility(View.GONE); // Network or other issue
+                binding.deals.setVisibility(View.GONE);
+            }
+        });
+
 
     }
 

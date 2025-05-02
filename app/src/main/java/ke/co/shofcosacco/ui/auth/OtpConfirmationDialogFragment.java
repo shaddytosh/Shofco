@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
@@ -34,6 +35,7 @@ import java.util.regex.Pattern;
 
 import co.ke.shofcosacco.R;
 import co.ke.shofcosacco.databinding.DialogOtpConfirmationBinding;
+import ke.co.shofcosacco.app.utils.TextValidator;
 
 
 public class OtpConfirmationDialogFragment extends DialogFragment {
@@ -43,7 +45,6 @@ public class OtpConfirmationDialogFragment extends DialogFragment {
     private DialogOtpConfirmationBinding binding;
     private AuthViewModel authViewModel;
     private String sourceAccountNumber, amount,phoneNumber, mOTP;
-//    private SmsBroadcastReceiver smsBroadcastReceiver;
 
     public OtpConfirmationDialogFragment() {
         // Required empty public constructor
@@ -81,8 +82,6 @@ public class OtpConfirmationDialogFragment extends DialogFragment {
 
         }
 
-        binding.name.setText("Enter OTP sent");
-
         binding.ivClose.setOnClickListener(view -> {
             InputMethodManager imm = (InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(binding.getRoot().getWindowToken(), 0);
@@ -91,60 +90,35 @@ public class OtpConfirmationDialogFragment extends DialogFragment {
 
         binding.tvVerifyOtp.setOnClickListener(v -> verifyOtp());
 
-        binding.tvResendOtp.setOnClickListener(v -> resendOtp());
-
-//        startSmsUserConsent();
 
         return binding.getRoot();
 
     }
 
     private void verifyOtp(){
-        String code=binding.otp.getOtp();
-        if (code==null || code.trim().length()<binding.otp.getLength() || code.contains(" ")){
-            Toast.makeText(requireContext(), R.string.please_complete_otp, Toast.LENGTH_SHORT).show();
-            return;
-        }
 
-        if (mOTP != null && mOTP.equals(code)){
-            Intent result = new Intent();
+        String password= binding.txtPin.getText().toString().trim();
 
-            result.putExtra("sourceAccountNumber", sourceAccountNumber);
-            result.putExtra("amount", amount);
-            result.putExtra("phoneNumber", phoneNumber);
-            result.putExtra("otp", code);
-
-            if (getParentFragment() != null) {
-                getParentFragment().onActivityResult(VERIFY_OTP, RESULT_OK, result);
-            }
-            dismiss();
+        if (TextValidator.isEmpty(password)) {
+            binding.tilPin.setError(getString(R.string.required));
         }else {
-            Toast.makeText(requireContext(), "Wrong OTP code", Toast.LENGTH_SHORT).show();
+            if (mOTP != null && mOTP.equals(password)){
+                Intent result = new Intent();
 
-        }
+                result.putExtra("sourceAccountNumber", sourceAccountNumber);
+                result.putExtra("amount", amount);
+                result.putExtra("phoneNumber", phoneNumber);
+                result.putExtra("otp", password);
 
-    }
-
-    private void resendOtp(){
-        ProgressDialog progressDialog1 = ProgressDialog.show(getContext(), "",
-                "Requesting OTP. Please wait...", true);
-        authViewModel.sendOtp(authViewModel.getMemberNo(),"OTP").observe(getViewLifecycleOwner(), apiResponse1 -> {
-            progressDialog1.dismiss();
-            binding.otp.setOtp(null);
-            if (apiResponse1 != null && apiResponse1.isSuccessful()) {
-                if (apiResponse1.body().success.equals(STATUS_CODE_SUCCESS)) {
-                   mOTP = apiResponse1.body().otp;
+                if (getParentFragment() != null) {
+                    getParentFragment().onActivityResult(VERIFY_OTP, RESULT_OK, result);
                 }
-                else {
-
-                    Toast.makeText(requireContext(), apiResponse1.body().description, Toast.LENGTH_SHORT).show();
-                }
-            } else {
-                Toast.makeText(requireContext(), "An error occurred. Please try again later", Toast.LENGTH_SHORT).show();
+                dismiss();
+            }else {
+                Toast.makeText(requireContext(), "Wrong PIN, Please try again. Too many attempts will block account", Toast.LENGTH_SHORT).show();
 
             }
-        });
-
+        }
 
     }
 
@@ -152,12 +126,12 @@ public class OtpConfirmationDialogFragment extends DialogFragment {
     public void onResume()
     {
         super.onResume();
-        binding.otp.post(() -> {
-            binding.otp.requestFocus();
+        binding.txtPin.post(() -> {
+            binding.txtPin.requestFocus();
             InputMethodManager imm =
-                    (InputMethodManager)binding.otp.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    (InputMethodManager)binding.txtPin.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
             if (imm != null)
-                imm.showSoftInput(binding.otp, InputMethodManager.SHOW_IMPLICIT);
+                imm.showSoftInput(binding.txtPin, InputMethodManager.SHOW_IMPLICIT);
         });
     }
 
@@ -165,68 +139,12 @@ public class OtpConfirmationDialogFragment extends DialogFragment {
     public void onDismiss(@NonNull DialogInterface dialog)
     {
         InputMethodManager imm =
-                (InputMethodManager)binding.otp.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                (InputMethodManager)binding.txtPin.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         if (imm.isActive())
             imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
 
         super.onDismiss(dialog);
     }
-
-    private void startSmsUserConsent() {
-        SmsRetrieverClient client = SmsRetriever.getClient(requireContext());
-        //We can add sender phone number or leave it blank
-        // I'm adding null here
-        client.startSmsUserConsent(null).addOnSuccessListener(aVoid -> {
-        }).addOnFailureListener(e -> {
-        });
-    }
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQ_USER_CONSENT) {
-            if ((resultCode == RESULT_OK) && (data != null)) {
-                //That gives all message to us.
-                // We need to get the code from inside with regex
-                String message = data.getStringExtra(SmsRetriever.EXTRA_SMS_MESSAGE);
-
-                getOtpFromMessage(message);
-            }
-        }
-    }
-    private void getOtpFromMessage(String message) {
-        // This will match any 6 digit number in the message
-        Pattern pattern = Pattern.compile("(|^)\\d{4}");
-        Matcher matcher = pattern.matcher(message);
-        if (matcher.find()) {
-            binding.otp.setOtp(matcher.group(0));
-            verifyOtp();
-        }
-    }
-//    private void registerBroadcastReceiver() {
-//        smsBroadcastReceiver = new SmsBroadcastReceiver();
-//        smsBroadcastReceiver.smsBroadcastReceiverListener =
-//                new SmsBroadcastReceiver.SmsBroadcastReceiverListener() {
-//                    @Override
-//                    public void onSuccess(Intent intent) {
-//                        startActivityForResult(intent, REQ_USER_CONSENT);
-//                    }
-//                    @Override
-//                    public void onFailure() {
-//                    }
-//                };
-//        IntentFilter intentFilter = new IntentFilter(SmsRetriever.SMS_RETRIEVED_ACTION);
-//        requireContext().registerReceiver(smsBroadcastReceiver, intentFilter);
-//    }
-//    @Override
-//    public void onStart() {
-//        super.onStart();
-//        registerBroadcastReceiver();
-//    }
-//    @Override
-//    public void onStop() {
-//        super.onStop();
-//        requireContext().unregisterReceiver(smsBroadcastReceiver);
-//    }
 
 
 }

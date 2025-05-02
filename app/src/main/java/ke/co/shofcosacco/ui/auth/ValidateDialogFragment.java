@@ -152,7 +152,6 @@ public class ValidateDialogFragment extends DialogFragment {
                 }
                 else {
                     notSuccessDialog(apiResponse.body().description);
-                    dismiss();
                 }
             } else {
 

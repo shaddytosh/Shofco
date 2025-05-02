@@ -73,7 +73,7 @@
     <string name="amount">Amount</string>
     <string name="confirm_transfer">Confirm Transfer</string>
     <string name="money_transfer">Money Transfer</string>
-    <string name="share_message">Hello there👋, try out Airports Sacco Mobile App. Download it at https://play.google.com/store/apps/details?id=co.ke.airportssacco</string>
+    <string name="share_message">Hello there👋, try out Shofco Sacco Mobile App. Download it at https://play.google.com/store/apps/details?id=co.ke.shofcosacco</string>
     <string name="loyalty_account">Loyalty Account</string>
     <string name="account_type">Account Type</string>
     <string name="actual_balance">Actual Balance</string>
@@ -170,6 +170,39 @@
     <string name="enable_fingerprint">Enable Fingerprint</string>
     <string name="transactions">Transactions</string>
     <string name="click_on_the_dates_to_filter">Click on the dates to filter</string>
+
+    <string name="register_text">"You are about to register. Do you wish to continue?\n By Clicking Proceed you agree to register with SHOFCO SACCO"</string>
+    <string name="check_eligibility">Check Eligibility</string>
+    <string name="my_guarantors">My Guarantors</string>
+    <string name="verify_pin_to_continue">Verify PIN to continue</string>
+    <string name="activate">Activate Mobile</string>
+    <string name="activate_">Activate</string>
+    <string name="town">Town</string>
+    <string name="address">Address</string>
+    <string name="next">Next</string>
+    <string name="gender">Gender</string>
+    <string name="marital_status">Marital Status</string>
+    <string name="county">County</string>
+    <string name="sub_county">Sub County</string>
+    <string name="ward">Ward</string>
+    <string name="physical_address">Physical Address</string>
+    <string name="take_passport">Take Passport</string>
+    <string name="remove">Remove</string>
+    <string name="full_name">Full Name</string>
+    <string name="allocation">Allocation (%)</string>
+    <string name="add">Add</string>
+    <string name="add_next_of_kin">Add Next of Kin</string>
+    <string name="take_signature">Take Signature</string>
+    <string name="passport">Passport</string>
+    <string name="signature">Signature</string>
+    <string name="pick_passport">Pick Passport</string>
+    <string name="upload_passport">Upload Passport</string>
+    <string name="upload_signature">Upload Signature</string>
+    <string name="take">Take</string>
+    <string name="upload">Upload</string>
+    <string name="id_front">ID Front</string>
+    <string name="id_back">ID Back</string>
+
 
 
 </resources>

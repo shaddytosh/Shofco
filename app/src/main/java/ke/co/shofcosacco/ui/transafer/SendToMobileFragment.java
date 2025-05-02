@@ -330,31 +330,15 @@ public class SendToMobileFragment extends BaseFragment {
                     AlertDialog alertDialog = builder.create();
                     TextView positiveButton = customView.findViewById(R.id.positive_button);
                     positiveButton.setOnClickListener(v -> {
-                        ProgressDialog progressDialog1 = ProgressDialog.show(getContext(), "",
-                                "Requesting OTP. Please wait...", true);
-                        authViewModel.sendOtp(authViewModel.getMemberNo(),"SEND TO MOBILE").observe(getViewLifecycleOwner(), apiResponse1 -> {
-                            progressDialog1.dismiss();
-                            if (apiResponse1 != null && apiResponse1.isSuccessful()) {
-                                if (apiResponse1.body().success.equals(STATUS_CODE_SUCCESS)) {
-                                    OtpConfirmationDialogFragment dialogFragment = new OtpConfirmationDialogFragment();
-                                    Bundle args = new Bundle();
-                                    args.putString("sourceAccountNumber",sourceAccountNumber);
-                                    args.putString("amount",amount);
-                                    args.putString("phoneNumber",phoneNumber);
-                                    args.putString("mOTP", apiResponse1.body().otp);
-                                    dialogFragment.setArguments(args);
-                                    dialogFragment.show(getChildFragmentManager(), dialogFragment.getTag());
-                                }
-                                else {
-                                    notSuccessDialog(apiResponse.body().statusDesc);
-                                }
-                            } else {
 
-                                notSuccessDialog("An error occurred. Please try again later");
-
-                            }
-                        });
-
+                        OtpConfirmationDialogFragment dialogFragment = new OtpConfirmationDialogFragment();
+                        Bundle args = new Bundle();
+                        args.putString("sourceAccountNumber",sourceAccountNumber);
+                        args.putString("amount",amount);
+                        args.putString("phoneNumber",phoneNumber);
+                        args.putString("mOTP", authViewModel.getMPIN());
+                        dialogFragment.setArguments(args);
+                        dialogFragment.show(getChildFragmentManager(), dialogFragment.getTag());
 
                         alertDialog.dismiss();
 

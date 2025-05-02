@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinator"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/wallpaper">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:navigationIcon="@drawable/baseline_arrow_back_24"
+        style="@style/ThemeOverlay.MaterialComponents.Toolbar.Surface"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="Registration(2/2)"
+        app:navigationIconTint="@color/white"
+        app:titleTextColor="@color/white"
+        android:background="@color/primary" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/id_front"
+                android:backgroundTint="@color/_orange"
+                android:layout_marginStart="@dimen/size_20"
+                android:layout_marginEnd="@dimen/size_20"
+                android:layout_marginTop="@dimen/size_8"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:layout_marginBottom="@dimen/size_8"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerIdFront"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:listitem="@layout/item_photo"
+                android:layout_marginTop="@dimen/size_8"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:itemCount="1"
+                android:layout_marginStart="@dimen/size_20"
+                android:layout_marginEnd="@dimen/size_20" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+                <Button
+                    android:id="@+id/btnTakeIdFront"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/take"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/_orange"
+                    android:layout_margin="@dimen/size_20"
+                    android:textAllCaps="false"
+                    android:layout_marginBottom="@dimen/size_20"/>
+
+                <Button
+                    android:id="@+id/btnUploadIdFront"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/upload"
+                    android:backgroundTint="@color/green"
+                    android:layout_margin="@dimen/size_20"
+                    android:textAllCaps="false"
+                    android:layout_marginBottom="@dimen/size_20"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/id_back"
+                android:backgroundTint="@color/_orange"
+                android:layout_marginStart="@dimen/size_20"
+                android:layout_marginEnd="@dimen/size_20"
+                android:layout_marginTop="@dimen/size_8"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:layout_marginBottom="@dimen/size_8"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerIdBack"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:listitem="@layout/item_photo"
+                android:layout_marginTop="@dimen/size_8"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:itemCount="1"
+                android:layout_marginStart="@dimen/size_20"
+                android:layout_marginEnd="@dimen/size_20" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+                <Button
+                    android:id="@+id/btnTakeIdBack"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/take"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/_orange"
+                    android:layout_margin="@dimen/size_20"
+                    android:textAllCaps="false"
+                    android:layout_marginBottom="@dimen/size_20"/>
+
+                <Button
+                    android:id="@+id/btnUploadIdBack"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/upload"
+                    android:backgroundTint="@color/green"
+                    android:layout_margin="@dimen/size_20"
+                    android:textAllCaps="false"
+                    android:layout_marginBottom="@dimen/size_20"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/signature"
+                android:backgroundTint="@color/_orange"
+                android:layout_marginStart="@dimen/size_20"
+                android:layout_marginEnd="@dimen/size_20"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:layout_marginTop="@dimen/size_20"
+                android:layout_marginBottom="@dimen/size_8"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerSignature"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:listitem="@layout/item_photo"
+                android:layout_marginTop="@dimen/size_8"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:itemCount="1"
+                android:layout_marginStart="@dimen/size_20"
+                android:layout_marginEnd="@dimen/size_20" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <Button
+                android:id="@+id/buttonSignature"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/take"
+                android:backgroundTint="@color/_orange"
+                android:layout_margin="@dimen/size_20"
+                android:textAllCaps="false"
+                android:layout_marginBottom="@dimen/size_20"/>
+
+            <Button
+                android:id="@+id/buttonSignature1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/upload"
+                android:backgroundTint="@color/green"
+                android:layout_weight="1"
+                android:layout_margin="@dimen/size_20"
+                android:textAllCaps="false"
+                android:layout_marginBottom="@dimen/size_20"/>
+
+        </LinearLayout> <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/passport"
+                android:backgroundTint="@color/_orange"
+                android:layout_marginStart="@dimen/size_20"
+                android:layout_marginEnd="@dimen/size_20"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:layout_marginTop="@dimen/size_20"
+                android:layout_marginBottom="@dimen/size_8"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerPassport"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:listitem="@layout/item_photo"
+                android:layout_marginTop="@dimen/size_8"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:itemCount="1"
+                android:layout_marginStart="@dimen/size_20"
+                android:layout_marginEnd="@dimen/size_20" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <Button
+                android:id="@+id/buttonPassport"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/take"
+                android:backgroundTint="@color/_orange"
+                android:layout_margin="@dimen/size_20"
+                android:textAllCaps="false"
+                android:layout_marginBottom="@dimen/size_20"/>
+
+            <Button
+                android:id="@+id/buttonPassport1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/upload"
+                android:backgroundTint="@color/green"
+                android:layout_weight="1"
+                android:layout_margin="@dimen/size_20"
+                android:textAllCaps="false"
+                android:layout_marginBottom="@dimen/size_20"/>
+
+        </LinearLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_county"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:focusable="false"
+                android:hint="@string/county"
+                android:layout_marginTop="@dimen/size_8"
+                android:layout_marginStart="@dimen/size_20"
+                android:layout_marginEnd="@dimen/size_20"
+                android:layout_marginBottom="@dimen/size_8"
+                android:orientation="horizontal"
+                app:hintTextColor="@color/primary_to_white"
+                android:backgroundTint="@color/primary_to_white">
+
+                <AutoCompleteTextView
+                    android:id="@+id/tv_county"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:inputType="none"
+                    android:textSize="18sp"
+                    android:textColor="@color/primary_to_white"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_sub_county"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:focusable="false"
+                android:hint="@string/sub_county"
+                android:layout_marginTop="@dimen/size_8"
+                android:layout_marginStart="@dimen/size_20"
+                android:layout_marginEnd="@dimen/size_20"
+                android:layout_marginBottom="@dimen/size_8"
+                android:orientation="horizontal"
+                app:hintTextColor="@color/primary_to_white"
+                android:backgroundTint="@color/primary_to_white">
+
+                <AutoCompleteTextView
+                    android:id="@+id/tv_sub_county"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:inputType="none"
+                    android:textSize="18sp"
+                    android:textColor="@color/primary_to_white"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_ward"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:focusable="false"
+                android:hint="@string/ward"
+                android:layout_marginTop="@dimen/size_8"
+                android:layout_marginStart="@dimen/size_20"
+                android:layout_marginEnd="@dimen/size_20"
+                android:layout_marginBottom="@dimen/size_8"
+                android:orientation="horizontal"
+                app:hintTextColor="@color/primary_to_white"
+                android:backgroundTint="@color/primary_to_white">
+
+                <AutoCompleteTextView
+                    android:id="@+id/tv_ward"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:inputType="none"
+                    android:textSize="18sp"
+                    android:textColor="@color/primary_to_white"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_physical_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/size_20"
+                android:layout_marginEnd="@dimen/size_20"
+                android:layout_marginBottom="@dimen/size_20"
+                app:hintTextColor="@color/primary_to_white"
+                android:layout_marginTop="@dimen/size_8"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txt_physical_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/physical_address"
+                    android:textColor="?colorOnSurface"
+                    android:inputType="text"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/next_of_kin"
+                android:backgroundTint="@color/_orange"
+                android:layout_marginStart="@dimen/size_20"
+                android:layout_marginEnd="@dimen/size_20"
+                android:layout_marginTop="@dimen/size_20"
+                android:textSize="16sp"
+                android:layout_marginBottom="@dimen/size_8"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerNextOfKin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:listitem="@layout/item_add_next_of_kin"
+                android:layout_marginTop="@dimen/size_8"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:itemCount="1"
+                android:layout_marginStart="@dimen/size_20"
+                android:layout_marginEnd="@dimen/size_20" />
+
+            <Button
+                android:id="@+id/buttonNextOfKin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/add_next_of_kin"
+                android:backgroundTint="@color/_orange"
+                android:layout_margin="@dimen/size_20"
+                android:textAllCaps="false"
+                android:layout_marginBottom="@dimen/size_20"/>
+            <TextView
+                android:id="@+id/tv_submit"
+                style="@style/NHIFActionTextButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/primary"
+                android:layout_margin="@dimen/size_20"
+                android:text="@string/submit" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

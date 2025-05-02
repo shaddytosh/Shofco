@@ -14,10 +14,12 @@ import javax.inject.Singleton;
 import ke.co.shofcosacco.app.api.APIResponse;
 import ke.co.shofcosacco.app.api.ApiCarouselManager;
 import ke.co.shofcosacco.app.api.ApiManager;
+import ke.co.shofcosacco.app.api.requests.AddNextOfKinRequest;
 import ke.co.shofcosacco.app.api.responses.AccountBalanceBosaResponse;
 import ke.co.shofcosacco.app.api.responses.AccountBalanceFosaResponse;
 import ke.co.shofcosacco.app.api.responses.CarouselResponse;
 import ke.co.shofcosacco.app.api.responses.ChangePinResponse;
+import ke.co.shofcosacco.app.api.responses.CountiesResponse;
 import ke.co.shofcosacco.app.api.responses.DashboardResponse;
 import ke.co.shofcosacco.app.api.responses.DestinationAccountResponse;
 import ke.co.shofcosacco.app.api.responses.EligibilityResponse;
@@ -185,11 +187,11 @@ public class AuthRepository {
         return liveData;
     }
 
-    public LiveData<APIResponse<RegisterResponse>> registerOne(String names, String nationalId, String telephone, String email) {
+    public LiveData<APIResponse<RegisterResponse>> registerOne(AddNextOfKinRequest addNextOfKinRequest) {
         MutableLiveData<APIResponse<RegisterResponse>> liveData = new MutableLiveData<>();
         ApiManager.execute(() -> {
             try {
-                APIResponse<RegisterResponse> response = apiManager.registerOne(names,nationalId,telephone,email);
+                APIResponse<RegisterResponse> response = apiManager.registerOne(addNextOfKinRequest);
                 liveData.postValue(response);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -524,6 +526,48 @@ public class AuthRepository {
         return liveData;
     }
 
+    public LiveData<APIResponse<CountiesResponse>> getCounties() {
+        MutableLiveData<APIResponse<CountiesResponse>> liveData = new MutableLiveData<>();
+        ApiManager.execute(() -> {
+            try {
+                APIResponse<CountiesResponse> response = apiManager.getCounties();
+                liveData.postValue(response);
+            } catch (IOException e) {
+                e.printStackTrace();
+                liveData.postValue(null);
+            }
+        });
+        return liveData;
+    }
+
+    public LiveData<APIResponse<CountiesResponse>> getSubCounty(String countyCode) {
+        MutableLiveData<APIResponse<CountiesResponse>> liveData = new MutableLiveData<>();
+        ApiManager.execute(() -> {
+            try {
+                APIResponse<CountiesResponse> response = apiManager.getSubCounty(countyCode);
+                liveData.postValue(response);
+            } catch (IOException e) {
+                e.printStackTrace();
+                liveData.postValue(null);
+            }
+        });
+        return liveData;
+    }
+
+    public LiveData<APIResponse<CountiesResponse>> getWards(String subCountyCode) {
+        MutableLiveData<APIResponse<CountiesResponse>> liveData = new MutableLiveData<>();
+        ApiManager.execute(() -> {
+            try {
+                APIResponse<CountiesResponse> response = apiManager.getWards(subCountyCode);
+                liveData.postValue(response);
+            } catch (IOException e) {
+                e.printStackTrace();
+                liveData.postValue(null);
+            }
+        });
+        return liveData;
+    }
+
     public LiveData<APIResponse<ReportsResponse>> getLoansGuaranteed() {
         MutableLiveData<APIResponse<ReportsResponse>> liveData = new MutableLiveData<>();
         ApiManager.execute(() -> {
@@ -543,6 +587,20 @@ public class AuthRepository {
         ApiManager.execute(() -> {
             try {
                 APIResponse<ReportsResponse> response = apiManager.getDetailedStatement(dateFrom, dateTo);
+                liveData.postValue(response);
+            } catch (IOException e) {
+                e.printStackTrace();
+                liveData.postValue(null);
+            }
+        });
+        return liveData;
+    }
+
+    public LiveData<APIResponse<ReportsResponse>> FnGetCoroselImages() {
+        MutableLiveData<APIResponse<ReportsResponse>> liveData = new MutableLiveData<>();
+        ApiManager.execute(() -> {
+            try {
+                APIResponse<ReportsResponse> response = apiManager.FnGetCoroselImages();
                 liveData.postValue(response);
             } catch (IOException e) {
                 e.printStackTrace();

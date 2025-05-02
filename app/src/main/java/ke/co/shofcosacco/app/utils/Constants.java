@@ -96,7 +96,7 @@ public class Constants {
     public static final int PAY_CONTRIBUTIONS = 1000;
     public static final int ADD_QUERY = 1100;
 
-    public static final String SOURCE ="APP";
+    public static final String SOURCE ="USSD";
 
     public static final String API_ERROR ="An error occurred please try again later";
 

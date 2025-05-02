@@ -34,14 +34,14 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="@string/enter_otp_sent_to" />
+            android:text="Enter your PIN" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/size_24"
-            android:text="@string/verify_otp_to_continue"
+            android:text="@string/verify_pin_to_continue"
             android:textAppearance="?attr/textAppearanceHeadline5"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -49,19 +49,55 @@
             app:layout_constraintTop_toBottomOf="@id/name" />
 
 
-        <ke.co.shofcosacco.app.utils.OtpComponent
-            android:id="@+id/otp"
-            android:layout_width="wrap_content"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_pin"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/size_24"
-            android:gravity="center"
-            android:inputType="numberPassword"
-            app:otp="1234"
-            android:textSize="@dimen/text_14"
-            android:textColor="?attr/colorOnSurface"
+            android:layout_marginStart="@dimen/size_24"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="@dimen/size_24"
+            android:hint="@string/enter_pin"
+            android:textColorHint="@color/colorTextDark"
+            android:theme="@style/TextInputLayoutAppearance"
+            app:boxCornerRadiusBottomEnd="28dp"
+            app:boxCornerRadiusBottomStart="28dp"
+            app:boxCornerRadiusTopEnd="28dp"
+            app:boxCornerRadiusTopStart="28dp"
+            app:boxStrokeColor="@color/colorIconDark"
+            app:boxStrokeErrorColor="@color/errorColor"
+            app:boxStrokeWidthFocused="1dp"
+            app:errorIconTint="@color/errorColor"
+            app:errorTextColor="@color/errorColor"
+            app:hintAnimationEnabled="true"
+            app:hintEnabled="true"
+            app:hintTextColor="@color/colorTextDark"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/title" />
+            app:layout_constraintTop_toBottomOf="@+id/title"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/colorIconDark"
+            app:startIconTint="@color/colorIconDark">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txt_pin"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:cursorVisible="true"
+                android:imeOptions="actionDone"
+                android:includeFontPadding="false"
+                android:inputType="numberPassword"
+                android:layout_marginBottom="@dimen/size_20"
+                android:maxLines="1"
+                android:maxLength="4"
+                android:singleLine="true"
+                android:textAlignment="textStart"
+                android:textAllCaps="false"
+                android:textColor="@color/colorTextDark"
+                android:textSize="14sp"
+                android:textStyle="normal" />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:id="@+id/tv_verify_otp"
@@ -74,7 +110,7 @@
             android:layout_marginBottom="@dimen/size_24"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/otp"
+            app:layout_constraintTop_toBottomOf="@id/til_pin"
             android:text="@string/verify" />
 
         <TextView
@@ -83,6 +119,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_margin="@dimen/size_24"
+            android:visibility="gone"
             android:background="?selectableItemBackground"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

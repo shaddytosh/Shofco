@@ -60,6 +60,23 @@
             app:popExitAnim="@anim/out_to_right"/>
 
 
+        <action
+            android:id="@+id/action_login_to_reset_pin"
+            app:destination="@id/reset_pin"
+            app:enterAnim="@anim/in_from_right"
+            app:exitAnim="@anim/out_from_left"
+            app:popEnterAnim="@anim/in_from_left"
+            app:popExitAnim="@anim/out_to_right"/>
+
+        <action
+            android:id="@+id/action_login_to_register"
+            app:destination="@id/register"
+            app:enterAnim="@anim/in_from_right"
+            app:exitAnim="@anim/out_from_left"
+            app:popEnterAnim="@anim/in_from_left"
+            app:popExitAnim="@anim/out_to_right"/>
+
+
 
     </fragment>
 
@@ -69,7 +86,34 @@
         tools:layout="@layout/fragment_register_one">
 
         <action
-            android:id="@+id/action_register_one_to_login_options"
+            android:id="@+id/action_register_one_to_register_two"
+            app:destination="@id/register_two"
+            app:enterAnim="@anim/in_from_right"
+            app:exitAnim="@anim/out_from_left"
+            app:popEnterAnim="@anim/in_from_left"
+            app:popExitAnim="@anim/out_to_right" />
+
+
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/register_two"
+        android:name="ke.co.shofcosacco.ui.onboarding.RegisterTwoFragment"
+        tools:layout="@layout/fragment_register_two">
+
+        <argument app:argType="string" android:name="fullName"/>
+        <argument app:argType="string" android:name="nationalId"/>
+        <argument app:argType="string" android:name="dateOfBirth"/>
+        <argument app:argType="string" android:name="telephone"/>
+        <argument app:argType="string" android:name="email" app:nullable="true"/>
+        <argument app:argType="string" android:name="town"/>
+        <argument app:argType="string" android:name="address"/>
+        <argument app:argType="string" android:name="selectedGender"/>
+        <argument app:argType="string" android:name="selectedStatus"/>
+
+        <action
+            android:id="@+id/action_register_two_to_login_options"
             app:destination="@id/login_options"
             app:enterAnim="@anim/in_from_right"
             app:exitAnim="@anim/out_from_left"
@@ -80,6 +124,7 @@
 
 
     </fragment>
+
 
     <fragment
         android:id="@+id/login"

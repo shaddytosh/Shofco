@@ -14,4 +14,11 @@ public class ReportsRequest implements Serializable {
     @SerializedName("date_to")
     public String dateTo;
 
+
+    @SerializedName("county")
+    public String county;
+
+    @SerializedName("sub_county_code")
+    public String subCountyCode;
+
 }

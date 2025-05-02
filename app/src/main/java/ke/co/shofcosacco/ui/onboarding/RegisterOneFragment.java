@@ -18,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,7 +49,7 @@ public class RegisterOneFragment extends BaseFragment {
     private Handler handler;
     private AuthViewModel authViewModel;
     private String dateOfBirth;
-
+    private String selectedGender, selectedStatus;
 
 
     public RegisterOneFragment() {
@@ -70,7 +71,7 @@ public class RegisterOneFragment extends BaseFragment {
         binding.toolbar.setNavigationOnClickListener(v -> navigateUp());
 
 
-        binding.tvRegister.setOnClickListener(v -> validate());
+        binding.tvNext.setOnClickListener(v -> validate());
 
         binding.ccpForgotPassword.registerCarrierNumberEditText(binding.phoneNumberEditTextForgotPassword);
 
@@ -109,6 +110,58 @@ public class RegisterOneFragment extends BaseFragment {
             }
         });
 
+        binding.txtTown.addTextChangedListener(new TextValidator() {
+            @Override
+            public void validate(String s) {
+                if (s != null){
+                    binding.tilTown.setError(null);
+                }
+            }
+        });
+
+        binding.txtAddress.addTextChangedListener(new TextValidator() {
+            @Override
+            public void validate(String s) {
+                if (s != null){
+                    binding.tilAddress.setError(null);
+                }
+            }
+        });
+
+        // Set up the gender dropdown
+        String[] genders = new String[]{"Male", "Female"};
+        ArrayAdapter<String> genderAdapter = new ArrayAdapter<>(
+                requireContext(),
+                android.R.layout.simple_dropdown_item_1line,
+                genders
+        );
+        binding.tvGender.setAdapter(genderAdapter);
+
+        // Set up the marital status dropdown
+        String[] maritalStatuses = new String[]{"Single", "Married", "Divorced", "Widowed"};
+        ArrayAdapter<String> maritalStatusAdapter = new ArrayAdapter<>(
+                requireContext(),
+                android.R.layout.simple_dropdown_item_1line,
+                maritalStatuses
+        );
+
+        binding.tvMaritalStatus.setAdapter(maritalStatusAdapter);
+
+
+        binding.tvGender.setFocusable(false);  // Make it non-editable
+        binding.tvGender.setClickable(true);   // But still clickable to show the dropdown
+        binding.tvMaritalStatus.setFocusable(false);
+        binding.tvMaritalStatus.setClickable(true);
+
+        binding.tvGender.setOnItemClickListener((parent, view1, position, id) -> {
+             selectedGender = parent.getItemAtPosition(position).toString();
+            // Do something with selectedGender
+        });
+
+        binding.tvMaritalStatus.setOnItemClickListener((parent, view1, position, id) -> {
+            selectedStatus = parent.getItemAtPosition(position).toString();
+            // Do something with selectedStatus
+        });
 
         binding.tvDateOfBirth.setOnClickListener(view -> {
             Calendar calendar = Calendar.getInstance();
@@ -117,7 +170,7 @@ public class RegisterOneFragment extends BaseFragment {
             int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
 
             Calendar maxDate = Calendar.getInstance();
-//            maxDate.set(year - 18, month, dayOfMonth);
+            maxDate.set(year - 18, month, dayOfMonth);
 
             DatePickerDialog datePickerDialog = new DatePickerDialog(requireContext(),R.style.DatePickerDialogTheme, (view1, year1, month1, dayOfMonth1) -> {
                 String rawDateOfBirth = year1 + "-" + (month1 + 1) + "-" + dayOfMonth1;
@@ -146,6 +199,9 @@ public class RegisterOneFragment extends BaseFragment {
         String nationalId= binding.txtNationalId.getText().toString().trim();
         String telephone= binding.ccpForgotPassword.getFormattedFullNumber().replace(" ","").replace("+","");
         String email= binding.txtEmail.getText().toString();
+        String town= binding.txtTown.getText().toString();
+        String address= binding.txtAddress.getText().toString();
+
 
         if (TextValidator.isEmpty(firstName)) {
             binding.tilFirstName.setError(getString(R.string.required));
@@ -155,50 +211,23 @@ public class RegisterOneFragment extends BaseFragment {
             binding.tilNationalId.setError(getString(R.string.required));
         }else if (TextValidator.isEmpty(dateOfBirth)) {
             binding.tilYearOfBirth.setError(getString(R.string.required));
+        }else if (TextValidator.isEmpty(telephone)) {
+            binding.phoneNumberInputLayoutForgotPassword.setError(getString(R.string.required));
+        }else if (TextValidator.isEmpty(town)) {
+            binding.tilTown.setError(getString(R.string.required));
+        }else if (TextValidator.isEmpty(address)) {
+            binding.tilAddress.setError(getString(R.string.required));
+        }else if (TextValidator.isEmpty(selectedGender)) {
+            binding.tilGender.setError(getString(R.string.required));
+        }else if (TextValidator.isEmpty(selectedStatus)) {
+            binding.tilMaritalStatus.setError(getString(R.string.required));
         }else {
             validatesInput();
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(requireContext(), R.style.RoundedCornersDialog);
-            builder.setCancelable(false);
-            View customView = getLayoutInflater().inflate(R.layout.custom_dialog, null);
-            builder.setView(customView);
-            TextView textView =customView.findViewById(R.id.dialog_message);
-            textView.setText("You are about to register. Do you wish to continue?\n By Clicking Proceed you agree to register with CHUNA SACCO");
+            String fullName = firstName+" "+lastName;
 
-            AlertDialog alertDialog = builder.create();
-
-            TextView positiveButton = customView.findViewById(R.id.positive_button);
-            positiveButton.setOnClickListener(v -> {
-                ProgressDialog progressDialog = ProgressDialog.show(getContext(), "",
-                        "Registration ongoing. Please wait...", true);
-                authViewModel.registerOne(firstName+" "+lastName, nationalId, telephone, email).observe(getViewLifecycleOwner(), apiResponse -> {
-                    progressDialog.dismiss();
-                    if (apiResponse != null && apiResponse.isSuccessful()) {
-                        if (apiResponse.body().success.equals(STATUS_CODE_SUCCESS)) {
-                            successDialog(apiResponse.body().description);
-                            InputMethodManager imm = (InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-                            imm.hideSoftInputFromWindow(binding.getRoot().getWindowToken(), 0);
-
-                        } else {
-                            notSuccessDialog(apiResponse.body().description);
-                        }
-                    } else {
-
-                        Toast.makeText(requireContext(), Constants.API_ERROR, Toast.LENGTH_SHORT).show();
-
-                    }
-                });
-                alertDialog.dismiss();
-            });
-
-            TextView negativeButton = customView.findViewById(R.id.negative_button);
-            negativeButton.setOnClickListener(v -> {
-                // perform negative action
-                alertDialog.dismiss();
-
-            });
-
-            alertDialog.show();
+            navigate(RegisterOneFragmentDirections.actionRegisterOneToRegisterTwo(
+                   fullName,nationalId,dateOfBirth,telephone,email,town,address,selectedGender,selectedStatus));
 
         }
 
@@ -247,13 +276,7 @@ public class RegisterOneFragment extends BaseFragment {
         dialogFragment.show(getChildFragmentManager(),dialogFragment.getTag());
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == SUCCESS && resultCode == Activity.RESULT_OK && data != null) {
-            navigate(RegisterOneFragmentDirections.actionRegisterOneToLoginOptions());
-        }
-    }
+
 
 
 }
