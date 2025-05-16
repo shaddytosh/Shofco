@@ -11,4 +11,10 @@ public class RegisterResponse implements Serializable {
     public String success;
     @SerializedName("description")
     public String description;
+    @SerializedName("amount")
+    public String amount;
+    @SerializedName("id_no")
+    public String idNo;
+    @SerializedName("mobile_no")
+    public String mobileNo;
 }

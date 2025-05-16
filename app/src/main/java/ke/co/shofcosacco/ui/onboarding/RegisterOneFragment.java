@@ -197,7 +197,7 @@ public class RegisterOneFragment extends BaseFragment {
         String firstName= binding.txtFirstName.getText().toString().trim();
         String lastName= binding.txtLastName.getText().toString().trim();
         String nationalId= binding.txtNationalId.getText().toString().trim();
-        String telephone= binding.ccpForgotPassword.getFormattedFullNumber().replace(" ","").replace("+","");
+        String telephone= binding.ccpForgotPassword.getFormattedFullNumber().replace(" ","");
         String email= binding.txtEmail.getText().toString();
         String town= binding.txtTown.getText().toString();
         String address= binding.txtAddress.getText().toString();
@@ -226,7 +226,7 @@ public class RegisterOneFragment extends BaseFragment {
 
             String fullName = firstName+" "+lastName;
 
-            navigate(RegisterOneFragmentDirections.actionRegisterOneToRegisterTwo(
+            navigate(RegisterOneFragmentDirections.actionRegisterOneToRegisterThree(
                    fullName,nationalId,dateOfBirth,telephone,email,town,address,selectedGender,selectedStatus));
 
         }

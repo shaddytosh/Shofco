@@ -616,6 +616,18 @@ public class ApiManager {
         return new APIResponse<>(api.getCounties(request).execute());
     }
 
+    public APIResponse<CountiesResponse> getBranchesOrClusters(boolean isBranch) throws IOException {
+        ReportsRequest request = new ReportsRequest();
+        request.memberNo = getMemberNo();
+
+        if (isBranch) {
+            return new APIResponse<>(api.getBranches(request).execute());
+        }else {
+            return new APIResponse<>(api.getClusters(request).execute());
+        }
+    }
+
+
     public APIResponse<CountiesResponse> getSubCounty(String countyCode) throws IOException {
         ReportsRequest request = new ReportsRequest();
         request.county = countyCode;

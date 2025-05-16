@@ -90,7 +90,23 @@ public class LoginFragment extends BaseFragment {
         binding.forgotPassword.setOnClickListener(v -> validateDialog(true));
 
 
+        try {
+            String phoneNumber = authViewModel.getAccountNo();
+            String name = authViewModel.getName();
 
+            if (phoneNumber != null){
+                binding.txtNationalId.setText(phoneNumber);
+                binding.tilNationalId.setVisibility(View.GONE);
+            }
+
+            if (name != null){
+                binding.signInTitle.setText("Welcome back "+name);
+            }
+        } catch (GeneralSecurityException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         binding.login.setOnClickListener(v -> {
             PreventDoubleClick.preventMultiClick(v);

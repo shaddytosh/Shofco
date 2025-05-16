@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         long difference = currentTime - lastPauseTime;
 
         // Assuming you want to check if the difference is greater than 5 minutes
-        if (difference > 5 * 60 * 1000) { // 3 minutes in milliseconds
+        if (difference > 10 * 60 * 1000) { // 3 minutes in milliseconds
             try {
                 authViewModel.removeLoggedInUser();
                 Intent intent = this.getPackageManager().getLaunchIntentForPackage(this.getPackageName());

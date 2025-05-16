@@ -23,6 +23,12 @@ public class CountiesResponse implements Serializable {
     @SerializedName("wards")
     public List<Wards> wards;
 
+    @SerializedName("branches")
+    public List<Branch> branches;
+
+    @SerializedName("clusters")
+    public List<Cluster> clusters;
+
     public static class Counties implements Serializable {
         @SerializedName("code")
         public String code;
@@ -59,6 +65,32 @@ public class CountiesResponse implements Serializable {
         @Override
         public String toString() {
             return countyName;
+        }
+    }
+
+    public static class Branch implements Serializable {
+        @SerializedName("code")
+        public String code;
+        @SerializedName("branch_name")
+        public String branchName;
+
+        @NonNull
+        @Override
+        public String toString() {
+            return branchName;
+        }
+    }
+
+    public static class Cluster implements Serializable {
+        @SerializedName("code")
+        public String code;
+        @SerializedName("cluster_name")
+        public String clusterName;
+
+        @NonNull
+        @Override
+        public String toString() {
+            return clusterName;
         }
     }
 

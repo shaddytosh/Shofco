@@ -217,4 +217,12 @@ public interface RestApi {
     @GET("api/au_mobile_apis/FnGetCoroselImages")
     @Headers({"Content-Type: application/json"})
     Call<ReportsResponse> FnGetCoroselImages();
+
+    @POST("api/au_mobile_apis/GetBranches")
+    @Headers({"Content-Type: application/json"})
+    Call<CountiesResponse> getBranches(@Body ReportsRequest request);
+
+    @POST("api/au_mobile_apis/GetClusters")
+    @Headers({"Content-Type: application/json"})
+    Call<CountiesResponse> getClusters(@Body ReportsRequest request);
 }

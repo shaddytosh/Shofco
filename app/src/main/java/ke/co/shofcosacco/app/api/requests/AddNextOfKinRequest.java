@@ -56,12 +56,31 @@ public class AddNextOfKinRequest implements Serializable {
 
     @SerializedName("id_back_base64")
     private String idBackBase64;
+    @SerializedName("branch")
+    private String branch;
+
+
+    @SerializedName("cluster")
+    private String cluster;
+    @SerializedName("disability")
+    private String disability;
+    @SerializedName("specify_disability")
+    private String specifyDisability;
+    @SerializedName("introducer_name")
+    private String introducerName;
+    @SerializedName("introducer_id")
+    private String introducerId;
+    @SerializedName("introducer_phone_no")
+    private String introducerPhoneNo;
+
+
 
     public AddNextOfKinRequest(String names, String dateOfBirth, String idNo, String mobileNo,
                                String emailAddress, String town, String address, String idFrontBase64, String idBackBase64,
                                String signatureBase64, String passportBase64, String physicalAddress, String county,
                                String subCountyCode, String wardName, String gender,
-                               String maritalStatus, List<NextOfKin> nextOfKin) {
+                               String maritalStatus, List<NextOfKin> nextOfKin,String branch, String cluster, String disability, String specifyDisability, String introducerName,
+                               String introducerId, String introducerPhoneNo) {
         this.names = names;
         this.dateOfBirth = dateOfBirth;
         this.idNo = idNo;
@@ -80,6 +99,13 @@ public class AddNextOfKinRequest implements Serializable {
         this.gender = gender;
         this.maritalStatus = maritalStatus;
         this.nextOfKin = nextOfKin;
+        this.branch = branch;
+        this.cluster = cluster;
+        this.disability = disability;
+        this.specifyDisability = specifyDisability;
+        this.introducerName = introducerName;
+        this.introducerId = introducerId;
+        this.introducerPhoneNo = introducerPhoneNo;
     }
 
     @SerializedName("next_of_kin")

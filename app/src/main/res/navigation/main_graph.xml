@@ -86,8 +86,8 @@
         tools:layout="@layout/fragment_register_one">
 
         <action
-            android:id="@+id/action_register_one_to_register_two"
-            app:destination="@id/register_two"
+            android:id="@+id/action_register_one_to_register_three"
+            app:destination="@id/register_three"
             app:enterAnim="@anim/in_from_right"
             app:exitAnim="@anim/out_from_left"
             app:popEnterAnim="@anim/in_from_left"
@@ -111,6 +111,14 @@
         <argument app:argType="string" android:name="address"/>
         <argument app:argType="string" android:name="selectedGender"/>
         <argument app:argType="string" android:name="selectedStatus"/>
+        <argument app:argType="string" android:name="branch" app:nullable="true"/>
+        <argument app:argType="string" android:name="cluster" app:nullable="true"/>
+        <argument app:argType="string" android:name="disability" app:nullable="true"/>
+        <argument app:argType="string" android:name="specifyDisability" app:nullable="true"/>
+        <argument app:argType="string" android:name="introducerName" app:nullable="true"/>
+        <argument app:argType="string" android:name="introducerId" app:nullable="true"/>
+        <argument app:argType="string" android:name="introducerPhoneNo" app:nullable="true"/>
+
 
         <action
             android:id="@+id/action_register_two_to_login_options"
@@ -121,6 +129,32 @@
             app:popExitAnim="@anim/out_to_right"
             app:popUpTo="@id/login_options"
             app:popUpToInclusive="true" />
+
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/register_three"
+        android:name="ke.co.shofcosacco.ui.onboarding.RegisterThreeFragment"
+        tools:layout="@layout/fragment_register_three">
+
+        <argument app:argType="string" android:name="fullName"/>
+        <argument app:argType="string" android:name="nationalId"/>
+        <argument app:argType="string" android:name="dateOfBirth"/>
+        <argument app:argType="string" android:name="telephone"/>
+        <argument app:argType="string" android:name="email" app:nullable="true"/>
+        <argument app:argType="string" android:name="town"/>
+        <argument app:argType="string" android:name="address"/>
+        <argument app:argType="string" android:name="selectedGender"/>
+        <argument app:argType="string" android:name="selectedStatus"/>
+
+        <action
+            android:id="@+id/action_register_one_to_register_two"
+            app:destination="@id/register_two"
+            app:enterAnim="@anim/in_from_right"
+            app:exitAnim="@anim/out_from_left"
+            app:popEnterAnim="@anim/in_from_left"
+            app:popExitAnim="@anim/out_to_right" />
 
 
     </fragment>

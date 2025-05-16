@@ -21,7 +21,6 @@ import ke.co.shofcosacco.app.api.responses.ChangePinResponse;
 import ke.co.shofcosacco.app.api.responses.CountiesResponse;
 import ke.co.shofcosacco.app.api.responses.DashboardResponse;
 import ke.co.shofcosacco.app.api.responses.DestinationAccountResponse;
-import ke.co.shofcosacco.app.api.responses.EligibilityResponse;
 import ke.co.shofcosacco.app.api.responses.ForgotPinResponse;
 import ke.co.shofcosacco.app.api.responses.LoanApplicationResponse;
 import ke.co.shofcosacco.app.api.responses.LoanBalanceResponse;
@@ -201,6 +200,10 @@ public class AuthViewModel extends AndroidViewModel {
         return authRepository.getCounties();
     }
 
+    public LiveData<APIResponse<CountiesResponse>> getBranchesOrClusters(boolean isBranch) {
+        return authRepository.getBranchesOrClusters(isBranch);
+    }
+
     public LiveData<APIResponse<CountiesResponse>> getSubCounty(String countyCode) {
         return authRepository.getSubCounty(countyCode);
     }
@@ -280,6 +283,18 @@ public class AuthViewModel extends AndroidViewModel {
     public void saveAccountNo(String accountNo) throws GeneralSecurityException, IOException {
         securePrefs.saveAccountNumber(accountNo);
 
+    }
+
+    public String getAccountNo() throws GeneralSecurityException, IOException {
+
+
+        return  securePrefs.getAccountNumber();
+    }
+
+    public String getName() throws GeneralSecurityException, IOException {
+
+
+        return  securePrefs.getFirstName();
     }
 
     public void saveBiometric(String biometric) throws GeneralSecurityException, IOException {

@@ -14,7 +14,7 @@
         app:navigationIcon="@drawable/baseline_arrow_back_24"
         style="@style/ThemeOverlay.MaterialComponents.Toolbar.Surface"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="Registration(1/2)"
+        app:title="Registration(1/3)"
         app:navigationIconTint="@color/white"
         app:titleTextColor="@color/white"
         android:background="@color/primary" />
@@ -146,7 +146,7 @@
                     app:ccp_defaultNameCode="KE"
                     app:ccp_showNameCode="false"
                     app:ccp_showPhoneCode="false"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     app:layout_constraintBottom_toBottomOf="@id/phoneNumberInputLayoutForgotPassword"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@id/phoneNumberInputLayoutForgotPassword" />

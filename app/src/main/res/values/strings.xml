@@ -202,7 +202,7 @@
     <string name="upload">Upload</string>
     <string name="id_front">ID Front</string>
     <string name="id_back">ID Back</string>
-
+    <string name="didn_t_receive_stk_push">Didn\'t Receive STK Push ?</string>
 
 
 </resources>

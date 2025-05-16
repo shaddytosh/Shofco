@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.imaginativeworld.whynotimagecarousel:whynotimagecarousel:2.1.0@aar" external-system-id="GRADLE">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/8.9/transforms/a59ff7bec3f3cf3afd3b465cf49d9a99/transformed/whynotimagecarousel-2.1.0-release/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/8.9/transforms/a59ff7bec3f3cf3afd3b465cf49d9a99/transformed/whynotimagecarousel-2.1.0-release/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/8.9/transforms/a59ff7bec3f3cf3afd3b465cf49d9a99/transformed/whynotimagecarousel-2.1.0-release/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

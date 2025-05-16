@@ -540,6 +540,20 @@ public class AuthRepository {
         return liveData;
     }
 
+    public LiveData<APIResponse<CountiesResponse>> getBranchesOrClusters(boolean isBranch) {
+        MutableLiveData<APIResponse<CountiesResponse>> liveData = new MutableLiveData<>();
+        ApiManager.execute(() -> {
+            try {
+                APIResponse<CountiesResponse> response = apiManager.getBranchesOrClusters(isBranch);
+                liveData.postValue(response);
+            } catch (IOException e) {
+                e.printStackTrace();
+                liveData.postValue(null);
+            }
+        });
+        return liveData;
+    }
+
     public LiveData<APIResponse<CountiesResponse>> getSubCounty(String countyCode) {
         MutableLiveData<APIResponse<CountiesResponse>> liveData = new MutableLiveData<>();
         ApiManager.execute(() -> {

@@ -11,10 +11,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.ImageDecoder;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
 import android.provider.MediaStore;
@@ -99,6 +99,15 @@ public class RegisterTwoFragment extends BaseFragment {
     private String selectedGender;
     private String selectedStatus;
 
+    private String branch;
+    private String cluster;
+    private String disability;
+    private String specifyDisability;
+    private String introducerName;
+    private String introducerId;
+    private String introducerPhoneNo;
+
+
 
     private IdFrontAdapter idFrontAdapter;
     private IdBackAdapter idBackAdapter;
@@ -132,40 +141,6 @@ public class RegisterTwoFragment extends BaseFragment {
     private List<CountiesResponse.Wards> wardsList;
     private ArrayAdapter<CountiesResponse.Wards> wardsArrayAdapter;
 
-    private final Map<String, ActivityResultLauncher<Uri>> imageCaptureLaunchers = new HashMap<>();
-    private final Map<String, ActivityResultLauncher<String>> permissionLaunchers = new HashMap<>();
-
-
-    private void initLaunchers() {
-        setupImageCapture("idFront", idFrontUri, idFrontList, idFrontAdapter);
-        setupImageCapture("idBack", idBackUri, idBackList, idBackAdapter);
-        setupImageCapture("passport", passportUri, passportList, passportAdapter);
-        setupImageCapture("signature", signatureUri, signatureList, signatureAdapter);
-    }
-
-    private void setupImageCapture(String key, Uri uri, List<Bitmap> list, RecyclerView.Adapter<?> adapter) {
-        imageCaptureLaunchers.put(key, registerForActivityResult(new ActivityResultContracts.TakePicture(), result -> {
-            try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(requireActivity().getContentResolver(), uri);
-                if (bitmap != null && list.size() < 1) {
-                    list.clear(); // Clear if needed
-                    list.add(bitmap);
-                    adapter.notifyDataSetChanged();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-                Toast.makeText(requireContext(), "Error loading image", Toast.LENGTH_SHORT).show();
-            }
-        }));
-
-        permissionLaunchers.put(key, registerForActivityResult(new ActivityResultContracts.RequestPermission(), result -> {
-            if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
-                imageCaptureLaunchers.get(key).launch(uri);
-            } else {
-                showCameraRationale();
-            }
-        }));
-    }
 
     private final ActivityResultLauncher<Uri> mTakeImageIdFront = registerForActivityResult(new ActivityResultContracts.TakePicture(), result -> {
         try {
@@ -261,6 +236,8 @@ public class RegisterTwoFragment extends BaseFragment {
     });
 
 
+
+
     public RegisterTwoFragment() {
         // Required empty public constructor
     }
@@ -286,6 +263,15 @@ public class RegisterTwoFragment extends BaseFragment {
        address = RegisterTwoFragmentArgs.fromBundle(getArguments()).getAddress();
        selectedGender = RegisterTwoFragmentArgs.fromBundle(getArguments()).getSelectedGender();
         selectedStatus = RegisterTwoFragmentArgs.fromBundle(getArguments()).getSelectedStatus();
+
+        branch = RegisterTwoFragmentArgs.fromBundle(getArguments()).getBranch();
+        cluster = RegisterTwoFragmentArgs.fromBundle(getArguments()).getCluster();
+        disability = RegisterTwoFragmentArgs.fromBundle(getArguments()).getDisability();
+        specifyDisability = RegisterTwoFragmentArgs.fromBundle(getArguments()).getSpecifyDisability();
+        introducerName = RegisterTwoFragmentArgs.fromBundle(getArguments()).getIntroducerName();
+        introducerId = RegisterTwoFragmentArgs.fromBundle(getArguments()).getIntroducerId();
+        introducerPhoneNo = RegisterTwoFragmentArgs.fromBundle(getArguments()).getIntroducerPhoneNo();
+
 
         binding.toolbar.setNavigationOnClickListener(v -> navigateUp());
 
@@ -407,24 +393,24 @@ public class RegisterTwoFragment extends BaseFragment {
 
         binding.btnTakeIdFront.setOnClickListener(v -> pickOrTakeImageIdFront());
         binding.btnUploadIdFront.setOnClickListener(v -> {
-            checkPermissionsAndPickImage(REQUEST_PERMISSIONS_ID_FRONT);
+            checkPermissionsAndPickImage(REQUEST_IMAGE_PICK_ID_FRONT);
         });
 
         binding.btnTakeIdBack.setOnClickListener(v -> pickOrTakeImageIdBack());
         binding.btnUploadIdBack.setOnClickListener(v -> {
-            checkPermissionsAndPickImage(REQUEST_PERMISSIONS_ID_BACK);
+            checkPermissionsAndPickImage(REQUEST_IMAGE_PICK_ID_BACK);
         });
 
 
         binding.buttonSignature.setOnClickListener(v -> pickOrTakeImageSignature());
         binding.buttonSignature1.setOnClickListener(v -> {
-            checkPermissionsAndPickImage(REQUEST_PERMISSIONS_SIGNATURE);
+            checkPermissionsAndPickImage(REQUEST_IMAGE_PICK_SIGNATURE);
         });
 
 
         binding.buttonPassport.setOnClickListener(v -> pickOrTakeImagePassport());
         binding.buttonPassport1.setOnClickListener(v -> {
-            checkPermissionsAndPickImage(REQUEST_PERMISSIONS_PASSPORT);
+            checkPermissionsAndPickImage(REQUEST_IMAGE_PICK_PASSPORT);
         });
 
 
@@ -450,13 +436,13 @@ public class RegisterTwoFragment extends BaseFragment {
 
         if (TextValidator.isEmpty(physicalAddress)) {
             binding.tilPhysicalAddress.setError(getString(R.string.required));
-        }else if (idFrontUri == null) {
+        }else if (idFrontList.isEmpty()) {
             Toast.makeText(requireContext(), "ID Front is required", Toast.LENGTH_SHORT).show();
-        }else if (idBackUri == null) {
+        }else if (idBackList.isEmpty()) {
             Toast.makeText(requireContext(), "ID Back is required", Toast.LENGTH_SHORT).show();
-        }else if (signatureUri == null) {
+        }else if (signatureList.isEmpty()) {
             Toast.makeText(requireContext(), "Signature is required", Toast.LENGTH_SHORT).show();
-        }else if (passportUri == null) {
+        }else if (passportList.isEmpty()) {
             Toast.makeText(requireContext(), "Passport is required", Toast.LENGTH_SHORT).show();
         }else {
 
@@ -484,7 +470,7 @@ public class RegisterTwoFragment extends BaseFragment {
 
             AddNextOfKinRequest addNextOfKinRequest =  new AddNextOfKinRequest(fullName, dateOfBirth,nationalId, telephone, email, town,
                      address, idFront,idBack, signature, passport, physicalAddress, countyCode, subCountyCode, wardCode, selectedGender,
-                     selectedStatus, nextOfKin);
+                     selectedStatus, nextOfKin,branch, cluster, disability, specifyDisability, introducerName, introducerId, introducerPhoneNo);
 
 
 
@@ -505,9 +491,18 @@ public class RegisterTwoFragment extends BaseFragment {
                     progressDialog.dismiss();
                     if (apiResponse != null && apiResponse.isSuccessful()) {
                         if (apiResponse.body().success.equals(STATUS_CODE_SUCCESS)) {
-                            successDialog(apiResponse.body().description);
                             InputMethodManager imm = (InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                             imm.hideSoftInputFromWindow(binding.getRoot().getWindowToken(), 0);
+                            Toast.makeText(requireContext(), apiResponse.body().description, Toast.LENGTH_SHORT).show();
+
+                            StkPushDialogFragment dialogFragment = new StkPushDialogFragment();
+                            Bundle args = new Bundle();
+                            args.putString("amount", apiResponse.body().amount);
+                            args.putString("phoneNumber", apiResponse.body().mobileNo);
+                            args.putString("message", apiResponse.body().description);
+                            args.putString("idNo", apiResponse.body().idNo);
+                            dialogFragment.setArguments(args);
+                            dialogFragment.show(getChildFragmentManager(), dialogFragment.getTag());
 
                         } else {
                             notSuccessDialog(apiResponse.body().description);
@@ -685,6 +680,8 @@ public class RegisterTwoFragment extends BaseFragment {
             idFrontUri = FileProvider.getUriForFile(requireContext(), requireContext().getPackageName() + ".fileprovider", file);
 
             mTakeImageIdFront.launch(idFrontUri);
+
+
         }
     }
 
@@ -770,12 +767,13 @@ public class RegisterTwoFragment extends BaseFragment {
 
 
 
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode != RESULT_OK) return;
-
+        Uri imageUri = data.getData();
         switch (requestCode) {
             case 1200:
                 navigate(RegisterTwoFragmentDirections.actionRegisterTwoToLoginOptions());
@@ -798,19 +796,19 @@ public class RegisterTwoFragment extends BaseFragment {
                 break;
 
             case REQUEST_IMAGE_PICK_ID_FRONT:
-                handleImagePick(data, idFrontList, idFrontAdapter);
+                handleImagePick(imageUri, idFrontList, idFrontAdapter);
                 break;
 
             case REQUEST_IMAGE_PICK_ID_BACK:
-                handleImagePick(data, idBackList, idBackAdapter);
+                handleImagePick(imageUri, idBackList, idBackAdapter);
                 break;
 
             case REQUEST_IMAGE_PICK_SIGNATURE:
-                handleImagePick(data, signatureList, signatureAdapter);
+                handleImagePick(imageUri, signatureList, signatureAdapter);
                 break;
 
             case REQUEST_IMAGE_PICK_PASSPORT:
-                handleImagePick(data, passportList, passportAdapter);
+                handleImagePick(imageUri, passportList, passportAdapter);
                 break;
 
             case 2000:
@@ -851,41 +849,51 @@ public class RegisterTwoFragment extends BaseFragment {
         }
     }
 
-    private void handleImagePick(Intent data, List<Bitmap> list, RecyclerView.Adapter adapter) {
-        if (data == null) return;
-        Uri photoURI = data.getData();
+    private void handleImagePick(Uri imageUri, List<Bitmap> list, RecyclerView.Adapter adapter) {
         try {
-            Bitmap imageBitmap = MediaStore.Images.Media.getBitmap(requireActivity().getContentResolver(), photoURI);
+            Bitmap imageBitmap;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) { // API 28+
+                ImageDecoder.Source source = ImageDecoder.createSource(requireActivity().getContentResolver(), imageUri);
+                imageBitmap = ImageDecoder.decodeBitmap(source);
+            } else {
+                imageBitmap = MediaStore.Images.Media.getBitmap(requireActivity().getContentResolver(), imageUri);
+            }
+
             if (imageBitmap != null && list.size() < 1) {
-                list.clear();
                 list.add(imageBitmap);
                 adapter.notifyDataSetChanged();
+            } else {
+                Log.e("ImagePicker", "Bitmap is null after decoding");
             }
         } catch (IOException e) {
-            e.printStackTrace();
             Toast.makeText(requireContext(), "Error loading image", Toast.LENGTH_SHORT).show();
         }
+
     }
 
 
     private void checkPermissionsAndPickImage(int permissionType) {
-        // Check if the READ_EXTERNAL_STORAGE permission is granted
-        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
-            // If permission is not granted, request it
-            ActivityCompat.requestPermissions(requireActivity(),
-                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                    permissionType);
-        } else {
-            // If permission is granted, proceed to pick an image
-            // Check if we are on Android 10 or above
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                // Use the new method to pick images
-                openImagePicker(permissionType);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) { // Android 13+
+            if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_MEDIA_IMAGES)
+                    != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(requireActivity(),
+                        new String[]{Manifest.permission.READ_MEDIA_IMAGES},
+                        permissionType);
             } else {
-                // For older versions, you can use the original method
+                openImagePicker(permissionType);
+            }
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
+                    != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(requireActivity(),
+                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                        permissionType);
+            } else {
                 dispatchPickPhotoIntent(permissionType);
             }
+        } else {
+            // Below Android 6.0, permissions are granted at install time
+            dispatchPickPhotoIntent(permissionType);
         }
     }
 
@@ -948,17 +956,5 @@ public class RegisterTwoFragment extends BaseFragment {
         }
     }
 
-
-    private static class ImageCaptureConfig {
-        Uri uri;
-        List<Bitmap> targetList;
-        RecyclerView.Adapter<?> adapter;
-
-        ImageCaptureConfig(Uri uri, List<Bitmap> targetList, RecyclerView.Adapter<?> adapter) {
-            this.uri = uri;
-            this.targetList = targetList;
-            this.adapter = adapter;
-        }
-    }
 
 }

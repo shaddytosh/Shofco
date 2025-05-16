@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootLayoutConfirmPin"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="?actionBarSize">
+
+    <ImageView
+        android:id="@+id/iv_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/close"
+        android:src="@drawable/baseline_close_24"
+        android:layout_margin="@dimen/grid_1"
+        android:layout_alignParentEnd="true" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/size_24">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottie"
+            android:layout_width="100dp"
+            app:lottie_loop="false"
+            android:layout_height="100dp"
+            app:lottie_autoPlay="true"
+            android:layout_gravity="center"
+            app:lottie_rawRes="@raw/check_animation"
+            android:layout_marginTop="?actionBarSize"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:textAlignment="center"
+            android:gravity="center"
+
+            app:layout_constraintTop_toBottomOf="@id/lottie"
+            android:textAppearance="?attr/textAppearanceHeadline6"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_24"
+            android:textAppearance="?attr/textAppearanceHeadline6"
+            android:text="@string/didn_t_receive_stk_push"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/phoneNumberHolderForgotpassword"
+            app:layout_constraintTop_toBottomOf="@id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:padding="2dp">
+
+            <com.hbb20.CountryCodePicker
+                android:id="@+id/ccpForgotPassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:ccpDialog_backgroundColor="@color/white"
+                app:ccp_arrowColor="@color/material_on_surface_emphasis_medium"
+                app:ccp_autoFormatNumber="true"
+                app:ccp_defaultNameCode="KE"
+                app:ccp_showNameCode="false"
+                app:ccp_showPhoneCode="false"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@id/phoneNumberInputLayoutForgotPassword"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/phoneNumberInputLayoutForgotPassword" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/phoneNumberInputLayoutForgotPassword"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/phone_number"
+                app:endIconMode="clear_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/ccpForgotPassword"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/phoneNumberEditTextForgotPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="phone" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/tv_verify_otp"
+            style="@style/NHIFActionTextButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_24"
+            android:layout_marginBottom="@dimen/size_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/phoneNumberHolderForgotpassword"
+            android:text="Resend STK" />
+
+        <TextView
+            android:id="@+id/close"
+            style="@style/NHIFActionTextButton"
+            app:layout_constraintTop_toBottomOf="@id/tv_verify_otp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/size_24"
+            android:layout_marginTop="@dimen/_20px"
+            android:background="@drawable/round_corner"
+            android:textColor="@color/red"
+            android:text="@string/close" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</RelativeLayout>
