@@ -124,6 +124,12 @@ public class RegisterTwoFragment extends BaseFragment {
     private Uri idBackUri;
     private Uri signatureUri;
     private Uri passportUri;
+    String _employerName;
+    String _employerAddress;
+    String _employerIncome;
+    String _businessName;
+    String _businessLocation;
+    String _businessIncome ;
 
     private String countyCode, subCountyCode, wardCode;
 
@@ -140,6 +146,7 @@ public class RegisterTwoFragment extends BaseFragment {
 
     private List<CountiesResponse.Wards> wardsList;
     private ArrayAdapter<CountiesResponse.Wards> wardsArrayAdapter;
+    String employmentStatus;
 
 
     private final ActivityResultLauncher<Uri> mTakeImageIdFront = registerForActivityResult(new ActivityResultContracts.TakePicture(), result -> {
@@ -271,6 +278,15 @@ public class RegisterTwoFragment extends BaseFragment {
         introducerName = RegisterTwoFragmentArgs.fromBundle(getArguments()).getIntroducerName();
         introducerId = RegisterTwoFragmentArgs.fromBundle(getArguments()).getIntroducerId();
         introducerPhoneNo = RegisterTwoFragmentArgs.fromBundle(getArguments()).getIntroducerPhoneNo();
+
+        _employerName = RegisterTwoFragmentArgs.fromBundle(getArguments()).getEmployerName();
+        _employerAddress = RegisterTwoFragmentArgs.fromBundle(getArguments()).getEmployerAddress();
+        _employerIncome = RegisterTwoFragmentArgs.fromBundle(getArguments()).getEmployerIncome();
+        _businessName = RegisterTwoFragmentArgs.fromBundle(getArguments()).getBusinessName();
+        _businessLocation = RegisterTwoFragmentArgs.fromBundle(getArguments()).getBusinessLocation();
+        _businessIncome = RegisterTwoFragmentArgs.fromBundle(getArguments()).getBusinessIncome();
+         employmentStatus  = RegisterTwoFragmentArgs.fromBundle(getArguments()).getEmploymentStatus();
+
 
 
         binding.toolbar.setNavigationOnClickListener(v -> navigateUp());
@@ -470,7 +486,9 @@ public class RegisterTwoFragment extends BaseFragment {
 
             AddNextOfKinRequest addNextOfKinRequest =  new AddNextOfKinRequest(fullName, dateOfBirth,nationalId, telephone, email, town,
                      address, idFront,idBack, signature, passport, physicalAddress, countyCode, subCountyCode, wardCode, selectedGender,
-                     selectedStatus, nextOfKin,branch, cluster, disability, specifyDisability, introducerName, introducerId, introducerPhoneNo);
+                     selectedStatus, nextOfKin,branch, cluster, disability, specifyDisability, introducerName, introducerId, introducerPhoneNo,
+                   _employerName, _employerAddress, _employerIncome,
+                    _businessName, _businessLocation, _businessIncome,employmentStatus);
 
 
 
@@ -542,7 +560,9 @@ public class RegisterTwoFragment extends BaseFragment {
                     nextOfKinNew.getEmail(),
                     nextOfKinNew.getTown(),
                     nextOfKinNew.getAddress(),
-                    nextOfKinNew.getAllocation()
+                    nextOfKinNew.getAllocation(),
+                    nextOfKinNew.getRelationshipTypeCode()
+
             );
             nextOfKinList.add(nextOfKin); // Add to the list
         }
@@ -827,7 +847,8 @@ public class RegisterTwoFragment extends BaseFragment {
                             data.getStringExtra("email"),
                             data.getStringExtra("town"),
                             data.getStringExtra("address"),
-                            data.getStringExtra("allocation")
+                            data.getStringExtra("allocation"),
+                            data.getStringExtra("relationshipTypeCode")
                     ));
                     nextOfKinsAdapter.notifyDataSetChanged();
                 }

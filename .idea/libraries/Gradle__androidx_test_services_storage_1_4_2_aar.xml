@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="Gradle: androidx.test.services:storage:1.4.2@aar" external-system-id="GRADLE">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/8.9/transforms/1f28b72686ffa9b57b994b001a004e16/transformed/storage-1.4.2/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/8.9/transforms/1f28b72686ffa9b57b994b001a004e16/transformed/storage-1.4.2/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

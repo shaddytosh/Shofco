@@ -2,6 +2,8 @@ package ke.co.shofcosacco.ui.onboarding;
 
 import static android.app.Activity.RESULT_OK;
 
+import static ke.co.shofcosacco.app.utils.Constants.STATUS_CODE_SUCCESS;
+
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -12,21 +14,30 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProvider;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import co.ke.shofcosacco.R;
 import co.ke.shofcosacco.databinding.DialogNextOfKinBinding;
+import ke.co.shofcosacco.app.api.responses.CountiesResponse;
+import ke.co.shofcosacco.app.utils.Constants;
 import ke.co.shofcosacco.app.utils.EditTextValidator;
 import ke.co.shofcosacco.app.utils.TextValidator;
+import ke.co.shofcosacco.ui.auth.AuthViewModel;
 
 
 public class AddNextOfKinDialogFragment extends DialogFragment {
@@ -35,6 +46,12 @@ public class AddNextOfKinDialogFragment extends DialogFragment {
     private DialogNextOfKinBinding binding;
     private String dateOfBirth;
     private Handler handler;
+    private String relationshipTypeCode = "";
+
+    private List<CountiesResponse.RelationshipType> relationshipTypeList;
+    private ArrayAdapter<CountiesResponse.RelationshipType> relationshipTypeArrayAdapter;
+    private AuthViewModel authViewModel;
+
 
     public AddNextOfKinDialogFragment() {
         // Required empty public constructor
@@ -53,6 +70,7 @@ public class AddNextOfKinDialogFragment extends DialogFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setStyle(STYLE_NORMAL, R.style.RoundedCornersDialog);
+        authViewModel = new ViewModelProvider(this).get(AuthViewModel.class);
         setCancelable(false);
 
     }
@@ -127,6 +145,13 @@ public class AddNextOfKinDialogFragment extends DialogFragment {
             }
         });
 
+        binding.autoRelationshipType.setOnItemClickListener((parent, view, position, id) -> {
+            if (relationshipTypeList != null && relationshipTypeList.size() > 0) {
+                relationshipTypeCode = relationshipTypeArrayAdapter.getItem(position).code;
+            }
+        });
+
+
 
         binding.tvDateOfBirth.setOnClickListener(view -> {
             Calendar calendar = Calendar.getInstance();
@@ -158,8 +183,39 @@ public class AddNextOfKinDialogFragment extends DialogFragment {
         binding.btnAdd.setOnClickListener(v -> addNextOfKin());
 
 
+        getRelationshipTypes();
+
         return binding.getRoot();
 
+    }
+
+    private void getRelationshipTypes(){
+        authViewModel.getRelationshipTypes().observe(getViewLifecycleOwner(), listAPIResponse -> {
+
+            if (listAPIResponse != null && listAPIResponse.isSuccessful()){
+                if (listAPIResponse.body().statusCode.equals(STATUS_CODE_SUCCESS)) {
+                    relationshipTypeList = listAPIResponse.body().relationTypes;
+
+                    if (relationshipTypeList != null && relationshipTypeList.size() > 0){
+                        Comparator<CountiesResponse.RelationshipType> byName = (o1, o2) -> o1.typeName.compareTo(o2.typeName);
+                        Collections.sort(relationshipTypeList, byName);
+                        relationshipTypeArrayAdapter = new ArrayAdapter<>(requireContext(),
+                                android.R.layout.simple_spinner_dropdown_item, relationshipTypeList);
+
+                        binding.autoRelationshipType.setAdapter(relationshipTypeArrayAdapter);
+
+                        relationshipTypeArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+                    }else {
+                        Toast.makeText(requireContext(), "No Relationship types Available!", Toast.LENGTH_SHORT).show();
+
+                    }
+                }
+            }else {
+                Toast.makeText(requireContext(), Constants.API_ERROR, Toast.LENGTH_SHORT).show();
+
+            }
+        });
     }
 
     private void addNextOfKin(){
@@ -181,6 +237,8 @@ public class AddNextOfKinDialogFragment extends DialogFragment {
             binding.tilYearOfBirth.setError(getString(R.string.required));
         }else if (TextValidator.isEmpty(telephone)) {
             binding.phoneNumberInputLayoutForgotPassword.setError(getString(R.string.required));
+        }else if (relationshipTypeCode.isEmpty()) {
+            Toast.makeText(requireContext(), "Relationship Types is required", Toast.LENGTH_SHORT).show();
         }else if (TextValidator.isEmpty(town)) {
             binding.tilTown.setError(getString(R.string.required));
         }else if (TextValidator.isEmpty(address)) {
@@ -199,6 +257,7 @@ public class AddNextOfKinDialogFragment extends DialogFragment {
             result.putExtra("town", town);
             result.putExtra("address", address);
             result.putExtra("dateOfBirth", dateOfBirth);
+            result.putExtra("relationshipTypeCode", relationshipTypeCode);
 
             if (getParentFragment() != null) {
                 getParentFragment().onActivityResult(2000, RESULT_OK, result);

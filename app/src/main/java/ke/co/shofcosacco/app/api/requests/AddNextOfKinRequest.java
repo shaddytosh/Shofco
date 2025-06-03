@@ -72,6 +72,30 @@ public class AddNextOfKinRequest implements Serializable {
     private String introducerId;
     @SerializedName("introducer_phone_no")
     private String introducerPhoneNo;
+   @SerializedName("employer_name")
+    private String employerName;
+
+   @SerializedName("employer_address")
+    private String employerAddress;
+
+   @SerializedName("employer_income")
+    private String employerIncome;
+
+   @SerializedName("business_name")
+    private String businessName;
+
+   @SerializedName("business_location")
+    private String businessLocation;
+
+    @SerializedName("business_income")
+    private String businessIncome;
+
+    @SerializedName("employment_status")
+    private String employmentStatus;
+    @SerializedName("next_of_kin")
+    private List<NextOfKin> nextOfKin;
+
+
 
 
 
@@ -79,8 +103,9 @@ public class AddNextOfKinRequest implements Serializable {
                                String emailAddress, String town, String address, String idFrontBase64, String idBackBase64,
                                String signatureBase64, String passportBase64, String physicalAddress, String county,
                                String subCountyCode, String wardName, String gender,
-                               String maritalStatus, List<NextOfKin> nextOfKin,String branch, String cluster, String disability, String specifyDisability, String introducerName,
-                               String introducerId, String introducerPhoneNo) {
+                               String maritalStatus, List<NextOfKin> nextOfKin, String branch, String cluster, String disability, String specifyDisability, String introducerName,
+                               String introducerId, String introducerPhoneNo, String employerName, String employerAddress, String employerIncome,
+                               String businessName, String businessLocation, String businessIncome, String employmentStatus) {
         this.names = names;
         this.dateOfBirth = dateOfBirth;
         this.idNo = idNo;
@@ -106,10 +131,16 @@ public class AddNextOfKinRequest implements Serializable {
         this.introducerName = introducerName;
         this.introducerId = introducerId;
         this.introducerPhoneNo = introducerPhoneNo;
+        this.employerName = employerName;
+        this.employerAddress = employerAddress;
+        this.employerIncome = employerIncome;
+        this.businessName = businessName;
+        this.businessLocation = businessLocation;
+        this.businessIncome = businessIncome;
+        this.employmentStatus = employmentStatus;
     }
 
-    @SerializedName("next_of_kin")
-    private List<NextOfKin> nextOfKin;
+
 
     // Getters and Setters
     public String getNames() {
@@ -264,7 +295,15 @@ public class AddNextOfKinRequest implements Serializable {
         @SerializedName("address")
         private String address;
 
-        public NextOfKin(String name, String dateOfBirth, String idNo, String telephone, String email, String town, String address, String allocation) {
+        public String getRelationshipTypeCode() {
+            return relationshipTypeCode;
+        }
+
+        @SerializedName("relationship_type")
+        private String relationshipTypeCode;
+
+        public NextOfKin(String name, String dateOfBirth, String idNo, String telephone, String email,
+                         String town, String address, String allocation, String relationshipTypeCode) {
             this.name = name;
             this.dateOfBirth = dateOfBirth;
             this.idNo = idNo;
@@ -273,6 +312,8 @@ public class AddNextOfKinRequest implements Serializable {
             this.town = town;
             this.address = address;
             this.allocation = allocation;
+            this.relationshipTypeCode = relationshipTypeCode;
+
         }
 
         @SerializedName("allocation")

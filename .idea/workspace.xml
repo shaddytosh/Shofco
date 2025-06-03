@@ -20,7 +20,17 @@
           <theme>@style/Theme.Chuna</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/custom_dialog_guarantor.xml">
+        <config>
+          <theme>@style/Theme.Chuna</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/dialog_fragment_validate.xml">
+        <config>
+          <theme>@style/Theme.Chuna</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/dialog_next_of_kin.xml">
         <config>
           <theme>@style/Theme.Chuna</theme>
         </config>
@@ -35,7 +45,52 @@
           <theme>@style/Theme.Chuna</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_account_balance_statement.xml">
+        <config>
+          <theme>@style/Theme.Chuna</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_add_guarantors.xml">
+        <config>
+          <theme>@style/Theme.Chuna</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_apply_loan.xml">
+        <config>
+          <theme>@style/Theme.Chuna</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_apply_online_loan.xml">
+        <config>
+          <theme>@style/Theme.Chuna</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_guarantor.xml">
+        <config>
+          <theme>@style/Theme.Chuna</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_home.xml">
+        <config>
+          <theme>@style/Theme.Chuna</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_login.xml">
+        <config>
+          <theme>@style/Theme.Chuna</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_main.xml">
+        <config>
+          <theme>@style/Theme.Chuna</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_main_loan.xml">
+        <config>
+          <theme>@style/Theme.Chuna</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_online_loans.xml">
         <config>
           <theme>@style/Theme.Chuna</theme>
         </config>
@@ -60,6 +115,46 @@
           <theme>@style/Theme.Chuna</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/item_add_guarantor.xml">
+        <config>
+          <theme>@style/Theme.Chuna</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/item_guarantor.xml">
+        <config>
+          <theme>@style/Theme.Chuna</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/item_online_loan.xml">
+        <config>
+          <theme>@style/Theme.Chuna</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/layout_5_alt.xml">
+        <config>
+          <theme>@style/Theme.Chuna</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/layout_main_loan_2.xml">
+        <config>
+          <theme>@style/Theme.Chuna</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/layout_three_alt.xml">
+        <config>
+          <theme>@style/Theme.Chuna</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/layout_two_alt.xml">
+        <config>
+          <theme>@style/Theme.Chuna</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/partial_action.xml">
+        <config>
+          <theme>@style/Theme.Chuna</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/success_dialog.xml">
         <config>
           <theme>@style/Theme.Chuna</theme>
@@ -77,8 +172,49 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="63a3312a-4c01-4a68-82e7-ab8e12cdfa09" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/dialog_stk_push.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_register_three.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_concurrent_concurrent_futures_1_1_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_runtime_testing_2_6_2_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_navigation_navigation_testing_2_7_2_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_annotation_1_0_1_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_core_1_5_0_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_espresso_espresso_core_3_5_1_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_espresso_espresso_idling_resource_3_5_1_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_ext_junit_1_1_5_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_monitor_1_6_1_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_runner_1_5_2_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_services_storage_1_4_2_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_transition_transition_1_2_0_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_viewpager2_viewpager2_1_0_0_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_annotations_4_13_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_disklrucache_4_13_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_gifdecoder_4_13_0_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_glide_4_13_0_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_code_findbugs_jsr305_2_0_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_guava_listenablefuture_1_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_javawriter_2_1_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_hamcrest_hamcrest_integration_1_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_hamcrest_hamcrest_library_1_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/app/SHOFCO_SACCO.app.androidTest.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/ke/co/shofcosacco/app/api/requests/AcceptOrRejectGuarantorRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/ke/co/shofcosacco/app/api/requests/GuarantorRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/ke/co/shofcosacco/app/api/responses/AcceptOrRejectGuarantorResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/ke/co/shofcosacco/app/api/responses/GuarantorResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/ke/co/shofcosacco/app/models/Guarantor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/ke/co/shofcosacco/app/models/GuarantorNew.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/ke/co/shofcosacco/app/utils/EdgeToEdgeUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/ke/co/shofcosacco/ui/onlineLoan/AddGuarantorDialogFragment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/ke/co/shofcosacco/ui/onlineLoan/ApplyOnlineLoanFragment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/ke/co/shofcosacco/ui/onlineLoan/GuarantorAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/ke/co/shofcosacco/ui/onlineLoan/GuarantorFragment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/ke/co/shofcosacco/ui/onlineLoan/GuarantorsAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/baseline_admin_panel_settings_24.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/custom_dialog_guarantor.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/dialog_guarantor.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_apply_online_loan.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_guarantor.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_online_loans.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_add_guarantor.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_guarantor.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.9/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.9/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.9/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.9/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.9/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.9/fileHashes/fileHashes.bin" afterDir="false" />
@@ -86,25 +222,79 @@
       <change beforePath="$PROJECT_DIR$/.gradle/8.9/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.9/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__commons_codec_commons_codec_1_10.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__commons_codec_commons_codec_1_10.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_imaginativeworld_whynotimagecarousel_whynotimagecarousel_2_1_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_imaginativeworld_whynotimagecarousel_whynotimagecarousel_2_1_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlinx_kotlinx_coroutines_core_jvm_1_6_4.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlinx_kotlinx_coroutines_core_jvm_1_6_4.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/app/SHOFCO_SACCO.app.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/app/SHOFCO_SACCO.app.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/app/SHOFCO_SACCO.app.main.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/app/SHOFCO_SACCO.app.unitTest.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/app/SHOFCO_SACCO.app.unitTest.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/navEditor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/navEditor.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/release/output-metadata.json" beforeDir="false" afterPath="$PROJECT_DIR$/app/release/output-metadata.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/release/shofcosacco-1.0.34-release.apk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/release/shofcosacco-1.1.35-release.apk" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/ke/co/shofcosacco/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/ke/co/shofcosacco/MainActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/ke/co/shofcosacco/app/api/ApiManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/ke/co/shofcosacco/app/api/ApiManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/ke/co/shofcosacco/app/api/RestApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/ke/co/shofcosacco/app/api/RestApi.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/ke/co/shofcosacco/app/api/requests/AddNextOfKinRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/ke/co/shofcosacco/app/api/requests/AddNextOfKinRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/ke/co/shofcosacco/app/api/requests/EligibilityRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/ke/co/shofcosacco/app/api/requests/EligibilityRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/ke/co/shofcosacco/app/api/requests/LoanApplicationRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/ke/co/shofcosacco/app/api/requests/LoanApplicationRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/ke/co/shofcosacco/app/api/requests/ValidateRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/ke/co/shofcosacco/app/api/requests/ValidateRequest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/ke/co/shofcosacco/app/api/responses/CountiesResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/ke/co/shofcosacco/app/api/responses/CountiesResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/ke/co/shofcosacco/app/api/responses/RegisterResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/ke/co/shofcosacco/app/api/responses/RegisterResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/ke/co/shofcosacco/app/api/responses/ValidateResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/ke/co/shofcosacco/app/api/responses/ValidateResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/ke/co/shofcosacco/app/models/Eligibility.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/ke/co/shofcosacco/app/models/Eligibility.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/ke/co/shofcosacco/app/models/NextOfKinNew.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/ke/co/shofcosacco/app/models/NextOfKinNew.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/ke/co/shofcosacco/app/repositories/AuthRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/ke/co/shofcosacco/app/repositories/AuthRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/ke/co/shofcosacco/ui/auth/AuthViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/ke/co/shofcosacco/ui/auth/AuthViewModel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/ke/co/shofcosacco/ui/auth/LoginFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/ke/co/shofcosacco/ui/auth/LoginFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/ke/co/shofcosacco/ui/onboarding/RegisterOneFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/ke/co/shofcosacco/ui/onboarding/RegisterOneFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/ke/co/shofcosacco/ui/auth/LoginOptionsFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/ke/co/shofcosacco/ui/auth/LoginOptionsFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/ke/co/shofcosacco/ui/auth/OtpConfirmationDialogFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/ke/co/shofcosacco/ui/auth/OtpConfirmationDialogFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/ke/co/shofcosacco/ui/auth/ValidateDialogFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/ke/co/shofcosacco/ui/auth/ValidateDialogFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/ke/co/shofcosacco/ui/home/HomeFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/ke/co/shofcosacco/ui/home/HomeFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/ke/co/shofcosacco/ui/loans/ApplyLoanFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/ke/co/shofcosacco/ui/loans/ApplyLoanFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/ke/co/shofcosacco/ui/loans/LoanProductFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/ke/co/shofcosacco/ui/loans/LoanProductFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/ke/co/shofcosacco/ui/onboarding/AddNextOfKinDialogFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/ke/co/shofcosacco/ui/onboarding/AddNextOfKinDialogFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/ke/co/shofcosacco/ui/onboarding/RegisterThreeFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/ke/co/shofcosacco/ui/onboarding/RegisterThreeFragment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/ke/co/shofcosacco/ui/onboarding/RegisterTwoFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/ke/co/shofcosacco/ui/onboarding/RegisterTwoFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/wallpaper.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_register_one.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_register_one.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_register_two.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_register_two.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/dialog_next_of_kin.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/dialog_next_of_kin.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/drawer_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/drawer_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_account_balance_statement.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_account_balance_statement.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_apply_loan.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_apply_loan.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_balances.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_balances.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_change_pin.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_change_pin.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_deposit_from_mobile.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_deposit_from_mobile.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_deposits.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_deposits.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_detailed_statement.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_detailed_statement.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_home.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_home.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_home_alt.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_home_alt.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_loan_product.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_loan_product.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_loan_statements.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_loan_statements.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_loans.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_loans.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_loans_guaranteed.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_loans_guaranteed.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_login_alt.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_login_alt.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_loyalty_points.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_loyalty_points.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_main_loan.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_main_loan.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_member_is_loan_quaranteed.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_member_is_loan_quaranteed.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_my_account.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_my_account.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_next_of_kin.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_next_of_kin.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_notifications.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_notifications.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_profile.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_profile.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_register_three.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_register_three.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_repay_loan.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_repay_loan.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_repay_loan2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_repay_loan2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_reports.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_reports.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_reset_pin.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_reset_pin.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_savings_statement.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_savings_statement.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_send_to_mobile.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_send_to_mobile.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_settings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_statements.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_statements.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_transfer.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_transfer.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/partial_action.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/partial_action.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/navigation/main_graph.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/navigation/main_graph.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-night/colors.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -115,7 +305,7 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[DeviceId(pluginId=PhysicalDevice, isTemplate=false, identifier=serial=131927052N004583)]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[DeviceId(pluginId=LocalEmulator, isTemplate=false, identifier=path=C:\Users\Shadrack.Kipkoech\.android\avd\Medium_Phone.avd)]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -125,6 +315,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="layoutResourceFile" />
       </list>
     </option>
   </component>
@@ -141,37 +332,42 @@
   &quot;associatedIndex&quot;: 1
 }</component>
   <component name="ProjectId" id="2wVIYuxieD0iqkLZsjAbG6fU79l" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Android App.app.executor&quot;: &quot;Run&quot;,
-    &quot;ApkExportedModule&quot;: &quot;SHOFCO_SACCO.app&quot;,
-    &quot;ExportApk.ApkPathForSHOFCO_SACCO.app&quot;: &quot;D:\\GitHub\\Android Apps\\Ngosa\\shofco-sacco\\app&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
-    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
-    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;com.google.services.firebase.aqiPopupShown&quot;: &quot;true&quot;,
-    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;shaddy&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/GitHub/Android Apps/Ngosa/shofco-sacco/app/src/main/res/layout&quot;,
-    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Android App.app.executor": "Run",
+    "ApkExportedModule": "SHOFCO_SACCO.app",
+    "ExportApk.ApkPathForSHOFCO_SACCO.app": "D:\\GitHub\\Android Apps\\Ngosa\\shofco-sacco\\app",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "com.google.services.firebase.aqiPopupShown": "true",
+    "dart.analysis.tool.window.visible": "false",
+    "git-widget-placeholder": "guarantors",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/GitHub/Flutter Apps/Ngosa/verona",
+    "show.migrate.to.gradle.popup": "false"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;ExportApk.BuildVariants&quot;: [
-      &quot;release&quot;
+  "keyToStringList": {
+    "ExportApk.BuildVariants": [
+      "release"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\GitHub\Android Apps\Ngosa\shofco-sacco\app\src\main\res\layout" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="ke.co.shofcosacco.ui.onlineLoan" />
+      <recent name="ke.co.shofcosacco.app.utils" />
       <recent name="ke.co.shofcosacco.ui.onboarding" />
     </key>
   </component>
@@ -264,12 +460,12 @@
       <map>
         <entry key="co.ke.shofcosacco">
           <value>
-            <CheckInfo lastCheckTimestamp="1747291603949" />
+            <CheckInfo lastCheckTimestamp="1748708414264" />
           </value>
         </entry>
         <entry key="co.ke.shofcosacco.test">
           <value>
-            <CheckInfo lastCheckTimestamp="1747291603952" />
+            <CheckInfo lastCheckTimestamp="1748708414263" />
           </value>
         </entry>
       </map>

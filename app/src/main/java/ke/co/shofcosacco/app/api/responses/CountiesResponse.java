@@ -26,6 +26,9 @@ public class CountiesResponse implements Serializable {
     @SerializedName("branches")
     public List<Branch> branches;
 
+    @SerializedName("relation_types")
+    public List<RelationshipType> relationTypes;
+
     @SerializedName("clusters")
     public List<Cluster> clusters;
 
@@ -39,6 +42,19 @@ public class CountiesResponse implements Serializable {
         @Override
         public String toString() {
             return countyName;
+        }
+    }
+
+    public static class RelationshipType implements Serializable {
+        @SerializedName("code")
+        public String code;
+        @SerializedName("type_name")
+        public String typeName;
+
+        @NonNull
+        @Override
+        public String toString() {
+            return typeName;
         }
     }
 

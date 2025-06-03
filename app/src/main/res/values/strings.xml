@@ -177,12 +177,12 @@
     <string name="verify_pin_to_continue">Verify PIN to continue</string>
     <string name="activate">Activate Mobile</string>
     <string name="activate_">Activate</string>
-    <string name="town">Town</string>
+    <string name="town">Town of Residence</string>
     <string name="address">Address</string>
     <string name="next">Next</string>
     <string name="gender">Gender</string>
     <string name="marital_status">Marital Status</string>
-    <string name="county">County</string>
+    <string name="county">County of Residence</string>
     <string name="sub_county">Sub County</string>
     <string name="ward">Ward</string>
     <string name="physical_address">Physical Address</string>
@@ -203,6 +203,13 @@
     <string name="id_front">ID Front</string>
     <string name="id_back">ID Back</string>
     <string name="didn_t_receive_stk_push">Didn\'t Receive STK Push ?</string>
+    <string name="online_loans">Online Loans</string>
+    <string name="add_guarantors">Add Guarantors</string>
+    <string name="guarantors">Guarantors</string>
+    <string name="no_guarantor_requests">No guarantor request</string>
+    <string name="action">Action</string>
+    <string name="guarantor_requests">Guarantor Requests</string>
+    <string name="proceed_amp_apply"><![CDATA[Proceed & Apply]]></string>
 
 
 </resources>

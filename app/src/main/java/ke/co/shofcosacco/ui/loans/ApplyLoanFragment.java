@@ -58,7 +58,6 @@ public class ApplyLoanFragment extends BaseFragment {
 
         binding.toolbar.setNavigationOnClickListener(v -> navigateUp());
 
-        binding.btnGoBack.setOnClickListener(v -> navigateUp());
 
         binding.txtAmount.addTextChangedListener(new TextValidator() {
             @Override
@@ -185,9 +184,9 @@ public class ApplyLoanFragment extends BaseFragment {
         mEnteredAmount = enteredAmount;
         mPeriod =period;
         ProgressDialog progressDialog = ProgressDialog.show(getContext(), "",
-                "Checking eligibility. Please wait...", true);
+                "Processing. Please wait...", true);
         int integerPeriod = (int) period;
-        authViewModel.loanEligibility(loanProduct.getProductCode(), String.valueOf(integerPeriod)).observe(getViewLifecycleOwner(), apiResponse -> {
+        authViewModel.loanEligibility(loanProduct.getProductCode(), String.valueOf(integerPeriod), String.valueOf(mEnteredAmount)).observe(getViewLifecycleOwner(), apiResponse -> {
             progressDialog.dismiss();
             boolean isSuccess = apiResponse != null && apiResponse.isSuccessful();
             if (isSuccess) {
@@ -195,13 +194,23 @@ public class ApplyLoanFragment extends BaseFragment {
                 if (eligibility.status.equals("true")) {
                     double qualifiedAmount= Double.parseDouble(eligibility.amount);
                     int integerQualifiedAmount = (int) qualifiedAmount;
+                    int integerEnteredAmount = (int) enteredAmount;
 
-                    if (enteredAmount <= qualifiedAmount){
-                        int integerEnteredAmount = (int) enteredAmount;
-                        applyLoan(loanProduct, integerEnteredAmount, integerPeriod,eligibility.description );
+                    if (eligibility.reguireGuarantors.equals("true")) {
+                        navigate(ApplyLoanFragmentDirections.actionApplyLoanToAddGuarantors(loanProduct,
+                                String.valueOf(enteredAmount).replace(".0",""),String.valueOf(mPeriod).replace(".0","")));
+
                     }else {
-                        notSuccessDialog("You qualify up to KES "+integerQualifiedAmount);
+                        if (enteredAmount <= qualifiedAmount){
+
+                            applyLoan(loanProduct, integerEnteredAmount, integerPeriod, eligibility.description);
+
+                        }else {
+                            notSuccessDialog("You qualify up to KES "+integerQualifiedAmount);
+                        }
                     }
+
+
                 }else {
                     notSuccessDialog(apiResponse.body().description);
                 }
@@ -211,6 +220,7 @@ public class ApplyLoanFragment extends BaseFragment {
         });
     }
 
+
     private void checkEligibilityNew(LoanProduct loanProduct, double enteredAmount, double period) {
         mLoanProduct = loanProduct;
         mEnteredAmount = enteredAmount;
@@ -218,19 +228,32 @@ public class ApplyLoanFragment extends BaseFragment {
         ProgressDialog progressDialog = ProgressDialog.show(getContext(), "",
                 "Checking eligibility. Please wait...", true);
         int integerPeriod = (int) period;
-        authViewModel.loanEligibility(loanProduct.getProductCode(), String.valueOf(integerPeriod)).observe(getViewLifecycleOwner(), apiResponse -> {
+        authViewModel.loanEligibility(loanProduct.getProductCode(), String.valueOf(integerPeriod), String.valueOf(mEnteredAmount)).observe(getViewLifecycleOwner(), apiResponse -> {
             progressDialog.dismiss();
             boolean isSuccess = apiResponse != null && apiResponse.isSuccessful();
             if (isSuccess) {
                 Eligibility eligibility = apiResponse.body();
                 if (eligibility.status.equals("true")) {
-                    double qualifiedAmount= Double.parseDouble(eligibility.amount);
-                    successDialog("Loan Product: "+loanProduct.getProductDescription()+"\n\nQualification: "+eligibility.description+"" +
-                            "Applied Amount: KES "+(int) enteredAmount+"" +
-                            ""+String.format("Installment Period: %d Months", (int) period)+"" +
-                            ""+"Repayment Method: "+loanProduct.getRepaymentMethod());
+                    binding.tvApplyLoan.setVisibility(View.VISIBLE);
+
+                    if (eligibility.reguireGuarantors.equals("true")){
+                        notSuccessDialog("Loan Product: "+loanProduct.getProductDescription()+"\n\nQualification: "+eligibility.description+"" +
+                                "\nApplied Amount: KES "+(int) enteredAmount+"" +
+                                ""+String.format("\nInstallment Period: %d Months", (int) period)+"" +
+                                ""+"\nRepayment Method: "+loanProduct.getRepaymentMethod());
+
+                    }else {
+                        successDialog("Loan Product: "+loanProduct.getProductDescription()+"\n\nQualification: "+eligibility.description+"" +
+                                "\nApplied Amount: KES "+(int) enteredAmount+"" +
+                                ""+String.format("\nInstallment Period: %d Months", (int) period)+"" +
+                                ""+"\nRepayment Method: "+loanProduct.getRepaymentMethod(),9000);
+
+                    }
+
+
                 }else {
                     notSuccessDialog(apiResponse.body().description);
+                    binding.tvApplyLoan.setVisibility(View.GONE);
                 }
             }else {
                 notSuccessDialog(Constants.API_ERROR);
@@ -283,13 +306,13 @@ public class ApplyLoanFragment extends BaseFragment {
 
         int integerPeriod = (int) mPeriod;
         authViewModel.loanApplication(mLoanProduct.getProductCode(), String.valueOf(integerPeriod),
-                String.valueOf(mEnteredAmount),otp).observe(getViewLifecycleOwner(), apiResponse -> {
+                String.valueOf(mEnteredAmount),otp, null, false).observe(getViewLifecycleOwner(), apiResponse -> {
             progressDialog.dismiss();
             boolean isSuccess = apiResponse != null && apiResponse.isSuccessful();
             if (isSuccess) {
                 if (apiResponse.body().statusCode.equals(STATUS_CODE_SUCCESS)){
                     if (apiResponse.body().status.equals(STATUS_CODE_SUCCESS)) {
-                        successDialog(apiResponse.body().statusDesc);
+                        successDialog(apiResponse.body().statusDesc,SUCCESS);
                     }else {
                         notSuccessDialog(apiResponse.body().statusDesc);
                     }
@@ -311,10 +334,10 @@ public class ApplyLoanFragment extends BaseFragment {
         dialogFragment.show(getChildFragmentManager(),dialogFragment.getTag());
     }
 
-    private void successDialog(String message){
+    private void successDialog(String message, int type){
         SuccessDialogFragment dialogFragment = new SuccessDialogFragment();
         Bundle args= new Bundle();
-        args.putInt("type",SUCCESS);
+        args.putInt("type",type);
         args.putString("message", message);
         dialogFragment.setArguments(args);
         dialogFragment.show(getChildFragmentManager(),dialogFragment.getTag());

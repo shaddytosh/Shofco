@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -15,6 +16,8 @@ import ke.co.shofcosacco.app.api.APIResponse;
 import ke.co.shofcosacco.app.api.ApiCarouselManager;
 import ke.co.shofcosacco.app.api.ApiManager;
 import ke.co.shofcosacco.app.api.requests.AddNextOfKinRequest;
+import ke.co.shofcosacco.app.api.requests.LoanApplicationRequest;
+import ke.co.shofcosacco.app.api.responses.AcceptOrRejectGuarantorResponse;
 import ke.co.shofcosacco.app.api.responses.AccountBalanceBosaResponse;
 import ke.co.shofcosacco.app.api.responses.AccountBalanceFosaResponse;
 import ke.co.shofcosacco.app.api.responses.CarouselResponse;
@@ -24,6 +27,7 @@ import ke.co.shofcosacco.app.api.responses.DashboardResponse;
 import ke.co.shofcosacco.app.api.responses.DestinationAccountResponse;
 import ke.co.shofcosacco.app.api.responses.EligibilityResponse;
 import ke.co.shofcosacco.app.api.responses.ForgotPinResponse;
+import ke.co.shofcosacco.app.api.responses.GuarantorResponse;
 import ke.co.shofcosacco.app.api.responses.HashPinResponse;
 import ke.co.shofcosacco.app.api.responses.LoanApplicationResponse;
 import ke.co.shofcosacco.app.api.responses.LoanBalanceResponse;
@@ -158,11 +162,11 @@ public class AuthRepository {
         return liveData;
     }
 
-    public LiveData<APIResponse<ValidateResponse>> validateUser(String memberNo) {
+    public LiveData<APIResponse<ValidateResponse>> validateUser(String memberNo,boolean isValidateGuarantor) {
         MutableLiveData<APIResponse<ValidateResponse>> liveData = new MutableLiveData<>();
         ApiManager.execute(() -> {
             try {
-                APIResponse<ValidateResponse> response = apiManager.validateUser(memberNo);
+                APIResponse<ValidateResponse> response = apiManager.validateUser(memberNo,isValidateGuarantor);
                 liveData.postValue(response);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -372,11 +376,11 @@ public class AuthRepository {
         return liveData;
     }
 
-    public LiveData<APIResponse<Eligibility>> loanEligibility(String productCode, String period) {
-        MutableLiveData<APIResponse<Eligibility>> liveData = new MutableLiveData<>();
+    public LiveData<APIResponse<GuarantorResponse>> getOnlineLoans() {
+        MutableLiveData<APIResponse<GuarantorResponse>> liveData = new MutableLiveData<>();
         ApiManager.execute(() -> {
             try {
-                APIResponse<Eligibility> response = apiManager.loanEligibility(productCode,period);
+                APIResponse<GuarantorResponse> response = apiManager.getOnlineLoans();
                 liveData.postValue(response);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -386,11 +390,26 @@ public class AuthRepository {
         return liveData;
     }
 
-    public LiveData<APIResponse<LoanApplicationResponse>> loanApplication(String productCode, String period,String amount, String otp) {
+    public LiveData<APIResponse<Eligibility>> loanEligibility(String productCode, String period, String amount) {
+        MutableLiveData<APIResponse<Eligibility>> liveData = new MutableLiveData<>();
+        ApiManager.execute(() -> {
+            try {
+                APIResponse<Eligibility> response = apiManager.loanEligibility(productCode,period,amount);
+                liveData.postValue(response);
+            } catch (IOException e) {
+                e.printStackTrace();
+                liveData.postValue(null);
+            }
+        });
+        return liveData;
+    }
+
+    public LiveData<APIResponse<LoanApplicationResponse>> loanApplication(String productCode, String period, String amount, String otp,
+                                                                          List<LoanApplicationRequest.Guarantors> guarantorsList, boolean isOnline) {
         MutableLiveData<APIResponse<LoanApplicationResponse>> liveData = new MutableLiveData<>();
         ApiManager.execute(() -> {
             try {
-                APIResponse<LoanApplicationResponse> response = apiManager.loanApplication(productCode, period,amount,otp);
+                APIResponse<LoanApplicationResponse> response = apiManager.loanApplication(productCode, period,amount,otp,guarantorsList,isOnline);
                 liveData.postValue(response);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -553,6 +572,19 @@ public class AuthRepository {
         });
         return liveData;
     }
+    public LiveData<APIResponse<CountiesResponse>> getRelationshipTypes() {
+        MutableLiveData<APIResponse<CountiesResponse>> liveData = new MutableLiveData<>();
+        ApiManager.execute(() -> {
+            try {
+                APIResponse<CountiesResponse> response = apiManager.getRelationshipTypes();
+                liveData.postValue(response);
+            } catch (IOException e) {
+                e.printStackTrace();
+                liveData.postValue(null);
+            }
+        });
+        return liveData;
+    }
 
     public LiveData<APIResponse<CountiesResponse>> getSubCounty(String countyCode) {
         MutableLiveData<APIResponse<CountiesResponse>> liveData = new MutableLiveData<>();
@@ -623,6 +655,36 @@ public class AuthRepository {
         });
         return liveData;
     }
+
+    public LiveData<APIResponse<GuarantorResponse>> getLoansGuarantorRequests() {
+        MutableLiveData<APIResponse<GuarantorResponse>> liveData = new MutableLiveData<>();
+        ApiManager.execute(() -> {
+            try {
+                APIResponse<GuarantorResponse> response = apiManager.getLoansGuarantorRequests();
+                liveData.postValue(response);
+            } catch (IOException e) {
+                e.printStackTrace();
+                liveData.postValue(null);
+            }
+        });
+        return liveData;
+    }
+
+    public LiveData<APIResponse<AcceptOrRejectGuarantorResponse>> AcceptOrRejectGuarantor(String memberNo, String loanNo, String type, String otp){
+        MutableLiveData<APIResponse<AcceptOrRejectGuarantorResponse>> liveData = new MutableLiveData<>();
+        ApiManager.execute(() -> {
+            try {
+                APIResponse<AcceptOrRejectGuarantorResponse> response = apiManager.AcceptOrRejectGuarantor(memberNo, loanNo, type,otp);
+                liveData.postValue(response);
+            } catch (IOException e) {
+                e.printStackTrace();
+                liveData.postValue(null);
+            }
+        });
+        return liveData;
+    }
+
+
 
     public String getToken() {
         return apiManager.getToken();

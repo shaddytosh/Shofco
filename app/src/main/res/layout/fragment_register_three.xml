@@ -32,6 +32,98 @@
             android:orientation="vertical"
             android:paddingTop="16dp">
 
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_margin="@dimen/_20px"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="Are you employed?"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <RadioGroup
+                    android:id="@+id/employmentStatusGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <RadioButton
+                        android:id="@+id/radioEmployed"
+                        android:text="Employed"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <RadioButton
+                        android:id="@+id/radioSelfEmployed"
+                        android:text="Self-Employed"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <RadioButton
+                        android:id="@+id/radioUnemployed"
+                        android:text="Unemployed"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </RadioGroup>
+
+                <!-- EMPLOYED FIELDS -->
+                <LinearLayout
+                    android:id="@+id/employedFields"
+                    android:visibility="gone"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/employerName"
+                        android:hint="Employer Name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <EditText
+                        android:id="@+id/employerAddress"
+                        android:hint="Employer Address"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <EditText
+                        android:id="@+id/employerIncome"
+                        android:hint="Gross Monthly Income"
+                        android:inputType="numberDecimal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+                <!-- SELF-EMPLOYED FIELDS -->
+                <LinearLayout
+                    android:id="@+id/selfEmployedFields"
+                    android:visibility="visible"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/businessName"
+                        android:hint="Business Name"
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <EditText
+                        android:id="@+id/businessLocation"
+                        android:hint="Business Location"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <EditText
+                        android:id="@+id/businessIncome"
+                        android:hint="Gross Monthly Income"
+                        android:inputType="numberDecimal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+
             <!-- Branch Selection -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_branch"
@@ -40,7 +132,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
-                android:layout_marginTop="8dp"
                 android:hint="Select Branch"
                 app:hintTextColor="@color/primary_to_white"
                 android:backgroundTint="@color/primary_to_white">

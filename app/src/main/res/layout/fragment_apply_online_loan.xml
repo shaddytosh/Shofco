@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinator"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/ThemeOverlay.MaterialComponents.Toolbar.Surface"
+        app:title="Loan Application"
+        app:titleTextColor="@color/white"
+        app:navigationIconTint="@color/white"
+        android:background="@color/primary"
+        app:navigationIcon="@drawable/baseline_arrow_back_24"
+        app:layout_constraintTop_toTopOf="parent"
+        >
+        <ImageView
+            android:id="@+id/iv_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/baseline_home_24"
+            android:layout_gravity="end"
+            android:layout_marginEnd="@dimen/size_20"
+            app:tint="@color/primary" />
+
+    </com.google.android.material.appbar.MaterialToolbar>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="?actionBarSize">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:id="@+id/ll_data"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="visible">
+
+                    <include
+                        android:id="@+id/layout_one"
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        layout="@layout/item_loan_product"
+                        android:layout_marginTop="@dimen/size_8"/>
+
+
+                    <TextView
+                        android:id="@+id/tv_guarantors"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_margin="@dimen/size_20"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:text=""/>
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_amount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/size_20"
+                        android:layout_marginEnd="@dimen/size_20"
+                        android:layout_marginTop="@dimen/size_20"
+                        android:layout_marginBottom="@dimen/size_20"
+                        android:enabled="false"
+                        app:hintTextColor="@color/primary_to_white"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:visibility="visible">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/txt_amount"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/amount"
+                            android:inputType="number"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_period"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/size_20"
+                        android:layout_marginEnd="@dimen/size_20"
+                        android:layout_marginBottom="@dimen/size_20"
+                        app:hintTextColor="@color/primary_to_white"
+                        android:enabled="false"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/txt_period"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/period_in_month_s"
+                            android:inputType="number"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+                    <TextView
+                        android:id="@+id/tv_apply_loan"
+                        style="@style/NHIFActionTextButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/size_20"
+                        android:backgroundTint="@color/primary"
+                        android:text="@string/apply_loan"/>
+
+                </LinearLayout>
+
+
+
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

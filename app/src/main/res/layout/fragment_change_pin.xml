@@ -11,9 +11,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:navigationIcon="@drawable/baseline_arrow_back_24"
-        app:titleTextColor="@color/primary"
-        app:navigationIconTint="@color/primary"
-        android:background="@color/background"
+        app:titleTextColor="@color/white"
+        app:navigationIconTint="@color/white"
+        android:background="@color/primary"
         app:title="Set New Pin"
         style="@style/ThemeOverlay.MaterialComponents.Toolbar.Surface"
         app:layout_constraintTop_toTopOf="parent"/>

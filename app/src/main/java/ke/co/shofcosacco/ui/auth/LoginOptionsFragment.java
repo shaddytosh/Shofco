@@ -81,13 +81,16 @@ public class LoginOptionsFragment extends BaseFragment {
         });
         binding.cvRegister.setOnClickListener(v -> {
             PreventDoubleClick.preventMultiClick(v);
-            validateDialog(false);
+            validateDialog(false,false);
         });
 
         binding.cvOpenAccount.setOnClickListener(v -> {
+
             PreventDoubleClick.preventMultiClick(v);
-            navigate(LoginOptionsFragmentDirections.actionLoginToOpenAccount());
+            validateDialog(false, true);
         });
+
+
 
         binding.bottomNav.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
@@ -109,10 +112,11 @@ public class LoginOptionsFragment extends BaseFragment {
         return binding.getRoot();
     }
 
-    private void validateDialog(boolean isResetPin){
+    private void validateDialog(boolean isResetPin, boolean isRegister){
         ValidateDialogFragment dialogFragment = new ValidateDialogFragment();
         Bundle args = new Bundle();
         args.putBoolean("isResetPin", isResetPin);
+        args.putBoolean("isRegister", isRegister);
         dialogFragment.setArguments(args);
         dialogFragment.show(getChildFragmentManager(),dialogFragment.getTag());
     }
@@ -127,6 +131,8 @@ public class LoginOptionsFragment extends BaseFragment {
 
         }else if (requestCode == 4000 && resultCode == Activity.RESULT_OK && data != null) {
             navigate(LoginOptionsFragmentDirections.actionLoginToResetPin(data.getStringExtra("member_no")));
+        }else if (requestCode == 5000 && resultCode == Activity.RESULT_OK && data != null) {
+            navigate(LoginOptionsFragmentDirections.actionLoginToOpenAccount());
         }
     }
 

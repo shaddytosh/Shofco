@@ -41,6 +41,27 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="add_guarantors">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="32" />
+                            <option name="y" value="12" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_add_guarantors_to_apply_online_loan">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="apply_loan">
                     <value>
                       <LayoutPositions>
@@ -50,17 +71,35 @@
                             <option name="y" value="3374" />
                           </Point>
                         </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_apply_loan_to_add_guarantors">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="balances">
+                  <entry key="apply_online_loan">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="300" />
-                            <option name="y" value="3598" />
+                            <option name="x" value="220" />
+                            <option name="y" value="12" />
                           </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_apply_online_loan_to_loan_products">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
                         </option>
                       </LayoutPositions>
                     </value>
@@ -131,6 +170,30 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="guarantor_requests">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="12" />
+                            <option name="y" value="12" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="l">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="12" />
+                            <option name="y" value="12" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="launcher">
                     <value>
                       <LayoutPositions>
@@ -169,6 +232,11 @@
                         <option name="myPositions">
                           <map>
                             <entry key="action_loan_product_to_apply_loan">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_loan_product_to_apply_online_loan">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -323,12 +391,12 @@
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_main_to_account_balance_statement">
+                            <entry key="action_main_loan_to_online_loans">
                               <value>
                                 <LayoutPositions />
                               </value>
                             </entry>
-                            <entry key="action_main_to_balances">
+                            <entry key="action_main_to_account_balance_statement">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -339,6 +407,11 @@
                               </value>
                             </entry>
                             <entry key="action_main_to_deposits">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_main_to_guarantor_requests">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -516,6 +589,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="online_loans">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="12" />
+                            <option name="y" value="12" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="profile">
                     <value>
                       <LayoutPositions>
@@ -574,7 +659,7 @@
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_register_one_to_register_two">
+                            <entry key="action_register_one_to_register_three">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -584,7 +669,7 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="register_tw">
+                  <entry key="register_three">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
@@ -595,7 +680,7 @@
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_register_two_to_login_options">
+                            <entry key="action_register_one_to_register_two">
                               <value>
                                 <LayoutPositions />
                               </value>

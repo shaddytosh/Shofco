@@ -8,12 +8,15 @@ import androidx.lifecycle.LiveData;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
+import java.util.List;
 
 import javax.inject.Inject;
 
 import ke.co.shofcosacco.app.MainApplication;
 import ke.co.shofcosacco.app.api.APIResponse;
 import ke.co.shofcosacco.app.api.requests.AddNextOfKinRequest;
+import ke.co.shofcosacco.app.api.requests.LoanApplicationRequest;
+import ke.co.shofcosacco.app.api.responses.AcceptOrRejectGuarantorResponse;
 import ke.co.shofcosacco.app.api.responses.AccountBalanceBosaResponse;
 import ke.co.shofcosacco.app.api.responses.AccountBalanceFosaResponse;
 import ke.co.shofcosacco.app.api.responses.CarouselResponse;
@@ -22,6 +25,7 @@ import ke.co.shofcosacco.app.api.responses.CountiesResponse;
 import ke.co.shofcosacco.app.api.responses.DashboardResponse;
 import ke.co.shofcosacco.app.api.responses.DestinationAccountResponse;
 import ke.co.shofcosacco.app.api.responses.ForgotPinResponse;
+import ke.co.shofcosacco.app.api.responses.GuarantorResponse;
 import ke.co.shofcosacco.app.api.responses.LoanApplicationResponse;
 import ke.co.shofcosacco.app.api.responses.LoanBalanceResponse;
 import ke.co.shofcosacco.app.api.responses.LoanProductsResponse;
@@ -75,8 +79,8 @@ public class AuthViewModel extends AndroidViewModel {
         return authRepository.changePassword(oldPassword, newPassword, otp);
     }
 
-    public LiveData<APIResponse<ValidateResponse>> validateUser(String memberNo) {
-        return authRepository.validateUser(memberNo);
+    public LiveData<APIResponse<ValidateResponse>> validateUser(String memberNo,boolean isValidateGuarantor) {
+        return authRepository.validateUser(memberNo,isValidateGuarantor);
     }
 
 
@@ -146,12 +150,18 @@ public class AuthViewModel extends AndroidViewModel {
         return authRepository.loanProducts(type);
     }
 
-    public LiveData<APIResponse<Eligibility>> loanEligibility(String productCode, String period) {
-        return authRepository.loanEligibility(productCode,period);
+    public LiveData<APIResponse<GuarantorResponse>> getOnlineLoans() {
+        return authRepository.getOnlineLoans();
     }
 
-    public LiveData<APIResponse<LoanApplicationResponse>> loanApplication(String productCode, String period, String amount, String otp) {
-        return authRepository.loanApplication(productCode, period,amount,otp);
+    public LiveData<APIResponse<Eligibility>> loanEligibility(String productCode, String period, String amount) {
+        return authRepository.loanEligibility(productCode,period,amount);
+    }
+
+    public LiveData<APIResponse<LoanApplicationResponse>> loanApplication(String productCode, String period,
+                                                                          String amount, String otp,
+                                                                          List<LoanApplicationRequest.Guarantors> guarantorsList, boolean isOnline) {
+        return authRepository.loanApplication(productCode, period,amount,otp,guarantorsList,isOnline);
     }
 
     public LiveData<APIResponse<DashboardResponse>> dashboardMinList() {
@@ -204,6 +214,11 @@ public class AuthViewModel extends AndroidViewModel {
         return authRepository.getBranchesOrClusters(isBranch);
     }
 
+    public LiveData<APIResponse<CountiesResponse>> getRelationshipTypes() {
+        return authRepository.getRelationshipTypes();
+    }
+
+
     public LiveData<APIResponse<CountiesResponse>> getSubCounty(String countyCode) {
         return authRepository.getSubCounty(countyCode);
     }
@@ -219,6 +234,15 @@ public class AuthViewModel extends AndroidViewModel {
     public LiveData<APIResponse<ReportsResponse>> FnGetCoroselImages() {
         return authRepository.FnGetCoroselImages();
     }
+
+    public LiveData<APIResponse<GuarantorResponse>> getLoansGuarantorRequests() {
+        return authRepository.getLoansGuarantorRequests();
+    }
+
+    public LiveData<APIResponse<AcceptOrRejectGuarantorResponse>> AcceptOrRejectGuarantor(String memberNo, String loanNo, String type, String otp) {
+        return authRepository.AcceptOrRejectGuarantor(memberNo, loanNo, type,otp);
+    }
+
 
     public String getToken() {
         return authRepository.getToken();
@@ -267,8 +291,6 @@ public class AuthViewModel extends AndroidViewModel {
         securePrefs.savePhone(null);
         securePrefs.saveNationalId(null);
         securePrefs.saveUserId(null);
-        securePrefs.saveMemberNo(null);
-        securePrefs.saveFirstName(null);
         securePrefs.saveToken(null);
 
     }
@@ -301,6 +323,10 @@ public class AuthViewModel extends AndroidViewModel {
         securePrefs.saveBiometric(biometric);
 
     }
+   public void saveLastName(String memberNo) throws GeneralSecurityException, IOException {
+       securePrefs.saveLastName(memberNo);
+
+    }
 
     public void saveBiometricDetails(String MID, String MPIN) throws GeneralSecurityException, IOException {
         securePrefs.saveMID(MID);
@@ -311,7 +337,6 @@ public class AuthViewModel extends AndroidViewModel {
     public void saveUser(String email, String memberNo, String name, String phone, String idNo) throws GeneralSecurityException, IOException {
 
         securePrefs.saveEmail(email);
-//        securePrefs.saveMemberNo(memberNo);
         securePrefs.saveFirstName(name);
         securePrefs.savePhone(phone);
         securePrefs.saveNationalId(idNo);

@@ -141,6 +141,12 @@ public class HomeFragment extends BaseFragment implements RecentTransactionsAdap
         binding.layoutThree.cvReports.setOnClickListener(v ->
                 navigate(MainFragmentDirections.actionMainToReports()));
 
+        binding.layout5.cvGuarantorsRequest.setOnClickListener(v ->
+                navigate(MainFragmentDirections.actionMainToGuarantorRequests()));
+
+        binding.layout5.cvOnlineLoans.setOnClickListener(v ->
+                navigate(MainFragmentDirections.actionMainLoanToOnlineLoans()));
+
         binding.appbar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             boolean isShow = false;
             int scrollRange = -1;

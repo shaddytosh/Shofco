@@ -13,4 +13,6 @@ public class EligibilityRequest implements Serializable {
     public String accountNo;
     @SerializedName("period")
     public String period;
+    @SerializedName("amount")
+    public String amount;
 }

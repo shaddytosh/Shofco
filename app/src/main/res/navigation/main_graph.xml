@@ -118,7 +118,13 @@
         <argument app:argType="string" android:name="introducerName" app:nullable="true"/>
         <argument app:argType="string" android:name="introducerId" app:nullable="true"/>
         <argument app:argType="string" android:name="introducerPhoneNo" app:nullable="true"/>
-
+        <argument app:argType="string" android:name="employerName" app:nullable="true"/>
+        <argument app:argType="string" android:name="employerAddress" app:nullable="true"/>
+        <argument app:argType="string" android:name="employerIncome" app:nullable="true"/>
+        <argument app:argType="string" android:name="businessName" app:nullable="true"/>
+        <argument app:argType="string" android:name="businessLocation" app:nullable="true"/>
+        <argument app:argType="string" android:name="businessIncome" app:nullable="true"/>
+        <argument app:argType="string" android:name="employmentStatus" app:nullable="true"/>
 
         <action
             android:id="@+id/action_register_two_to_login_options"
@@ -324,13 +330,6 @@
             app:popEnterAnim="@anim/in_from_left"
             app:popExitAnim="@anim/out_to_right" />
 
-        <action
-            android:id="@+id/action_main_to_balances"
-            app:destination="@id/balances"
-            app:enterAnim="@anim/in_from_right"
-            app:exitAnim="@anim/out_from_left"
-            app:popEnterAnim="@anim/in_from_left"
-            app:popExitAnim="@anim/out_to_right" />
 
         <action
             android:id="@+id/action_main_to_profile"
@@ -389,6 +388,22 @@
             app:exitAnim="@anim/out_from_left"
             app:popEnterAnim="@anim/in_from_left"
             app:popExitAnim="@anim/out_to_right"/>
+
+        <action
+            android:id="@+id/action_main_to_guarantor_requests"
+            app:destination="@id/guarantor_requests"
+            app:enterAnim="@anim/in_from_right"
+            app:exitAnim="@anim/out_from_left"
+            app:popEnterAnim="@anim/in_from_left"
+            app:popExitAnim="@anim/out_to_right"/>
+
+        <action
+            android:id="@+id/action_main_loan_to_online_loans"
+            app:destination="@id/online_loans"
+            app:enterAnim="@anim/in_from_right"
+            app:exitAnim="@anim/out_from_left"
+            app:popEnterAnim="@anim/in_from_left"
+            app:popExitAnim="@anim/out_to_right" />
 
 
     </fragment>
@@ -555,13 +570,6 @@
 
     </fragment>
 
-    <fragment
-        android:id="@+id/balances"
-        android:name="ke.co.shofcosacco.ui.profile.BalancesFragment"
-        tools:layout="@layout/fragment_balances">
-
-    </fragment>
-
 
     <fragment
         android:id="@+id/profile"
@@ -627,6 +635,14 @@
             app:popEnterAnim="@anim/in_from_left"
             app:popExitAnim="@anim/out_to_right" />
 
+        <action
+            android:id="@+id/action_loan_product_to_apply_online_loan"
+            app:destination="@id/apply_online_loan"
+            app:enterAnim="@anim/in_from_right"
+            app:exitAnim="@anim/out_from_left"
+            app:popEnterAnim="@anim/in_from_left"
+            app:popExitAnim="@anim/out_to_right" />
+
     </fragment>
 
     <fragment
@@ -634,8 +650,35 @@
         android:name="ke.co.shofcosacco.ui.loans.ApplyLoanFragment"
         tools:layout="@layout/fragment_apply_loan">
 
+        <action
+            android:id="@+id/action_apply_loan_to_add_guarantors"
+            app:destination="@id/add_guarantors"
+            app:enterAnim="@anim/in_from_right"
+            app:exitAnim="@anim/out_from_left"
+            app:popEnterAnim="@anim/in_from_left"
+            app:popExitAnim="@anim/out_to_right" />
+
         <argument android:name="loanProduct" app:argType="ke.co.shofcosacco.app.models.LoanProduct"/>
 
+    </fragment>
+
+    <fragment
+        android:id="@+id/add_guarantors"
+        android:name="ke.co.shofcosacco.ui.onlineLoan.AddGuarantorsFragment"
+        tools:layout="@layout/fragment_add_guarantors">
+
+        <action
+            android:id="@+id/action_add_guarantors_to_apply_online_loan"
+            app:destination="@id/apply_online_loan"
+            app:enterAnim="@anim/in_from_right"
+            app:exitAnim="@anim/out_from_left"
+            app:popEnterAnim="@anim/in_from_left"
+            app:popExitAnim="@anim/out_to_right" />
+
+        <argument android:name="loanProduct" app:argType="ke.co.shofcosacco.app.models.LoanProduct"/>
+
+        <argument android:name="amount" app:argType="string"/>
+        <argument android:name="period" app:argType="string"/>
     </fragment>
 
     <fragment
@@ -764,6 +807,69 @@
 
     </fragment>
 
+    <fragment
+        android:id="@+id/online_loans"
+        android:name="ke.co.shofcosacco.ui.onlineLoan.OnlineLoansFragment"
+        tools:layout="@layout/fragment_online_loans">
+
+        <action
+            android:id="@+id/action_online_loans_to_online_loan_guarantors"
+            app:destination="@id/online_loan_guarantors"
+            app:enterAnim="@anim/in_from_right"
+            app:exitAnim="@anim/out_from_left"
+            app:popEnterAnim="@anim/in_from_left"
+            app:popExitAnim="@anim/out_to_right" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/apply_online_loan"
+        android:name="ke.co.shofcosacco.ui.onlineLoan.ApplyOnlineLoanFragment"
+        tools:layout="@layout/fragment_apply_online_loan">
+
+        <argument android:name="loanProduct" app:argType="ke.co.shofcosacco.app.models.LoanProduct"/>
+        <argument
+            android:name="guarantors"
+            app:argType="ke.co.shofcosacco.app.api.requests.LoanApplicationRequest$Guarantors[]" />
+
+        <argument android:name="message" app:argType="string"/>
+        <argument android:name="period" app:argType="string"/>
+        <argument android:name="amount" app:argType="string"/>
+
+        <action
+            android:id="@+id/action_apply_online_loan_to_loan_products"
+            app:destination="@id/loan_product"
+            app:enterAnim="@anim/in_from_right"
+            app:exitAnim="@anim/out_from_left"
+            app:popEnterAnim="@anim/in_from_left"
+            app:popExitAnim="@anim/out_to_right"
+            app:popUpTo="@id/main"
+            app:popUpToInclusive="true"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/guarantor_requests"
+        android:name="ke.co.shofcosacco.ui.onlineLoan.GuarantorFragment"
+        tools:layout="@layout/fragment_guarantor">
+
+
+
+
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/online_loan_guarantors"
+        android:name="ke.co.shofcosacco.ui.onlineLoan.OnlineLoansGuarantorFragment"
+        tools:layout="@layout/fragment_guarantor">
+
+
+        <argument
+            android:name="guarantors"
+            app:argType="ke.co.shofcosacco.app.api.responses.GuarantorResponse$GuarantorRequest[]" />
+
+    </fragment>
 
 
 </navigation>

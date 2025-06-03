@@ -1,9 +1,12 @@
 package ke.co.shofcosacco;
 
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
+import android.view.Window;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,10 +14,13 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.preference.PreferenceManager;
 
+
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 
+import co.ke.shofcosacco.R;
 import co.ke.shofcosacco.databinding.ActivityMainBinding;
+import ke.co.shofcosacco.app.utils.EdgeToEdgeUtils;
 import ke.co.shofcosacco.ui.auth.AuthViewModel;
 
 
@@ -25,11 +31,16 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences preferences;
 
 
+    @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        View root = binding.root;
+        getWindow().getDecorView().post(() -> EdgeToEdgeUtils.enableEdgeToEdge(this,root));
 
         // Set the default night mode based on the user's preference
         int nightMode = AppCompatDelegate.MODE_NIGHT_NO; // or MODE_NIGHT_NO or MODE_NIGHT_YES

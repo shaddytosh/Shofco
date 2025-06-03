@@ -13,8 +13,15 @@ public class NextOfKinNew {
     private String address;
     private String allocation;
 
+    public String getRelationshipTypeCode() {
+        return relationshipTypeCode;
+    }
+
+    private String relationshipTypeCode;
+
     // Constructor
-    public NextOfKinNew(String name, String dateOfBirth, String idNo, String telephone, String email, String town, String address, String allocation) {
+    public NextOfKinNew(String name, String dateOfBirth, String idNo, String telephone, String email,
+                        String town, String address, String allocation, String relationshipTypeCode) {
         this.name = name;
         this.dateOfBirth = dateOfBirth;
         this.idNo = idNo;
@@ -23,6 +30,7 @@ public class NextOfKinNew {
         this.town = town;
         this.address = address;
         this.allocation = allocation;
+        this.relationshipTypeCode = relationshipTypeCode;
     }
 
     // Getter and Setter methods

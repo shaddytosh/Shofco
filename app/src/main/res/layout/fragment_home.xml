@@ -266,6 +266,13 @@
                         android:layout_width="match_parent"
                         layout="@layout/layout_three_alt"/>
 
+                    <include
+                        android:id="@+id/layout_5"
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        layout="@layout/layout_5_alt"/>
+
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

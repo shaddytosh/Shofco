@@ -44,7 +44,7 @@ public class OtpConfirmationDialogFragment extends DialogFragment {
 
     private DialogOtpConfirmationBinding binding;
     private AuthViewModel authViewModel;
-    private String sourceAccountNumber, amount,phoneNumber, mOTP;
+    private String sourceAccountNumber, amount,phoneNumber, mOTP,sType;
 
     public OtpConfirmationDialogFragment() {
         // Required empty public constructor
@@ -79,6 +79,9 @@ public class OtpConfirmationDialogFragment extends DialogFragment {
             amount = getArguments().getString("amount");
             phoneNumber = getArguments().getString("phoneNumber");
             mOTP = getArguments().getString("mOTP");
+            sType = getArguments().getString("sType");
+
+
 
         }
 
@@ -109,6 +112,9 @@ public class OtpConfirmationDialogFragment extends DialogFragment {
                 result.putExtra("amount", amount);
                 result.putExtra("phoneNumber", phoneNumber);
                 result.putExtra("otp", password);
+                result.putExtra("sType", sType);
+
+
 
                 if (getParentFragment() != null) {
                     getParentFragment().onActivityResult(VERIFY_OTP, RESULT_OK, result);

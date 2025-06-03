@@ -100,7 +100,7 @@ public class LoginFragment extends BaseFragment {
             }
 
             if (name != null){
-                binding.signInTitle.setText("Welcome back "+name);
+                binding.signInTitle.setText("Hello "+name);
             }
         } catch (GeneralSecurityException e) {
             throw new RuntimeException(e);
@@ -149,6 +149,7 @@ public class LoginFragment extends BaseFragment {
                                 authViewModel.saveUser(apiResponse.body().email,apiResponse.body().member_no,apiResponse.body().name,apiResponse.body().mobile_no,apiResponse.body().id_no);
                                 authViewModel.saveAccountNo(memberNo);
                                 authViewModel.saveBiometricDetails(memberNo,password);
+                                authViewModel.saveLastName(apiResponse.body().member_no);
 
                                 navigate(LoginFragmentDirections.actionLoginToMain());
                             } catch (GeneralSecurityException | IOException e) {

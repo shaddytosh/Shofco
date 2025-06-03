@@ -11,4 +11,13 @@ public class ValidateResponse implements Serializable {
     public String success;
     @SerializedName("description")
     public String description;
+
+    @SerializedName("free_deposits")
+    public String freeDeposits;
+
+    @SerializedName("name")
+    public String memberName;
+
+    @SerializedName("member_no")
+    public String memberNo;
 }

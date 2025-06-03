@@ -14,5 +14,8 @@ public class Eligibility implements Serializable {
      public String amount;
      @SerializedName("interest")
      public String interest;
+     @SerializedName("reguire_guarantors")
+     public String reguireGuarantors;
+
 
 }

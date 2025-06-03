@@ -33,6 +33,8 @@ public class ValidateDialogFragment extends DialogFragment {
     private AuthViewModel authViewModel;
 
     private boolean isResetPin = false;
+    private boolean isValidateGuarantor = false;
+    private boolean isRegister = false;
 
     public ValidateDialogFragment() {
         // Required empty public constructor
@@ -82,11 +84,22 @@ public class ValidateDialogFragment extends DialogFragment {
 
         if (getArguments() != null){
             isResetPin = getArguments().getBoolean("isResetPin");
+            isValidateGuarantor = getArguments().getBoolean("isValidateGuarantor");
+            isRegister = getArguments().getBoolean("isRegister");
         }
 
         if (isResetPin){
             binding.tvBeginRegistration.setText("Reset Pin");
         }
+
+        if (isValidateGuarantor){
+            binding.tvBeginRegistration.setText("Validate Guarantor");
+        }
+
+        if (isRegister){
+            binding.tvBeginRegistration.setText("Validate ID");
+        }
+
 
         binding.tvBeginRegistration.setOnClickListener(v -> verifyOtp(isResetPin));
 
@@ -102,23 +115,52 @@ public class ValidateDialogFragment extends DialogFragment {
             binding.tilMemberNo.setError(null);
             ProgressDialog progressDialog = ProgressDialog.show(getContext(), "",
                     "Validating. Please wait...", true);
-            authViewModel.validateUser(memberNo).observe(getViewLifecycleOwner(), apiResponse -> {
+            authViewModel.validateUser(memberNo, isValidateGuarantor).observe(getViewLifecycleOwner(), apiResponse -> {
                 progressDialog.dismiss();
                 if (apiResponse != null && apiResponse.isSuccessful()) {
                     if (apiResponse.body().success.equals(STATUS_CODE_SUCCESS)) {
                         if (isResetPin){
                             sendOtp(memberNo, true);
+                        }else if (isRegister){
+                            dismiss();
+                            notSuccessDialog("This National ID is already registered");
                         }else {
-
                             Intent result = new Intent();
-                            result.putExtra("message", apiResponse.body().description);
-                            if (getParentFragment() != null) {
-                                getParentFragment().onActivityResult(3000, Activity.RESULT_OK, result);
+                            if (isValidateGuarantor){
+                                result.putExtra("free_deposits", apiResponse.body().freeDeposits);
+                                result.putExtra("member_name", apiResponse.body().memberName);
+                                result.putExtra("member_no", apiResponse.body().memberNo);
+                                if (getParentFragment() != null) {
+                                    getParentFragment().onActivityResult(2000, Activity.RESULT_OK, result);
+                                }
+                            }else if (isRegister){
+                                if (getParentFragment() != null) {
+                                    getParentFragment().onActivityResult(5000, Activity.RESULT_OK, result);
+                                }
+                            }else {
+                                result.putExtra("message", apiResponse.body().description);
+                                if (getParentFragment() != null) {
+                                    getParentFragment().onActivityResult(3000, Activity.RESULT_OK, result);
+                                }
                             }
                             dismiss();
                         }
                     } else {
-                        sendOtp(memberNo,isResetPin);
+                      if (isRegister){
+                          Intent result = new Intent();
+                          if (getParentFragment() != null) {
+                              dismiss();
+                              getParentFragment().onActivityResult(5000, Activity.RESULT_OK, result);
+                          }
+                      }else {
+                          sendOtp(memberNo,isResetPin);
+                      }
+                    }
+                }else if (isRegister){
+                    Intent result = new Intent();
+                    if (getParentFragment() != null) {
+                        dismiss();
+                        getParentFragment().onActivityResult(5000, Activity.RESULT_OK, result);
                     }
                 }
 

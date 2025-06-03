@@ -11,8 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/ThemeOverlay.MaterialComponents.Toolbar.Surface"
-        app:titleTextColor="@color/primary"
-        android:background="@color/background">
+        app:titleTextColor="@color/white"
+        android:background="@color/primary">
 
         <ImageView
             android:layout_width="200dp"
@@ -110,7 +110,7 @@
                                 app:tabMode="fixed"
                                 app:tabRippleColor="@color/primary"
                                 app:tabGravity="fill"
-                                android:background="@color/background"/>
+                                android:background="@color/primary"/>
 
 
                             <com.google.android.material.textfield.TextInputLayout

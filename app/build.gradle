@@ -6,13 +6,13 @@ plugins {
 
 android {
     namespace 'co.ke.shofcosacco'
-    compileSdk 34
+    compileSdk 35
 
     defaultConfig {
         applicationId "co.ke.shofcosacco"
         minSdk 23
-        targetSdk 34
-        versionCode 35
+        targetSdk 35
+        versionCode 39
         versionName "1.1.$versionCode"
         archivesBaseName = "shofcosacco-$versionName"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"

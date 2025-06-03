@@ -18,11 +18,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:navigationIcon="@drawable/baseline_menu_24"
-            app:navigationIconTint="@color/primary"
+            app:navigationIconTint="@color/white"
             style="@style/ThemeOverlay.MaterialComponents.Toolbar.Surface"
             app:layout_constraintTop_toTopOf="parent"
             app:title="@string/app_name_full"
-            app:titleTextColor="@color/primary">
+            app:titleTextColor="@color/white">
 
             <ImageView
                 android:layout_width="200dp"

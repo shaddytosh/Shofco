@@ -15,6 +15,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -67,6 +71,11 @@ public class RegisterThreeFragment extends BaseFragment {
     private List<CountiesResponse.Cluster> clusterList;
     private ArrayAdapter<CountiesResponse.Cluster> clusterArrayAdapter;
 
+    RadioGroup employmentStatusGroup;
+    RadioButton radioEmployed, radioSelfEmployed, radioUnemployed;
+    LinearLayout employedFields, selfEmployedFields;
+    EditText employerName, employerAddress, employerIncome;
+    EditText businessName, businessLocation, businessIncome;
 
     public RegisterThreeFragment() {
         // Required empty public constructor
@@ -85,6 +94,23 @@ public class RegisterThreeFragment extends BaseFragment {
         handler = new Handler(Looper.getMainLooper());
 
         binding.toolbar.setNavigationOnClickListener(v -> navigateUp());
+
+        employmentStatusGroup = binding.employmentStatusGroup;
+        radioEmployed = binding.radioEmployed;
+        radioSelfEmployed = binding.radioSelfEmployed;
+        radioUnemployed = binding.radioUnemployed;
+
+        employedFields = binding.employedFields;
+        selfEmployedFields = binding.selfEmployedFields;
+
+        employerName = binding.employerName;
+        employerAddress = binding.employerAddress;
+        employerIncome = binding.employerIncome;
+
+        businessName = binding.businessName;
+        businessLocation = binding.businessLocation;
+        businessIncome = binding.businessIncome;
+
 
         fullName = RegisterThreeFragmentArgs.fromBundle(getArguments()).getFullName();
         nationalId  = RegisterThreeFragmentArgs.fromBundle(getArguments()).getNationalId();
@@ -121,12 +147,28 @@ public class RegisterThreeFragment extends BaseFragment {
             }
         });
 
+        employmentStatusGroup.setOnCheckedChangeListener((group, checkedId) -> {
+            employedFields.setVisibility(View.GONE);
+            selfEmployedFields.setVisibility(View.GONE);
+
+            if (checkedId == R.id.radioEmployed) {
+                employedFields.setVisibility(View.VISIBLE);
+            } else if (checkedId == R.id.radioSelfEmployed) {
+                selfEmployedFields.setVisibility(View.VISIBLE);
+            }
+        });
+
         getBranches();
         getClusters();
+
+
 
         return binding.getRoot();
     }
 
+    private boolean isEmpty(EditText editText) {
+        return editText.getText().toString().trim().isEmpty();
+    }
     private void getBranches(){
         authViewModel.getBranchesOrClusters(true).observe(getViewLifecycleOwner(), listAPIResponse -> {
 
@@ -185,31 +227,77 @@ public class RegisterThreeFragment extends BaseFragment {
 
 
     private void validate() {
+        String _employerName = employerName.getText().toString().trim();
+        String _employerAddress = employerAddress.getText().toString().trim();
+        String _employerIncome = employerIncome.getText().toString().trim();
+        String _businessName = businessName.getText().toString().trim();
+        String _businessLocation = businessLocation.getText().toString().trim();
+        String _businessIncome = businessIncome.getText().toString().trim();
         String disability = binding.autoDisability.getText().toString().trim();
         String specifyDisability = binding.etSpecifyDisability.getText().toString().trim();
         String introducerName = binding.etIntroducerName.getText().toString().trim();
         String introducerId = binding.etIntroducerId.getText().toString().trim();
-        String introducerPhoneNo= binding.ccpForgotPassword.getFormattedFullNumber().replace(" ","");
+        String introducerPhoneNo = binding.ccpForgotPassword.getFormattedFullNumber().replace(" ", "");
 
         boolean isYes = disability.equalsIgnoreCase("Yes");
 
-
-       if (branchCode.isEmpty()) {
-            Toast.makeText(requireContext(), "Branch is required", Toast.LENGTH_SHORT).show();
-        }else if (clusterCode.isEmpty()) {
-            Toast.makeText(requireContext(), "Cluster is required", Toast.LENGTH_SHORT).show();
-        }else if (disability.isEmpty()) {
-            Toast.makeText(requireContext(), "Disability option is required", Toast.LENGTH_SHORT).show();
-        }else if(isYes){
-           Toast.makeText(requireContext(), "Disability description is required", Toast.LENGTH_SHORT).show();
-       }else {
-
-            // Build request model or map
-            navigate(RegisterThreeFragmentDirections.actionRegisterOneToRegisterTwo(
-                    fullName, nationalId, dateOfBirth, telephone, email, town, address, selectedGender, selectedStatus,
-                    branchCode, clusterCode, disability, specifyDisability, introducerName, introducerId, introducerPhoneNo));
+        int selectedId = employmentStatusGroup.getCheckedRadioButtonId();
+        if (selectedId == -1) {
+            Toast.makeText(requireContext(), "Please select employment status", Toast.LENGTH_SHORT).show();
+            return;
         }
+
+        if (selectedId == R.id.radioEmployed) {
+            if (_employerName.isEmpty() || _employerAddress.isEmpty() || _employerIncome.isEmpty()) {
+                Toast.makeText(requireContext(), "Fill all employer fields", Toast.LENGTH_SHORT).show();
+                return;
+            }
+        } else if (selectedId == R.id.radioSelfEmployed) {
+            if (_businessName.isEmpty() || _businessLocation.isEmpty() || _businessIncome.isEmpty()) {
+                Toast.makeText(requireContext(), "Fill all business fields", Toast.LENGTH_SHORT).show();
+                return;
+            }
+        }
+
+        if (branchCode.isEmpty()) {
+            Toast.makeText(requireContext(), "Branch is required", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (clusterCode.isEmpty()) {
+            Toast.makeText(requireContext(), "Cluster is required", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (disability.isEmpty()) {
+            Toast.makeText(requireContext(), "Disability option is required", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (isYes && specifyDisability.isEmpty()) {
+            Toast.makeText(requireContext(), "Disability description is required", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Map radio button selection to employment status value
+        String employmentStatus = "";
+        if (selectedId == R.id.radioEmployed) {
+            employmentStatus = "1";
+        } else if (selectedId == R.id.radioSelfEmployed) {
+            employmentStatus = "2";
+        } else if (selectedId == R.id.radioUnemployed) {
+            employmentStatus = "3";
+        }
+
+        // Proceed to next step with all validated values
+        navigate(RegisterThreeFragmentDirections.actionRegisterOneToRegisterTwo(
+                fullName, nationalId, dateOfBirth, telephone, email, town, address, selectedGender, selectedStatus,
+                branchCode, clusterCode, disability, specifyDisability, introducerName, introducerId, introducerPhoneNo,
+                _employerName, _employerAddress, _employerIncome,
+                _businessName, _businessLocation, _businessIncome,
+                employmentStatus));
     }
+
 
     private void setupDropdown(AutoCompleteTextView view, String[] options) {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(

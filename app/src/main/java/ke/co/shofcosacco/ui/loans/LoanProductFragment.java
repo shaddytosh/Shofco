@@ -72,11 +72,7 @@ public class LoanProductFragment extends BaseFragment implements LoanProductAdap
             getLoanProduct();
         });
 
-        if (liveDataViewModel.getLoanProductsResponseLiveData().getValue() == null) {
-            getLoanProduct();
-        } else {
-            displayData(liveDataViewModel.getLoanProductsResponseLiveData().getValue());
-        }
+        getLoanProduct();
 
         binding.ivHome.setOnClickListener(view -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
