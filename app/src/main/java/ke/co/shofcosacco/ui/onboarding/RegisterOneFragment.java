@@ -14,6 +14,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,7 +51,7 @@ public class RegisterOneFragment extends BaseFragment {
     private Handler handler;
     private AuthViewModel authViewModel;
     private String dateOfBirth;
-    private String selectedGender, selectedStatus;
+    private String selectedGender, selectedStatus, idNo;
 
 
     public RegisterOneFragment() {
@@ -74,6 +76,10 @@ public class RegisterOneFragment extends BaseFragment {
         binding.tvNext.setOnClickListener(v -> validate());
 
         binding.ccpForgotPassword.registerCarrierNumberEditText(binding.phoneNumberEditTextForgotPassword);
+
+        idNo = RegisterOneFragmentArgs.fromBundle(getArguments()).getIdNo();
+
+        binding.txtNationalId.setText(idNo);
 
         setupValidationListeners();
         binding.txtEmail.addTextChangedListener(new TextValidator() {
@@ -128,6 +134,15 @@ public class RegisterOneFragment extends BaseFragment {
             }
         });
 
+        binding.tvDateOfBirth.addTextChangedListener(new TextValidator() {
+            @Override
+            public void validate(String s) {
+                if (s != null){
+                    binding.tilYearOfBirth.setError(null);
+                }
+            }
+        });
+
         // Set up the gender dropdown
         String[] genders = new String[]{"Male", "Female"};
         ArrayAdapter<String> genderAdapter = new ArrayAdapter<>(
@@ -163,34 +178,93 @@ public class RegisterOneFragment extends BaseFragment {
             // Do something with selectedStatus
         });
 
+        binding.phoneNumberEditTextForgotPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() == 1 && s.charAt(0) == '0') {
+                    binding.phoneNumberEditTextForgotPassword.setText("");
+                    binding.phoneNumberInputLayoutForgotPassword.setError("Phone number should not start with 0");
+                } else {
+                    binding.phoneNumberInputLayoutForgotPassword.setError(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) { }
+        });
+
+
+        binding.tvDateOfBirth.setOnFocusChangeListener((v, hasFocus) -> {
+            if (!hasFocus) {
+                String input = binding.tvDateOfBirth.getText().toString();
+                if (!isValidDate(input)) {
+                    binding.tilYearOfBirth.setError("Use format yyyy-MM-dd");
+                } else {
+                    binding.tilYearOfBirth.setError(null);
+                }
+            }
+        });
+
+
+
         binding.tvDateOfBirth.setOnClickListener(view -> {
             Calendar calendar = Calendar.getInstance();
             int year = calendar.get(Calendar.YEAR);
             int month = calendar.get(Calendar.MONTH);
             int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
 
+            // Set max date to 18 years ago
             Calendar maxDate = Calendar.getInstance();
             maxDate.set(year - 18, month, dayOfMonth);
 
-            DatePickerDialog datePickerDialog = new DatePickerDialog(requireContext(),R.style.DatePickerDialogTheme, (view1, year1, month1, dayOfMonth1) -> {
-                String rawDateOfBirth = year1 + "-" + (month1 + 1) + "-" + dayOfMonth1;
+            // Use maxDate as the default selection
+            int defaultYear = maxDate.get(Calendar.YEAR);
+            int defaultMonth = maxDate.get(Calendar.MONTH);
+            int defaultDay = maxDate.get(Calendar.DAY_OF_MONTH);
 
-                Date date = null;
-                try {
-                    date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(rawDateOfBirth);
-                } catch (ParseException e) {
-                    throw new RuntimeException(e);
-                }
-                String formattedDateOfBirth = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(date);
-                dateOfBirth=formattedDateOfBirth;
-                binding.tvDateOfBirth.setText(formattedDateOfBirth);
-            }, year, month, dayOfMonth);
+            DatePickerDialog datePickerDialog = new DatePickerDialog(
+                    requireContext(),
+                    R.style.DatePickerDialogTheme,
+                    (view1, year1, month1, dayOfMonth1) -> {
+                        String rawDateOfBirth = year1 + "-" + (month1 + 1) + "-" + dayOfMonth1;
+
+                        Date date = null;
+                        try {
+                            date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(rawDateOfBirth);
+                        } catch (ParseException e) {
+                            throw new RuntimeException(e);
+                        }
+                        String formattedDateOfBirth = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(date);
+                        dateOfBirth = formattedDateOfBirth;
+                        binding.tvDateOfBirth.setText(formattedDateOfBirth);
+                    },
+                    defaultYear, defaultMonth, defaultDay // <-- show this by default
+            );
+
             datePickerDialog.getDatePicker().setMaxDate(maxDate.getTimeInMillis());
             datePickerDialog.show();
             datePickerDialog.setTitle("Select date of birth");
         });
 
         return binding.getRoot();
+    }
+
+    private boolean isValidDate(String dateStr) {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+            sdf.setLenient(false);
+            Date date = sdf.parse(dateStr);
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(date);
+            Calendar limit = Calendar.getInstance();
+            limit.add(Calendar.YEAR, -18);
+            return !cal.after(limit);
+        } catch (ParseException e) {
+            return false;
+        }
     }
 
     private void validate() {
@@ -201,6 +275,9 @@ public class RegisterOneFragment extends BaseFragment {
         String email= binding.txtEmail.getText().toString();
         String town= binding.txtTown.getText().toString();
         String address= binding.txtAddress.getText().toString();
+
+
+
 
 
         if (TextValidator.isEmpty(firstName)) {
@@ -222,6 +299,18 @@ public class RegisterOneFragment extends BaseFragment {
         }else if (TextValidator.isEmpty(selectedStatus)) {
             binding.tilMaritalStatus.setError(getString(R.string.required));
         }else {
+
+            String phone = binding.phoneNumberEditTextForgotPassword.getText().toString().trim();
+            if (phone.startsWith("0")) {
+                binding.phoneNumberInputLayoutForgotPassword.setError("Phone number should not start with 0");
+                return;
+            } else {
+                binding.phoneNumberInputLayoutForgotPassword.setError(null); // Clear error
+                // Proceed
+            }
+
+
+
             validatesInput();
 
             String fullName = firstName+" "+lastName;

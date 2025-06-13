@@ -132,7 +132,8 @@ public class LoginOptionsFragment extends BaseFragment {
         }else if (requestCode == 4000 && resultCode == Activity.RESULT_OK && data != null) {
             navigate(LoginOptionsFragmentDirections.actionLoginToResetPin(data.getStringExtra("member_no")));
         }else if (requestCode == 5000 && resultCode == Activity.RESULT_OK && data != null) {
-            navigate(LoginOptionsFragmentDirections.actionLoginToOpenAccount());
+
+            navigate(LoginOptionsFragmentDirections.actionLoginToOpenAccount(data.getStringExtra("id_no")));
         }
     }
 

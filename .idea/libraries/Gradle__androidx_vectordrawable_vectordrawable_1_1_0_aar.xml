@@ -5,6 +5,8 @@
       <root url="file://$USER_HOME$/.gradle/caches/8.9/transforms/c22b8b48483eb13ec6c6a9205e6f8e50/transformed/vectordrawable-1.1.0/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.vectordrawable/vectordrawable/1.1.0/1e0694477eed874c50c54b547cc3e5a62a57a62b/vectordrawable-1.1.0-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>

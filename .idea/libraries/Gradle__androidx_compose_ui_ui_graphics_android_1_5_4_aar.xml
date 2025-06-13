@@ -6,6 +6,8 @@
       <root url="file://$USER_HOME$/.gradle/caches/8.9/transforms/952103c3d0d94ddbc9cfc0a47237b6b0/transformed/ui-graphics-release/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.compose.ui/ui-graphics-android/1.5.4/b2ba8fb51470554c9d87bf95585e5ef6701d5a4/ui-graphics-android-1.5.4-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>

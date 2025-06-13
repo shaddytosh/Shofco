@@ -6,6 +6,8 @@
       <root url="file://$USER_HOME$/.gradle/caches/8.9/transforms/8be00e29b8ac86e57febe5b81e9edcaa/transformed/navigation-testing-2.7.2/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.navigation/navigation-testing/2.7.2/551ae6fc097c0584ef9df480f0bffea954af0c5e/navigation-testing-2.7.2-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>

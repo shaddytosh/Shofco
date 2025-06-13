@@ -6,6 +6,8 @@
       <root url="file://$USER_HOME$/.gradle/caches/8.9/transforms/11e42bcbca82ef4a0522a9378465cd6f/transformed/navigation-dynamic-features-runtime-2.7.2/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.navigation/navigation-dynamic-features-runtime/2.7.2/77385a6c1141dd648372ef2b7c99fa0ec8051b78/navigation-dynamic-features-runtime-2.7.2-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>

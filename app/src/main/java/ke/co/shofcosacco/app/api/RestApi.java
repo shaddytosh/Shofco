@@ -99,6 +99,10 @@ public interface RestApi {
     @Headers({"Content-Type: application/json"})
     Call<ValidateResponse> validateGuarantor(@Body ValidateRequest request);
 
+    @POST("api/au_mobile_apis/FnValidateID")
+    @Headers({"Content-Type: application/json"})
+    Call<ValidateResponse> validateId(@Body ValidateRequest request);
+
     @POST("api/au_mobile_apis/FnSignUpMember")
     @Headers({"Content-Type: application/json"})
     Call<RegisterResponse> register(@Body RegisterRequest request);

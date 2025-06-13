@@ -6,6 +6,8 @@
       <root url="file://$USER_HOME$/.gradle/caches/8.9/transforms/ee5bf91508bb9c3e84408db0710689a2/transformed/appcompat-resources-1.6.1/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.appcompat/appcompat-resources/1.6.1/53fccb3cf4bae3905a487581fb3ff7b9616583a6/appcompat-resources-1.6.1-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>

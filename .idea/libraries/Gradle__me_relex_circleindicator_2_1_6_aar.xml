@@ -5,7 +5,11 @@
       <root url="file://$USER_HOME$/.gradle/caches/8.9/transforms/6c8e369fcd9930ac9ed2970ae3a1fba3/transformed/circleindicator-2.1.6/res" />
       <root url="file://$USER_HOME$/.gradle/caches/8.9/transforms/6c8e369fcd9930ac9ed2970ae3a1fba3/transformed/circleindicator-2.1.6/AndroidManifest.xml" />
     </CLASSES>
-    <JAVADOC />
-    <SOURCES />
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/me.relex/circleindicator/2.1.6/c63914dbe6762d8b39b388c2524f3a690e27ba94/circleindicator-2.1.6-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/me.relex/circleindicator/2.1.6/56c29dda2252605f95f5206d3b75d3f43085286d/circleindicator-2.1.6-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>

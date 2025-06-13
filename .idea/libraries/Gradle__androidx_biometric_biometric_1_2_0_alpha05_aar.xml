@@ -9,6 +9,8 @@
       <root url="file://$USER_HOME$/.gradle/caches/8.9/transforms/990485556c5c01489cd0247e891e6458/transformed/biometric-1.2.0-alpha05/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.biometric/biometric/1.2.0-alpha05/bb9039b77fd65fdbf7aa84f8ec57236ba0c6d3b2/biometric-1.2.0-alpha05-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>

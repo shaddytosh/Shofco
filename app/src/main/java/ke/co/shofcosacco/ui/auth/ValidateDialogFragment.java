@@ -44,11 +44,9 @@ public class ValidateDialogFragment extends DialogFragment {
         return dialogFragment;
 
     }
-
-   public static void show (FragmentManager fragmentManager){
+    public static void show (FragmentManager fragmentManager){
         newInstance().show(fragmentManager,"paymentTrueDialogFragment");
    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,10 +55,8 @@ public class ValidateDialogFragment extends DialogFragment {
         setCancelable(false);
 
     }
-
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = DialogFragmentValidateBinding.inflate(getLayoutInflater());
 
@@ -106,7 +102,6 @@ public class ValidateDialogFragment extends DialogFragment {
         return binding.getRoot();
 
     }
-
     private void verifyOtp(boolean isResetPin){
         String memberNo =binding.txtMemberNo.getText().toString();
         if (TextValidator.isEmpty(memberNo)){
@@ -115,15 +110,19 @@ public class ValidateDialogFragment extends DialogFragment {
             binding.tilMemberNo.setError(null);
             ProgressDialog progressDialog = ProgressDialog.show(getContext(), "",
                     "Validating. Please wait...", true);
-            authViewModel.validateUser(memberNo, isValidateGuarantor).observe(getViewLifecycleOwner(), apiResponse -> {
+            authViewModel.validateUser(memberNo, isValidateGuarantor,isRegister).observe(getViewLifecycleOwner(), apiResponse -> {
                 progressDialog.dismiss();
                 if (apiResponse != null && apiResponse.isSuccessful()) {
                     if (apiResponse.body().success.equals(STATUS_CODE_SUCCESS)) {
                         if (isResetPin){
                             sendOtp(memberNo, true);
                         }else if (isRegister){
-                            dismiss();
                             notSuccessDialog("This National ID is already registered");
+                            Intent result = new Intent();
+                            result.putExtra("id_no",memberNo);
+                            if (getParentFragment() != null) {
+                                getParentFragment().onActivityResult(500000, Activity.RESULT_OK, result);
+                            }
                         }else {
                             Intent result = new Intent();
                             if (isValidateGuarantor){
@@ -133,21 +132,27 @@ public class ValidateDialogFragment extends DialogFragment {
                                 if (getParentFragment() != null) {
                                     getParentFragment().onActivityResult(2000, Activity.RESULT_OK, result);
                                 }
+                                dismiss();
                             }else if (isRegister){
+                                notSuccessDialog("This National ID is already registered");
+                                result.putExtra("id_no",memberNo);
+
                                 if (getParentFragment() != null) {
-                                    getParentFragment().onActivityResult(5000, Activity.RESULT_OK, result);
+                                    getParentFragment().onActivityResult(500000, Activity.RESULT_OK, result);
                                 }
                             }else {
                                 result.putExtra("message", apiResponse.body().description);
                                 if (getParentFragment() != null) {
                                     getParentFragment().onActivityResult(3000, Activity.RESULT_OK, result);
                                 }
+                                dismiss();
                             }
-                            dismiss();
+
                         }
                     } else {
                       if (isRegister){
                           Intent result = new Intent();
+                          result.putExtra("id_no", memberNo);
                           if (getParentFragment() != null) {
                               dismiss();
                               getParentFragment().onActivityResult(5000, Activity.RESULT_OK, result);
@@ -156,19 +161,12 @@ public class ValidateDialogFragment extends DialogFragment {
                           sendOtp(memberNo,isResetPin);
                       }
                     }
-                }else if (isRegister){
-                    Intent result = new Intent();
-                    if (getParentFragment() != null) {
-                        dismiss();
-                        getParentFragment().onActivityResult(5000, Activity.RESULT_OK, result);
-                    }
                 }
 
             });
 
         }
     }
-
     private void sendOtp(String memberNo, boolean  isResetPin) {
         ProgressDialog progressDialog = ProgressDialog.show(getContext(), "",
                 "Requesting OTP. Please wait...", true);
@@ -210,7 +208,6 @@ public class ValidateDialogFragment extends DialogFragment {
         dialogFragment.setArguments(args);
         dialogFragment.show(getChildFragmentManager(),dialogFragment.getTag());
     }
-
     @Override
     public void onResume()
     {

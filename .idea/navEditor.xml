@@ -182,18 +182,6 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="l">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="12" />
-                            <option name="y" value="12" />
-                          </Point>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
                   <entry key="launcher">
                     <value>
                       <LayoutPositions>
@@ -589,6 +577,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="online_loan_guarantors">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="12" />
+                            <option name="y" value="12" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="online_loans">
                     <value>
                       <LayoutPositions>
@@ -597,6 +597,15 @@
                             <option name="x" value="12" />
                             <option name="y" value="12" />
                           </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_online_loans_to_online_loan_guarantors">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
                         </option>
                       </LayoutPositions>
                     </value>

@@ -295,15 +295,30 @@ public class AddNextOfKinRequest implements Serializable {
         @SerializedName("address")
         private String address;
 
+        public String getKinType() {
+            return kinType;
+        }
+
+        public void setKinType(String kinType) {
+            this.kinType = kinType;
+        }
+
+        @SerializedName("kin_type")
+        private String kinType;
+
         public String getRelationshipTypeCode() {
             return relationshipTypeCode;
+        }
+
+        public void setRelationshipTypeCode(String relationshipTypeCode) {
+            this.relationshipTypeCode = relationshipTypeCode;
         }
 
         @SerializedName("relationship_type")
         private String relationshipTypeCode;
 
         public NextOfKin(String name, String dateOfBirth, String idNo, String telephone, String email,
-                         String town, String address, String allocation, String relationshipTypeCode) {
+                         String town, String address, String allocation, String relationshipTypeCode, String kinType) {
             this.name = name;
             this.dateOfBirth = dateOfBirth;
             this.idNo = idNo;
@@ -313,6 +328,7 @@ public class AddNextOfKinRequest implements Serializable {
             this.address = address;
             this.allocation = allocation;
             this.relationshipTypeCode = relationshipTypeCode;
+            this.kinType = kinType;
 
         }
 

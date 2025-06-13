@@ -6,6 +6,8 @@
       <root url="file://$USER_HOME$/.gradle/caches/8.9/transforms/7e9bec7046b4ab3995f9db2d537a5a13/transformed/lifecycle-process-2.6.2/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.lifecycle/lifecycle-process/2.6.2/dd039c5f2bbb7b39abdef48c2144039069b7bd7/lifecycle-process-2.6.2-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>

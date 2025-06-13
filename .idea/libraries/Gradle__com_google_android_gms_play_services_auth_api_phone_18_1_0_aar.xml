@@ -4,7 +4,9 @@
       <root url="jar://$USER_HOME$/.gradle/caches/8.9/transforms/7daaefa50a68724747a8094e841bb13a/transformed/play-services-auth-api-phone-18.1.0/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/8.9/transforms/7daaefa50a68724747a8094e841bb13a/transformed/play-services-auth-api-phone-18.1.0/AndroidManifest.xml" />
     </CLASSES>
-    <JAVADOC />
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.android.gms/play-services-auth-api-phone/18.1.0/4cd7032a9749ceb569c55b38440e9b12d7c08f8f/play-services-auth-api-phone-18.1.0-javadoc.jar!/" />
+    </JAVADOC>
     <SOURCES />
   </library>
 </component>

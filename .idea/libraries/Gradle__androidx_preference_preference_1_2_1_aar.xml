@@ -6,6 +6,8 @@
       <root url="file://$USER_HOME$/.gradle/caches/8.9/transforms/ba0af23c0c2eb2eec8faf7a91ce705a1/transformed/preference-1.2.1/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.preference/preference/1.2.1/ab5e929e8738e3251b1740fea406ef36e91382a6/preference-1.2.1-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>

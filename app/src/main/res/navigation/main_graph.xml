@@ -93,6 +93,9 @@
             app:popEnterAnim="@anim/in_from_left"
             app:popExitAnim="@anim/out_to_right" />
 
+        <argument app:argType="string" android:name="idNo"/>
+
+
 
     </fragment>
 

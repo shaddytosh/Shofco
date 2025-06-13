@@ -162,11 +162,11 @@ public class AuthRepository {
         return liveData;
     }
 
-    public LiveData<APIResponse<ValidateResponse>> validateUser(String memberNo,boolean isValidateGuarantor) {
+    public LiveData<APIResponse<ValidateResponse>> validateUser(String memberNo,boolean isValidateGuarantor, boolean isRegister) {
         MutableLiveData<APIResponse<ValidateResponse>> liveData = new MutableLiveData<>();
         ApiManager.execute(() -> {
             try {
-                APIResponse<ValidateResponse> response = apiManager.validateUser(memberNo,isValidateGuarantor);
+                APIResponse<ValidateResponse> response = apiManager.validateUser(memberNo,isValidateGuarantor,isRegister);
                 liveData.postValue(response);
             } catch (IOException e) {
                 e.printStackTrace();

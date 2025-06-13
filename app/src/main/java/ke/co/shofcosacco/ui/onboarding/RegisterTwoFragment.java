@@ -41,6 +41,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
+import com.yalantis.ucrop.UCrop;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -68,27 +69,12 @@ import ke.co.shofcosacco.ui.home.NotSuccessDialogFragment;
 import ke.co.shofcosacco.ui.main.SuccessDialogFragment;
 
 
-public class RegisterTwoFragment extends BaseFragment {
+public class RegisterTwoFragment extends BaseFragment implements CropImageHelperFragment.OnImageCroppedListener{
 
     private FragmentRegisterTwoBinding binding;
     private Handler handler;
     private AuthViewModel authViewModel;
 
-    private static final int REQUEST_IMAGE_CAPTURE_ID_FRONT = 10;
-    private static final int REQUEST_IMAGE_CAPTURE_ID_BACK = 20;
-    private static final int REQUEST_IMAGE_CAPTURE_SIGNATURE = 30;
-    private static final int REQUEST_IMAGE_CAPTURE_PASSPORT = 40;
-
-
-    private static final int REQUEST_IMAGE_PICK_ID_FRONT = 50;
-    private static final int REQUEST_IMAGE_PICK_ID_BACK = 60;
-    private static final int REQUEST_IMAGE_PICK_SIGNATURE = 70;
-    private static final int REQUEST_IMAGE_PICK_PASSPORT= 80;
-
-    private static final int REQUEST_PERMISSIONS_ID_FRONT = 90;
-    private static final int REQUEST_PERMISSIONS_ID_BACK = 100;
-    private static final int REQUEST_PERMISSIONS_SIGNATURE = 110;
-    private static final int REQUEST_PERMISSIONS_PASSPORT = 120;
     private String fullName;
     private String nationalId;
     private String dateOfBirth;
@@ -135,9 +121,6 @@ public class RegisterTwoFragment extends BaseFragment {
 
     private NextOfKinsAdapter nextOfKinsAdapter;
     private List<NextOfKinNew> nextOfKinNewList = new ArrayList<>();
-
-    private Uri   imageUri ;
-
     private List<CountiesResponse.Counties> countiesList;
     private ArrayAdapter<CountiesResponse.Counties> countiesArrayAdapter;
 
@@ -148,101 +131,9 @@ public class RegisterTwoFragment extends BaseFragment {
     private ArrayAdapter<CountiesResponse.Wards> wardsArrayAdapter;
     String employmentStatus;
 
-
-    private final ActivityResultLauncher<Uri> mTakeImageIdFront = registerForActivityResult(new ActivityResultContracts.TakePicture(), result -> {
-        try {
-            Bitmap imageBitmap = MediaStore.Images.Media.getBitmap(requireActivity().getContentResolver(), idFrontUri);
-            if (imageBitmap != null && idFrontList.size() < 1) {
-                idFrontList.add(imageBitmap);
-                idFrontAdapter.notifyDataSetChanged();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            Toast.makeText(requireContext(), "Error loading image", Toast.LENGTH_SHORT).show();
-        }
-    });
-
-    private final ActivityResultLauncher<String> mRequestPermissionIdFront = registerForActivityResult(new ActivityResultContracts.RequestPermission(), result -> {
-        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
-            if (idFrontUri != null){
-                mTakeImageIdFront.launch(idFrontUri);
-            }
-        } else {
-            showCameraRationale();
-        }
-    });
-
-
-    private final ActivityResultLauncher<Uri> mTakeImageIdBack = registerForActivityResult(new ActivityResultContracts.TakePicture(), result -> {
-        try {
-            Bitmap imageBitmap = MediaStore.Images.Media.getBitmap(requireActivity().getContentResolver(), idBackUri);
-            if (imageBitmap != null && idBackList.size() < 1) {
-                idBackList.add(imageBitmap);
-                idBackAdapter.notifyDataSetChanged();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            Toast.makeText(requireContext(), "Error loading image", Toast.LENGTH_SHORT).show();
-        }
-    });
-
-    private final ActivityResultLauncher<String> mRequestPermissionIdBack = registerForActivityResult(new ActivityResultContracts.RequestPermission(), result -> {
-        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
-            if (idBackUri != null){
-                mTakeImageIdBack.launch(idBackUri);
-            }
-        } else {
-            showCameraRationale();
-        }
-    });
-
-   private final ActivityResultLauncher<Uri> mTakeImagePassport = registerForActivityResult(new ActivityResultContracts.TakePicture(), result -> {
-        try {
-            Bitmap imageBitmap = MediaStore.Images.Media.getBitmap(requireActivity().getContentResolver(), passportUri);
-            if (imageBitmap != null && passportList.size()  < 1) {
-                passportList.add(imageBitmap);
-                passportAdapter.notifyDataSetChanged();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            Toast.makeText(requireContext(), "Error loading image", Toast.LENGTH_SHORT).show();
-        }
-    });
-
-    private final ActivityResultLauncher<String> mRequestPermissionPassport= registerForActivityResult(new ActivityResultContracts.RequestPermission(), result -> {
-        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
-            if (passportUri != null){
-                mTakeImagePassport.launch(passportUri);
-            }
-        } else {
-            showCameraRationale();
-        }
-    });
-
-    private final ActivityResultLauncher<Uri> mTakeImageSignature = registerForActivityResult(new ActivityResultContracts.TakePicture(), result -> {
-        try {
-            Bitmap imageBitmap1 = MediaStore.Images.Media.getBitmap(requireActivity().getContentResolver(), signatureUri);
-            if (imageBitmap1 != null && signatureList.size() < 1) {
-                signatureList.add(imageBitmap1);
-                signatureAdapter.notifyDataSetChanged();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            Toast.makeText(requireContext(), "Error loading image", Toast.LENGTH_SHORT).show();
-        }
-    });
-
-    private final ActivityResultLauncher<String> mRequestPermissionSignature = registerForActivityResult(new ActivityResultContracts.RequestPermission(), result -> {
-        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
-            if (signatureUri != null){
-                mTakeImageSignature.launch(signatureUri);
-            }
-        } else {
-            showCameraRationale();
-        }
-    });
-
-
+    private CropImageHelperFragment cropImageHelper;
+    private Map<CropImageHelperFragment.ImageType, String> imageBase64Map = new HashMap<>();
+    private Map<CropImageHelperFragment.ImageType, Uri> imageUriMap = new HashMap<>();
 
 
     public RegisterTwoFragment() {
@@ -253,6 +144,12 @@ public class RegisterTwoFragment extends BaseFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         authViewModel = new ViewModelProvider(this).get(AuthViewModel.class);
+
+        cropImageHelper = CropImageHelperFragment.newInstance(this);
+        getChildFragmentManager()
+                .beginTransaction()
+                .add(cropImageHelper, "crop_helper")
+                .commit();
     }
 
     @Override
@@ -406,28 +303,26 @@ public class RegisterTwoFragment extends BaseFragment {
         binding.recyclerNextOfKin.setAdapter(nextOfKinsAdapter);
         binding.recyclerNextOfKin.setLayoutManager(new LinearLayoutManager(requireContext()));
 
+        binding.btnTakeIdFront.setOnClickListener(v ->
+                cropImageHelper.launchCamera(CropImageHelperFragment.ImageType.FRONT_ID));
+        binding.btnUploadIdFront.setOnClickListener(v ->
+                cropImageHelper.launchPicker(CropImageHelperFragment.ImageType.FRONT_ID));
 
-        binding.btnTakeIdFront.setOnClickListener(v -> pickOrTakeImageIdFront());
-        binding.btnUploadIdFront.setOnClickListener(v -> {
-            checkPermissionsAndPickImage(REQUEST_IMAGE_PICK_ID_FRONT);
-        });
+        binding.btnTakeIdBack.setOnClickListener(v ->
+                cropImageHelper.launchCamera(CropImageHelperFragment.ImageType.BACK_ID));
+        binding.btnUploadIdBack.setOnClickListener(v ->
+                cropImageHelper.launchPicker(CropImageHelperFragment.ImageType.BACK_ID));
 
-        binding.btnTakeIdBack.setOnClickListener(v -> pickOrTakeImageIdBack());
-        binding.btnUploadIdBack.setOnClickListener(v -> {
-            checkPermissionsAndPickImage(REQUEST_IMAGE_PICK_ID_BACK);
-        });
+        binding.buttonSignature.setOnClickListener(v ->
+                cropImageHelper.launchCamera(CropImageHelperFragment.ImageType.SIGNATURE));
+        binding.buttonSignature1.setOnClickListener(v ->
+                cropImageHelper.launchPicker(CropImageHelperFragment.ImageType.SIGNATURE));
 
+        binding.buttonPassport.setOnClickListener(v ->
+                cropImageHelper.launchCamera(CropImageHelperFragment.ImageType.PASSPORT));
+        binding.buttonPassport1.setOnClickListener(v ->
+                cropImageHelper.launchPicker(CropImageHelperFragment.ImageType.PASSPORT));
 
-        binding.buttonSignature.setOnClickListener(v -> pickOrTakeImageSignature());
-        binding.buttonSignature1.setOnClickListener(v -> {
-            checkPermissionsAndPickImage(REQUEST_IMAGE_PICK_SIGNATURE);
-        });
-
-
-        binding.buttonPassport.setOnClickListener(v -> pickOrTakeImagePassport());
-        binding.buttonPassport1.setOnClickListener(v -> {
-            checkPermissionsAndPickImage(REQUEST_IMAGE_PICK_PASSPORT);
-        });
 
 
         binding.buttonNextOfKin.setOnClickListener(v -> {
@@ -435,7 +330,6 @@ public class RegisterTwoFragment extends BaseFragment {
             dialogFragment.show(getChildFragmentManager(),dialogFragment.getTag());
 
         });
-
 
 
         return binding.getRoot();
@@ -561,7 +455,9 @@ public class RegisterTwoFragment extends BaseFragment {
                     nextOfKinNew.getTown(),
                     nextOfKinNew.getAddress(),
                     nextOfKinNew.getAllocation(),
-                    nextOfKinNew.getRelationshipTypeCode()
+                    nextOfKinNew.getRelationshipTypeCode(),
+                    nextOfKinNew.getKinType()
+
 
             );
             nextOfKinList.add(nextOfKin); // Add to the list
@@ -569,7 +465,6 @@ public class RegisterTwoFragment extends BaseFragment {
 
         return nextOfKinList; // Return the list
     }
-
 
     private void getCounties(){
         ProgressDialog progressDialog = ProgressDialog.show(getContext(), "",
@@ -599,8 +494,6 @@ public class RegisterTwoFragment extends BaseFragment {
             }
         });
     }
-
-
 
     private void getSubCounty(String countyCode){
         ProgressDialog progressDialog = ProgressDialog.show(getContext(), "",
@@ -670,10 +563,8 @@ public class RegisterTwoFragment extends BaseFragment {
             Bitmap resizedBitmap = Bitmap.createScaledBitmap(bitmap, targetWidth, targetHeight, true);
 
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            // Use WEBP for better compression and smaller output
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                resizedBitmap.compress(Bitmap.CompressFormat.WEBP_LOSSY, 70, outputStream);
-            }
+            // Use JPEG format for standard image compression
+            resizedBitmap.compress(Bitmap.CompressFormat.JPEG, 70, outputStream);
 
             byte[] byteArray = outputStream.toByteArray();
             return Base64.encodeToString(byteArray, Base64.NO_WRAP);
@@ -683,88 +574,6 @@ public class RegisterTwoFragment extends BaseFragment {
             return "";
         }
     }
-
-
-    private void pickOrTakeImageIdFront(){
-        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            if (shouldShowRequestPermissionRationale(Manifest.permission.CAMERA)) {
-                showCameraRationale();
-            } else {
-                mRequestPermissionIdFront.launch(Manifest.permission.CAMERA);
-            }
-        } else {
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd_MM_yyyy_HH_mm_ss", Locale.getDefault());
-            String fileName = simpleDateFormat.format(new Date()) + ".jpg";
-            File file = new File(requireContext().getCacheDir(), fileName);
-            file.deleteOnExit();
-            idFrontUri = FileProvider.getUriForFile(requireContext(), requireContext().getPackageName() + ".fileprovider", file);
-
-            mTakeImageIdFront.launch(idFrontUri);
-
-
-        }
-    }
-
-    private void pickOrTakeImageIdBack(){
-        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            if (shouldShowRequestPermissionRationale(Manifest.permission.CAMERA)) {
-                showCameraRationale();
-            } else {
-                mRequestPermissionIdBack.launch(Manifest.permission.CAMERA);
-            }
-        } else {
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd_MM_yyyy_HH_mm_ss", Locale.getDefault());
-            String fileName = simpleDateFormat.format(new Date()) + ".jpg";
-            File file = new File(requireContext().getCacheDir(), fileName);
-            file.deleteOnExit();
-            idBackUri = FileProvider.getUriForFile(requireContext(), requireContext().getPackageName() + ".fileprovider", file);
-
-            mTakeImageIdBack.launch(idBackUri);
-        }
-    }
-
-    private void pickOrTakeImagePassport(){
-        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            if (shouldShowRequestPermissionRationale(Manifest.permission.CAMERA)) {
-                showCameraRationale();
-            } else {
-                mRequestPermissionPassport.launch(Manifest.permission.CAMERA);
-            }
-        } else {
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd_MM_yyyy_HH_mm_ss", Locale.getDefault());
-            String fileName = simpleDateFormat.format(new Date()) + ".jpg";
-            File file = new File(requireContext().getCacheDir(), fileName);
-            file.deleteOnExit();
-            passportUri = FileProvider.getUriForFile(requireContext(), requireContext().getPackageName() + ".fileprovider", file);
-
-            mTakeImagePassport.launch(passportUri);
-        }
-    }
-
-    private void pickOrTakeImageSignature(){
-        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            if (shouldShowRequestPermissionRationale(Manifest.permission.CAMERA)) {
-                showCameraRationale();
-            } else {
-                mRequestPermissionSignature.launch(Manifest.permission.CAMERA);
-            }
-        } else {
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd_MM_yyyy_HH_mm_ss", Locale.getDefault());
-            String fileName = simpleDateFormat.format(new Date()) + ".jpg";
-            File file = new File(requireContext().getCacheDir(), fileName);
-            file.deleteOnExit();
-            signatureUri = FileProvider.getUriForFile(requireContext(), requireContext().getPackageName() + ".fileprovider", file);
-
-            mTakeImageSignature.launch(signatureUri);
-        }
-    }
-
-
-    private void showCameraRationale() {
-        Snackbar.make(binding.coordinator, R.string.camera_rationale, BaseTransientBottomBar.LENGTH_INDEFINITE)
-                .setAction(R.string.grant, v -> mRequestPermissionIdFront.launch(Manifest.permission.CAMERA)).show();
-    }
-
 
 
     private void notSuccessDialog(String message){
@@ -794,41 +603,10 @@ public class RegisterTwoFragment extends BaseFragment {
 
         if (resultCode != RESULT_OK) return;
         Uri imageUri = data.getData();
+
         switch (requestCode) {
             case 1200:
                 navigate(RegisterTwoFragmentDirections.actionRegisterTwoToLoginOptions());
-                break;
-
-            case REQUEST_IMAGE_CAPTURE_ID_FRONT:
-                handleImageCapture(idFrontUri, idFrontList, idFrontAdapter);
-                break;
-
-            case REQUEST_IMAGE_CAPTURE_ID_BACK:
-                handleImageCapture(idBackUri, idBackList, idBackAdapter);
-                break;
-
-            case REQUEST_IMAGE_CAPTURE_SIGNATURE:
-                handleImageCapture(signatureUri, signatureList, signatureAdapter);
-                break;
-
-            case REQUEST_IMAGE_CAPTURE_PASSPORT:
-                handleImageCapture(passportUri, passportList, passportAdapter);
-                break;
-
-            case REQUEST_IMAGE_PICK_ID_FRONT:
-                handleImagePick(imageUri, idFrontList, idFrontAdapter);
-                break;
-
-            case REQUEST_IMAGE_PICK_ID_BACK:
-                handleImagePick(imageUri, idBackList, idBackAdapter);
-                break;
-
-            case REQUEST_IMAGE_PICK_SIGNATURE:
-                handleImagePick(imageUri, signatureList, signatureAdapter);
-                break;
-
-            case REQUEST_IMAGE_PICK_PASSPORT:
-                handleImagePick(imageUri, passportList, passportAdapter);
                 break;
 
             case 2000:
@@ -848,13 +626,48 @@ public class RegisterTwoFragment extends BaseFragment {
                             data.getStringExtra("town"),
                             data.getStringExtra("address"),
                             data.getStringExtra("allocation"),
-                            data.getStringExtra("relationshipTypeCode")
+                            data.getStringExtra("relationshipTypeCode"),
+                            data.getStringExtra("kinType")
+
                     ));
                     nextOfKinsAdapter.notifyDataSetChanged();
                 }
                 break;
         }
     }
+
+    @Override
+    public void onImageCropped(Uri croppedImageUri, String base64Data, CropImageHelperFragment.ImageType imageType) {
+        // Store the data
+        imageBase64Map.put(imageType, base64Data);
+        imageUriMap.put(imageType, croppedImageUri);
+
+        // Update UI based on image type
+        switch (imageType) {
+            case FRONT_ID:
+                handleImagePick(croppedImageUri,idFrontList,idFrontAdapter);
+                break;
+            case BACK_ID:
+                handleImagePick(croppedImageUri,idBackList,idBackAdapter);
+                break;
+            case SIGNATURE:
+                handleImagePick(croppedImageUri,signatureList,signatureAdapter);
+                break;
+            case PASSPORT:
+                handleImagePick(croppedImageUri,passportList,passportAdapter);
+                break;
+        }
+
+        Toast.makeText(getContext(), imageType.getValue() + " image captured successfully", Toast.LENGTH_SHORT).show();
+    }
+
+
+
+    @Override
+    public void onImageCropError(String error, CropImageHelperFragment.ImageType imageType) {
+        Toast.makeText(getContext(), "Error capturing " + imageType.getValue() + ": " + error, Toast.LENGTH_LONG).show();
+    }
+
 
     private void handleImageCapture(Uri uri, List<Bitmap> list, RecyclerView.Adapter adapter) {
         try {
@@ -891,91 +704,5 @@ public class RegisterTwoFragment extends BaseFragment {
         }
 
     }
-
-
-    private void checkPermissionsAndPickImage(int permissionType) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) { // Android 13+
-            if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_MEDIA_IMAGES)
-                    != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(requireActivity(),
-                        new String[]{Manifest.permission.READ_MEDIA_IMAGES},
-                        permissionType);
-            } else {
-                openImagePicker(permissionType);
-            }
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
-                    != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(requireActivity(),
-                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                        permissionType);
-            } else {
-                dispatchPickPhotoIntent(permissionType);
-            }
-        } else {
-            // Below Android 6.0, permissions are granted at install time
-            dispatchPickPhotoIntent(permissionType);
-        }
-    }
-
-
-
-    private void openImagePicker(int permissionType) {
-        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-        intent.addCategory(Intent.CATEGORY_OPENABLE);
-        intent.setType("image/*");
-        startActivityForResult(intent, permissionType);
-    }
-
-
-
-
-    private void dispatchPickPhotoIntent(int permissionType) {
-        Intent pickImageIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        if (pickImageIntent.resolveActivity(requireActivity().getPackageManager()) != null) {
-            startActivityForResult(pickImageIntent, permissionType);
-        }
-    }
-
-
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == REQUEST_PERMISSIONS_ID_FRONT) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // Permission granted, proceed to pick an image
-                dispatchPickPhotoIntent(REQUEST_PERMISSIONS_ID_FRONT);
-            } else {
-                // Permission denied, show a message to the user
-                Toast.makeText(requireContext(), "Permission denied to read your external storage", Toast.LENGTH_SHORT).show();
-            }
-        }else if (requestCode == REQUEST_PERMISSIONS_ID_BACK) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // Permission granted, proceed to pick an image
-                dispatchPickPhotoIntent(REQUEST_PERMISSIONS_ID_BACK);
-            } else {
-                // Permission denied, show a message to the user
-                Toast.makeText(requireContext(), "Permission denied to read your external storage", Toast.LENGTH_SHORT).show();
-            }
-        }else if (requestCode == REQUEST_PERMISSIONS_SIGNATURE) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // Permission granted, proceed to pick an image
-                dispatchPickPhotoIntent(REQUEST_PERMISSIONS_SIGNATURE);
-            } else {
-                // Permission denied, show a message to the user
-                Toast.makeText(requireContext(), "Permission denied to read your external storage", Toast.LENGTH_SHORT).show();
-            }
-        }else if (requestCode == REQUEST_PERMISSIONS_PASSPORT) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // Permission granted, proceed to pick an image
-                dispatchPickPhotoIntent(REQUEST_PERMISSIONS_PASSPORT);
-            } else {
-                // Permission denied, show a message to the user
-                Toast.makeText(requireContext(), "Permission denied to read your external storage", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
-
 
 }

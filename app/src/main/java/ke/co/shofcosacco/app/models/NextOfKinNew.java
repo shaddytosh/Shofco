@@ -12,6 +12,7 @@ public class NextOfKinNew {
     private String town;
     private String address;
     private String allocation;
+    private String kinType;
 
     public String getRelationshipTypeCode() {
         return relationshipTypeCode;
@@ -21,7 +22,7 @@ public class NextOfKinNew {
 
     // Constructor
     public NextOfKinNew(String name, String dateOfBirth, String idNo, String telephone, String email,
-                        String town, String address, String allocation, String relationshipTypeCode) {
+                        String town, String address, String allocation, String relationshipTypeCode, String kinType) {
         this.name = name;
         this.dateOfBirth = dateOfBirth;
         this.idNo = idNo;
@@ -30,6 +31,7 @@ public class NextOfKinNew {
         this.town = town;
         this.address = address;
         this.allocation = allocation;
+        this.kinType = kinType;
         this.relationshipTypeCode = relationshipTypeCode;
     }
 
@@ -110,5 +112,13 @@ public class NextOfKinNew {
                 "Town: " + town + "\n" +
                 "Address: " + address + "\n" +
                 "Allocation: " + allocation;
+    }
+
+    public String getKinType() {
+        return kinType;
+    }
+
+    public void setKinType(String kinType) {
+        this.kinType = kinType;
     }
 }

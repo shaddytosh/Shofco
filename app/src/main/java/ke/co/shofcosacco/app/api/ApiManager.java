@@ -366,10 +366,16 @@ public class ApiManager {
         return new APIResponse<>(api.changePassword(request).execute());
     }
 
-    public APIResponse<ValidateResponse> validateUser(String memberNo,boolean isValidateGuarantor) throws IOException {
+    public APIResponse<ValidateResponse> validateUser(String memberNo,boolean isValidateGuarantor, boolean isRegister) throws IOException {
         ValidateRequest request = new ValidateRequest();
 
-        if (isValidateGuarantor) {
+        if (isRegister){
+            request.idNumber = memberNo;
+            request.memberNo = getLastNameMemberNo();
+            return new APIResponse<>(api.validateId(request).execute());
+
+        }
+       else  if (isValidateGuarantor) {
             request.idNumber = memberNo;
             request.memberNo = getLastNameMemberNo();
             return new APIResponse<>(api.validateGuarantor(request).execute());

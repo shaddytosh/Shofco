@@ -6,6 +6,8 @@
       <root url="file://$USER_HOME$/.gradle/caches/8.9/transforms/5aa83ffb8949ba283e0b4a3a5f45b03b/transformed/lifecycle-viewmodel-savedstate-2.6.2/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.lifecycle/lifecycle-viewmodel-savedstate/2.6.2/2d3519967d6ad4b68af5219e6a2bf015c1ed6287/lifecycle-viewmodel-savedstate-2.6.2-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>

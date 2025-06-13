@@ -21,11 +21,40 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/add_next_of_kin"
+                android:text="Add Next Of Kin/Beneficiary"
                 android:layout_margin="@dimen/size_8"
                 android:textAlignment="center"
                 android:textSize="16sp"
                 android:textColor="@color/black"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_kin_type"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:focusable="false"
+                android:hint="Kin Type"
+                android:layout_marginTop="@dimen/size_8"
+                android:layout_marginStart="@dimen/size_20"
+                android:layout_marginEnd="@dimen/size_20"
+                android:layout_marginBottom="@dimen/size_8"
+                android:orientation="horizontal"
+                app:hintTextColor="@color/primary_to_white"
+                android:backgroundTint="@color/primary_to_white">
+
+                <AutoCompleteTextView
+                    android:id="@+id/tv_kin_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:inputType="none"
+                    android:textSize="18sp"
+                    android:textColor="@color/primary_to_white"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_full_name"

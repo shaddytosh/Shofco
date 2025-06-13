@@ -79,8 +79,8 @@ public class AuthViewModel extends AndroidViewModel {
         return authRepository.changePassword(oldPassword, newPassword, otp);
     }
 
-    public LiveData<APIResponse<ValidateResponse>> validateUser(String memberNo,boolean isValidateGuarantor) {
-        return authRepository.validateUser(memberNo,isValidateGuarantor);
+    public LiveData<APIResponse<ValidateResponse>> validateUser(String memberNo,boolean isValidateGuarantor, boolean isRegister) {
+        return authRepository.validateUser(memberNo,isValidateGuarantor,isRegister);
     }
 
 

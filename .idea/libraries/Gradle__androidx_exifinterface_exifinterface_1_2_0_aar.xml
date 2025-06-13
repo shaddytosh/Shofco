@@ -8,6 +8,8 @@
       <root url="file://$USER_HOME$/.gradle/caches/8.9/transforms/990d3b6afd75dbe91d6bd92d2bdfb1ef/transformed/exifinterface-1.2.0/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.exifinterface/exifinterface/1.2.0/cae89dd2d8af4160feaed1a42933db7ccf0002d7/exifinterface-1.2.0-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>

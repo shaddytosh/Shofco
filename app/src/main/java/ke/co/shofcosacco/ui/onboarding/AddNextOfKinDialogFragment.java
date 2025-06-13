@@ -10,6 +10,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +32,7 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 import co.ke.shofcosacco.R;
 import co.ke.shofcosacco.databinding.DialogNextOfKinBinding;
@@ -46,7 +49,7 @@ public class AddNextOfKinDialogFragment extends DialogFragment {
     private DialogNextOfKinBinding binding;
     private String dateOfBirth;
     private Handler handler;
-    private String relationshipTypeCode = "";
+    private String relationshipTypeCode = "",selectedKinType;
 
     private List<CountiesResponse.RelationshipType> relationshipTypeList;
     private ArrayAdapter<CountiesResponse.RelationshipType> relationshipTypeArrayAdapter;
@@ -151,6 +154,60 @@ public class AddNextOfKinDialogFragment extends DialogFragment {
             }
         });
 
+        // Set up the gender dropdown
+        String[] kinTypes = new String[]{"Next of Kin", "Beneficiary"};
+        ArrayAdapter<String> genderAdapter = new ArrayAdapter<>(
+                requireContext(),
+                android.R.layout.simple_dropdown_item_1line,
+                kinTypes
+        );
+        binding.tvKinType.setAdapter(genderAdapter);
+
+        binding.tvKinType.setFocusable(false);  // Make it non-editable
+        binding.tvKinType.setClickable(true);   // But still clickable to show the dropdown
+
+        binding.tvKinType.setOnItemClickListener((parent, view1, position, id) -> {
+            selectedKinType = String.valueOf(position+1);
+            // Do something with selectedGender
+        });
+
+        binding.tvDateOfBirth.setOnFocusChangeListener((v, hasFocus) -> {
+            if (!hasFocus) {
+                String input = binding.tvDateOfBirth.getText().toString();
+                if (!isValidDate(input)) {
+                    binding.tilYearOfBirth.setError("Use format yyyy-MM-dd");
+                } else {
+                    binding.tilYearOfBirth.setError(null);
+                }
+            }
+        });
+
+        binding.tvDateOfBirth.addTextChangedListener(new TextValidator() {
+            @Override
+            public void validate(String s) {
+                if (s != null){
+                    binding.tilYearOfBirth.setError(null);
+                }
+            }
+        });
+
+        binding.phoneNumberEditTextForgotPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() == 1 && s.charAt(0) == '0') {
+                    binding.phoneNumberEditTextForgotPassword.setText("");
+                    binding.phoneNumberInputLayoutForgotPassword.setError("Phone number should not start with 0");
+                } else {
+                    binding.phoneNumberInputLayoutForgotPassword.setError(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) { }
+        });
 
 
         binding.tvDateOfBirth.setOnClickListener(view -> {
@@ -179,7 +236,6 @@ public class AddNextOfKinDialogFragment extends DialogFragment {
             datePickerDialog.show();
             datePickerDialog.setTitle("Select date of birth");
         });
-
         binding.btnAdd.setOnClickListener(v -> addNextOfKin());
 
 
@@ -187,6 +243,21 @@ public class AddNextOfKinDialogFragment extends DialogFragment {
 
         return binding.getRoot();
 
+    }
+
+    private boolean isValidDate(String dateStr) {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+            sdf.setLenient(false);
+            Date date = sdf.parse(dateStr);
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(date);
+            Calendar limit = Calendar.getInstance();
+            limit.add(Calendar.YEAR, -18);
+            return !cal.after(limit);
+        } catch (ParseException e) {
+            return false;
+        }
     }
 
     private void getRelationshipTypes(){
@@ -229,7 +300,9 @@ public class AddNextOfKinDialogFragment extends DialogFragment {
         String address= binding.txtAddress.getText().toString();
 
 
-        if (TextValidator.isEmpty(fullName)) {
+        if (TextValidator.isEmpty(selectedKinType)) {
+            binding.tilFullName.setError(getString(R.string.required));
+        }else if (TextValidator.isEmpty(fullName)) {
             binding.tilFullName.setError(getString(R.string.required));
         }else if (TextValidator.isEmpty(nationalId)) {
             binding.tilNationalId.setError(getString(R.string.required));
@@ -246,6 +319,16 @@ public class AddNextOfKinDialogFragment extends DialogFragment {
         }else if (TextValidator.isEmpty(allocation)) {
             binding.tilAllocation.setError(getString(R.string.required));
         }else {
+
+            String phone = binding.phoneNumberEditTextForgotPassword.getText().toString().trim();
+            if (phone.startsWith("0")) {
+                binding.phoneNumberInputLayoutForgotPassword.setError("Phone number should not start with 0");
+                return;
+            } else {
+                binding.phoneNumberInputLayoutForgotPassword.setError(null); // Clear error
+                // Proceed
+            }
+
             validatesInput();
             Intent result = new Intent();
 
@@ -258,6 +341,7 @@ public class AddNextOfKinDialogFragment extends DialogFragment {
             result.putExtra("address", address);
             result.putExtra("dateOfBirth", dateOfBirth);
             result.putExtra("relationshipTypeCode", relationshipTypeCode);
+            result.putExtra("kinType", selectedKinType);
 
             if (getParentFragment() != null) {
                 getParentFragment().onActivityResult(2000, RESULT_OK, result);
