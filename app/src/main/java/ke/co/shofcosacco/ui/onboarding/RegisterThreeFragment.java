@@ -93,7 +93,24 @@ public class RegisterThreeFragment extends BaseFragment {
         binding = FragmentRegisterThreeBinding.inflate(inflater, container, false);
         handler = new Handler(Looper.getMainLooper());
 
-        binding.toolbar.setNavigationOnClickListener(v -> navigateUp());
+        binding.toolbar.setNavigationOnClickListener(v -> {
+            Onboarding2 onboarding2 = new Onboarding2(requireContext());
+            onboarding2.clear();
+            navigateUp();
+        });
+
+
+        Onboarding2 screenTwo = new Onboarding2(requireContext());
+
+        if (screenTwo.hasData()) {
+            new com.google.android.material.dialog.MaterialAlertDialogBuilder(requireContext())
+                    .setTitle("Continue Registration?")
+                    .setMessage("We found saved data. Would you like to continue or start over?")
+                    .setCancelable(false)
+                    .setPositiveButton("Continue", (dialog, which) -> restoreScreenTwoData(screenTwo))
+                    .setNegativeButton("Start Over", (dialog, which) -> screenTwo.clear())
+                    .show();
+        }
 
         employmentStatusGroup = binding.employmentStatusGroup;
         radioEmployed = binding.radioEmployed;
@@ -165,6 +182,56 @@ public class RegisterThreeFragment extends BaseFragment {
 
         return binding.getRoot();
     }
+
+    private void restoreScreenTwoData(Onboarding2 screenTwo) {
+        branchCode = screenTwo.get("branch_code");
+        clusterCode = screenTwo.get("cluster_code");
+
+        binding.autoBranch.setText(branchArrayAdapter != null ? getBranchName(branchCode) : "", false);
+        binding.autoCluster.setText(clusterArrayAdapter != null ? getClusterName(clusterCode) : "", false);
+
+        binding.autoDisability.setText(screenTwo.get("disability"), false);
+        binding.etSpecifyDisability.setText(screenTwo.get("specify_disability"));
+        binding.etIntroducerName.setText(screenTwo.get("introducer_name"));
+        binding.etIntroducerId.setText(screenTwo.get("introducer_id"));
+        binding.ccpForgotPassword.setFullNumber(screenTwo.get("introducer_phone"));
+
+        String status = screenTwo.get("employment_status");
+        if (status.equals("1")) {
+            radioEmployed.setChecked(true);
+            employedFields.setVisibility(View.VISIBLE);
+            employerName.setText(screenTwo.get("employer_name"));
+            employerAddress.setText(screenTwo.get("employer_address"));
+            employerIncome.setText(screenTwo.get("employer_income"));
+        } else if (status.equals("2")) {
+            radioSelfEmployed.setChecked(true);
+            selfEmployedFields.setVisibility(View.VISIBLE);
+            businessName.setText(screenTwo.get("business_name"));
+            businessLocation.setText(screenTwo.get("business_location"));
+            businessIncome.setText(screenTwo.get("business_income"));
+        } else {
+            radioUnemployed.setChecked(true);
+        }
+    }
+
+    private String getBranchName(String code) {
+        if (branchList != null) {
+            for (CountiesResponse.Branch b : branchList) {
+                if (b.code.equals(code)) return b.branchName;
+            }
+        }
+        return "";
+    }
+
+    private String getClusterName(String code) {
+        if (clusterList != null) {
+            for (CountiesResponse.Cluster c : clusterList) {
+                if (c.code.equals(code)) return c.clusterName;
+            }
+        }
+        return "";
+    }
+
 
     private boolean isEmpty(EditText editText) {
         return editText.getText().toString().trim().isEmpty();
@@ -288,6 +355,15 @@ public class RegisterThreeFragment extends BaseFragment {
         } else if (selectedId == R.id.radioUnemployed) {
             employmentStatus = "3";
         }
+
+        new Onboarding2(requireContext()).save(
+                branchCode, clusterCode, disability, specifyDisability,
+                introducerName, introducerId, introducerPhoneNo,
+                employmentStatus,
+                _employerName, _employerAddress, _employerIncome,
+                _businessName, _businessLocation, _businessIncome
+        );
+
 
         // Proceed to next step with all validated values
         navigate(RegisterThreeFragmentDirections.actionRegisterOneToRegisterTwo(

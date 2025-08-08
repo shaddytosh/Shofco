@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +28,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
+
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -70,7 +73,12 @@ public class RegisterOneFragment extends BaseFragment {
         binding = FragmentRegisterOneBinding.inflate(inflater, container, false);
         handler = new Handler(Looper.getMainLooper());
 
-        binding.toolbar.setNavigationOnClickListener(v -> navigateUp());
+
+        binding.toolbar.setNavigationOnClickListener(v -> {
+            Onboarding onboarding= new Onboarding(requireContext());
+            onboarding.clear();
+            navigateUp();
+        });
 
 
         binding.tvNext.setOnClickListener(v -> validate());
@@ -80,6 +88,14 @@ public class RegisterOneFragment extends BaseFragment {
         idNo = RegisterOneFragmentArgs.fromBundle(getArguments()).getIdNo();
 
         binding.txtNationalId.setText(idNo);
+
+
+        Onboarding onboarding = new Onboarding(requireContext());
+
+        if (onboarding.hasData1() && onboarding.getNationalId().equals(idNo)) {
+            showResumeDialog(onboarding);
+        }
+
 
         setupValidationListeners();
         binding.txtEmail.addTextChangedListener(new TextValidator() {
@@ -252,6 +268,34 @@ public class RegisterOneFragment extends BaseFragment {
         return binding.getRoot();
     }
 
+    private void showResumeDialog(Onboarding onboarding) {
+        new MaterialAlertDialogBuilder(requireContext())
+                .setTitle("Resume Registration?")
+                .setMessage("We found saved data from a previous session. Would you like to continue where you left off or start over?")
+                .setCancelable(false)
+                .setPositiveButton("Continue", (dialog, which) -> {
+                    // Restore only if all data is valid
+                    binding.txtFirstName.setText(onboarding.getFirstName());
+                    binding.txtLastName.setText(onboarding.getLastName());
+                    binding.txtNationalId.setText(onboarding.getNationalId());
+                    binding.txtEmail.setText(onboarding.getEmail());
+                    binding.txtTown.setText(onboarding.getTown());
+                    binding.txtAddress.setText(onboarding.getAddress());
+
+                    dateOfBirth = onboarding.getDateOfBirth();
+                    selectedGender = onboarding.getGender();
+                    selectedStatus = onboarding.getStatus();
+
+                    String tel = onboarding.getTelephone();
+                    if (!TextUtils.isEmpty(tel)) {
+                        binding.ccpForgotPassword.setFullNumber(tel);
+                    }
+
+                })
+                .setNegativeButton("Start Over", (dialog, which) -> onboarding.clear())
+                .show();
+    }
+
     private boolean isValidDate(String dateStr) {
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
@@ -308,6 +352,20 @@ public class RegisterOneFragment extends BaseFragment {
                 binding.phoneNumberInputLayoutForgotPassword.setError(null); // Clear error
                 // Proceed
             }
+
+
+            new Onboarding(requireContext()).saveUserData1(
+                    firstName,
+                    lastName,
+                    nationalId,
+                    telephone,
+                    email,
+                    town,
+                    address,
+                    dateOfBirth,
+                    selectedGender,
+                    selectedStatus
+            );
 
 
 

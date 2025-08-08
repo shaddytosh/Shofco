@@ -1,7 +1,9 @@
 package ke.co.shofcosacco.ui.onboarding;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -11,6 +13,8 @@ import android.util.Log;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
@@ -116,6 +120,15 @@ public class CropImageHelperFragment extends Fragment {
     public void launchCamera(ImageType imageType) {
         this.currentImageType = imageType;
 
+        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Request the permission
+            requestPermissions(new String[]{Manifest.permission.CAMERA}, 101); // Handle the result in onRequestPermissionsResult
+            return;
+        }
+
+        // Permission granted - proceed to open camera
         try {
             File photoFile = File.createTempFile(
                     "camera_" + imageType.getValue() + "_" + System.currentTimeMillis(),
@@ -133,6 +146,7 @@ public class CropImageHelperFragment extends Fragment {
             }
         }
     }
+
 
     private void startCrop(Uri sourceUri) {
         Uri destUri = Uri.fromFile(new File(requireContext().getCacheDir(),
@@ -189,4 +203,21 @@ public class CropImageHelperFragment extends Fragment {
             return null;
         }
     }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 101) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Retry opening camera with current imageType
+                launchCamera(currentImageType);
+            } else {
+                if (listener != null) {
+                    listener.onImageCropError("Camera permission denied", currentImageType);
+                }
+            }
+        }
+    }
+
 }

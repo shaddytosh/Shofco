@@ -15,10 +15,14 @@ public class ReportsResponse implements Serializable {
 
     @SerializedName("description")
     public String description;
+    @SerializedName("current_version")
+    public String currentVersion;
+
+    @SerializedName("force_update")
+    public boolean forceUpdate = false;
+
     @SerializedName("attached_files")
     public List<Carousel> carouselList;
-
-
 
 
     public static class Carousel implements Serializable {

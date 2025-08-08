@@ -101,6 +101,8 @@ public class Constants {
     public static final String API_ERROR ="An error occurred please try again later";
 
 
+    public static final boolean FORCE_UPDATE = true;
+    public static final String CURRENT_VERSION ="49";
 
 
 

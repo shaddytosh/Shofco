@@ -30,8 +30,10 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Objects;
 
 import co.ke.shofcosacco.R;
@@ -154,6 +156,7 @@ public class AddNextOfKinDialogFragment extends DialogFragment {
             }
         });
 
+
         // Set up the gender dropdown
         String[] kinTypes = new String[]{"Next of Kin", "Beneficiary"};
         ArrayAdapter<String> genderAdapter = new ArrayAdapter<>(
@@ -166,9 +169,27 @@ public class AddNextOfKinDialogFragment extends DialogFragment {
         binding.tvKinType.setFocusable(false);  // Make it non-editable
         binding.tvKinType.setClickable(true);   // But still clickable to show the dropdown
 
+        Map<String, String> kinTypeMap = new HashMap<>();
+        kinTypeMap.put("Next of Kin", "1");
+        kinTypeMap.put("Beneficiary", "2");
+
         binding.tvKinType.setOnItemClickListener((parent, view1, position, id) -> {
-            selectedKinType = String.valueOf(position+1);
-            // Do something with selectedGender
+            String selectedText = (String) parent.getItemAtPosition(position);
+            selectedKinType = kinTypeMap.get(selectedText);
+
+            if ("1".equals(selectedKinType)) { // Next of Kin
+                binding.tilAllocation.setVisibility(View.GONE);
+                binding.tilNationalId.setHint("National ID (Optional)");
+                binding.tilEmail.setHint("Email (Optional)");
+                binding.phoneNumberInputLayoutForgotPassword.setHint("Phone Number");
+
+            } else if ("2".equals(selectedKinType)) { // Beneficiary
+                binding.tilAllocation.setVisibility(View.VISIBLE);
+                binding.tilAllocation.setHint("Allocation");
+                binding.tilNationalId.setHint("National ID (Optional)");
+                binding.tilEmail.setHint("Email (Optional)");
+                binding.phoneNumberInputLayoutForgotPassword.setHint("Phone Number (Optional)");
+            }
         });
 
         binding.tvDateOfBirth.setOnFocusChangeListener((v, hasFocus) -> {
@@ -244,6 +265,22 @@ public class AddNextOfKinDialogFragment extends DialogFragment {
         return binding.getRoot();
 
     }
+    private String buildKinSummary(String fullName, String allocation, String nationalId, String telephone, String email,
+                                   String town, String address, String dob, String relationshipName, String kinTypeText) {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Name: ").append(fullName).append("\n");
+        if (!nationalId.isEmpty()) builder.append("ID: ").append(nationalId).append("\n");
+        if (!telephone.isEmpty()) builder.append("Phone: ").append(telephone).append("\n");
+        if (!email.isEmpty()) builder.append("Email: ").append(email).append("\n");
+        builder.append("DOB: ").append(dob).append("\n");
+        builder.append("Town: ").append(town).append("\n");
+        builder.append("Address: ").append(address).append("\n");
+        builder.append("Relationship: ").append(relationshipName).append("\n");
+        builder.append("Kin Type: ").append(kinTypeText).append("\n");
+        if ("2".equals(selectedKinType)) builder.append("Allocation: ").append(allocation).append("\n");
+
+        return builder.toString();
+    }
 
     private boolean isValidDate(String dateStr) {
         try {
@@ -289,65 +326,108 @@ public class AddNextOfKinDialogFragment extends DialogFragment {
         });
     }
 
-    private void addNextOfKin(){
+    private void addNextOfKin() {
 
-        String fullName= binding.txtFullName.getText().toString().trim();
-        String allocation= binding.txtAllocation.getText().toString().trim();
-        String nationalId= binding.txtNationalId.getText().toString().trim();
-        String telephone= binding.ccpForgotPassword.getFormattedFullNumber().replace(" ","").replace("+","");
-        String email= binding.txtEmail.getText().toString();
-        String town= binding.txtTown.getText().toString();
-        String address= binding.txtAddress.getText().toString();
-
+        String fullName = binding.txtFullName.getText().toString().trim();
+        String allocation = binding.txtAllocation.getText().toString().trim();
+        String nationalId = binding.txtNationalId.getText().toString().trim();
+        String telephone = binding.ccpForgotPassword.getFormattedFullNumber().replace(" ", "").replace("+", "");
+        String email = binding.txtEmail.getText().toString().trim();
+        String town = binding.txtTown.getText().toString().trim();
+        String address = binding.txtAddress.getText().toString().trim();
 
         if (TextValidator.isEmpty(selectedKinType)) {
-            binding.tilFullName.setError(getString(R.string.required));
-        }else if (TextValidator.isEmpty(fullName)) {
-            binding.tilFullName.setError(getString(R.string.required));
-        }else if (TextValidator.isEmpty(nationalId)) {
-            binding.tilNationalId.setError(getString(R.string.required));
-        }else if (TextValidator.isEmpty(dateOfBirth)) {
-            binding.tilYearOfBirth.setError(getString(R.string.required));
-        }else if (TextValidator.isEmpty(telephone)) {
-            binding.phoneNumberInputLayoutForgotPassword.setError(getString(R.string.required));
-        }else if (relationshipTypeCode.isEmpty()) {
-            Toast.makeText(requireContext(), "Relationship Types is required", Toast.LENGTH_SHORT).show();
-        }else if (TextValidator.isEmpty(town)) {
-            binding.tilTown.setError(getString(R.string.required));
-        }else if (TextValidator.isEmpty(address)) {
-            binding.tilAddress.setError(getString(R.string.required));
-        }else if (TextValidator.isEmpty(allocation)) {
-            binding.tilAllocation.setError(getString(R.string.required));
-        }else {
-
-            String phone = binding.phoneNumberEditTextForgotPassword.getText().toString().trim();
-            if (phone.startsWith("0")) {
-                binding.phoneNumberInputLayoutForgotPassword.setError("Phone number should not start with 0");
-                return;
-            } else {
-                binding.phoneNumberInputLayoutForgotPassword.setError(null); // Clear error
-                // Proceed
-            }
-
-            validatesInput();
-            Intent result = new Intent();
-
-            result.putExtra("fullName", fullName);
-            result.putExtra("allocation", allocation);
-            result.putExtra("nationalId", nationalId);
-            result.putExtra("telephone", telephone);
-            result.putExtra("email", email);
-            result.putExtra("town", town);
-            result.putExtra("address", address);
-            result.putExtra("dateOfBirth", dateOfBirth);
-            result.putExtra("relationshipTypeCode", relationshipTypeCode);
-            result.putExtra("kinType", selectedKinType);
-
-            if (getParentFragment() != null) {
-                getParentFragment().onActivityResult(2000, RESULT_OK, result);
-            }
-            dismiss();
+            Toast.makeText(requireContext(), "Select Kin Type", Toast.LENGTH_SHORT).show();
+            return;
         }
+
+        if (TextValidator.isEmpty(fullName)) {
+            binding.tilFullName.setError(getString(R.string.required));
+            return;
+        }
+
+        if (TextValidator.isEmpty(dateOfBirth)) {
+            binding.tilYearOfBirth.setError(getString(R.string.required));
+            return;
+        }
+
+        if ("1".equals(selectedKinType)) { // Next of Kin
+            if (TextValidator.isEmpty(telephone)) {
+                binding.phoneNumberInputLayoutForgotPassword.setError(getString(R.string.required));
+                return;
+            }
+
+            if (!binding.ccpForgotPassword.isValidFullNumber()) {
+                binding.phoneNumberInputLayoutForgotPassword.setError(getString(R.string.error_phone_number));
+                return;
+            }
+
+
+
+        } else if ("2".equals(selectedKinType)) { // Beneficiary
+
+            if (TextValidator.isEmpty(allocation)) {
+                binding.tilAllocation.setError(getString(R.string.required));
+                return;
+            }
+            // Phone and Email are optional, no checks
+
+        }
+
+        if (TextValidator.isEmpty(relationshipTypeCode)) {
+            binding.tilRelationshipType.setError(getString(R.string.required));
+            return;
+        }
+
+        if (TextValidator.isEmpty(town)) {
+            binding.tilTown.setError(getString(R.string.required));
+            return;
+        }
+
+        if (TextValidator.isEmpty(address)) {
+            binding.tilAddress.setError(getString(R.string.required));
+            return;
+        }
+
+        // Check phone starts with 0 — applies only if phone is entered
+        String phone = binding.phoneNumberEditTextForgotPassword.getText().toString().trim();
+        if (!TextValidator.isEmpty(phone) && phone.startsWith("0")) {
+            binding.phoneNumberInputLayoutForgotPassword.setError("Phone number should not start with 0");
+            return;
+        }
+
+        if ("254".equals(telephone )){
+            telephone = "";
+        }
+
+        if (allocation.isEmpty()){
+            allocation = "0";
+        }
+
+        if (email.isEmpty()){
+            email = "";
+        }
+
+
+
+        // All validations passed
+        Intent result = new Intent();
+        result.putExtra("fullName", fullName);
+        result.putExtra("allocation", allocation);
+        result.putExtra("nationalId", nationalId);
+        result.putExtra("telephone", telephone);
+        result.putExtra("email", email);
+        result.putExtra("town", town);
+        result.putExtra("address", address);
+        result.putExtra("dateOfBirth", dateOfBirth);
+        result.putExtra("relationshipTypeCode", relationshipTypeCode);
+        result.putExtra("kinType", selectedKinType);
+
+        if (getParentFragment() != null) {
+            getParentFragment().onActivityResult(2000, RESULT_OK, result);
+        }
+        dismiss();
+
 
     }
 

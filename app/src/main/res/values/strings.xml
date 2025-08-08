@@ -88,6 +88,7 @@
     <string name="period_in_month_s">Period in Month(s)</string>
     <string name="no_loan_products_found">No loan products found</string>
     <string name="proceed">Proceed</string>
+    <string name="proceed_and_update">Proceed &amp; Update</string>
     <string name="you_are_about_to_view_account_balances">You are about to view profile balances</string>
     <string name="you_are_about_to_view_account_statement">You are about to view profile statement</string>
     <string name="you_are_about_to_repay_your_loan_from_wallet">You are about to repay your loan from wallet</string>
@@ -210,6 +211,14 @@
     <string name="action">Action</string>
     <string name="guarantor_requests">Guarantor Requests</string>
     <string name="proceed_amp_apply"><![CDATA[Proceed & Apply]]></string>
+    <string name="declaration"><u>Declaration</u></string>
+    <string name="sacco_declaration">In making this membership application, I confirm that all particulars given by me are true. I consent that my personal
+data may from time to time be used and disclosed for lawful purposes and in accordance with shofco Sacco policy and
+relevant laws as amended from time to time. In the event I wish to amend my information provided to the Sacco, I commit to
+follow the Sacco stipulated data change process. I do hereby agree to conform to the society’s By -laws and
+any amendments thereof.</string>
+    <string name="yes_i_accept">YES, I ACCEPT</string>
+    <string name="no_i_reject">NO, I REJECT</string>
 
 
 </resources>

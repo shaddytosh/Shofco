@@ -47,7 +47,8 @@ public class NextOfKinsAdapter extends RecyclerView.Adapter<NextOfKinsAdapter.Ph
         holder.textEmail.setText("Email: "+nextOfKinNews.getEmail());
         holder.textTown.setText("Town: "+nextOfKinNews.getTown());
         holder.textAddress.setText("Address: "+nextOfKinNews.getAddress());
-        holder.textAllocation.setText("Allocation: "+nextOfKinNews.getAllocation());
+        holder.textAllocation.setText("Allocation: "+nextOfKinNews.getAllocation() +
+                "\nKin Type: " + (nextOfKinNews.getKinType().equals("1") ? "Next Of Kin": "Beneficiary\n"));
 
 
         holder.removeButton.setOnClickListener(v -> {

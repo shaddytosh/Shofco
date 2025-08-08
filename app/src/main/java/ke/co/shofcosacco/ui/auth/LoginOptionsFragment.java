@@ -26,10 +26,6 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.google.android.play.core.appupdate.AppUpdateManager;
-import com.google.android.play.core.appupdate.AppUpdateManagerFactory;
-import com.google.android.play.core.install.model.AppUpdateType;
-import com.google.android.play.core.install.model.UpdateAvailability;
 
 import org.imaginativeworld.whynotimagecarousel.ImageCarousel;
 import org.imaginativeworld.whynotimagecarousel.model.CarouselGravity;
@@ -45,14 +41,15 @@ import co.ke.shofcosacco.databinding.FragmentLoginOptionsBinding;
 import ke.co.shofcosacco.app.api.responses.ReportsResponse;
 import ke.co.shofcosacco.app.models.Carousel;
 import ke.co.shofcosacco.app.navigation.BaseFragment;
+import ke.co.shofcosacco.app.utils.Constants;
 import ke.co.shofcosacco.app.utils.PreventDoubleClick;
+import ke.co.shofcosacco.ui.AppUpdate;
 import ke.co.shofcosacco.ui.home.NotSuccessDialogFragment;
 
 
 public class LoginOptionsFragment extends BaseFragment {
 
     private FragmentLoginOptionsBinding binding;
-    private AppUpdateManager appUpdateManager;
     private static final int APP_UPDATE_REQUEST_CODE = 100;
     private AuthViewModel authViewModel;
     public LoginOptionsFragment() {
@@ -62,7 +59,6 @@ public class LoginOptionsFragment extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        appUpdateManager = AppUpdateManagerFactory.create(requireContext());
         authViewModel = new ViewModelProvider(this).get(AuthViewModel.class);
 
     }
@@ -238,7 +234,14 @@ public class LoginOptionsFragment extends BaseFragment {
 
         authViewModel.FnGetCoroselImages().observe(getViewLifecycleOwner(), listAPIResponse -> {
             if (listAPIResponse != null && listAPIResponse.isSuccessful()) {
+
+
                 if (listAPIResponse.body().statusCode != null && listAPIResponse.body().statusCode.equals(STATUS_CODE_SUCCESS)) {
+
+                    AppUpdate appUpdate = new AppUpdate(requireActivity());
+
+                    appUpdate.checkForUpdateAndProceed(listAPIResponse.body().currentVersion,listAPIResponse.body().forceUpdate);
+
                     List<ReportsResponse.Carousel> carouselList = listAPIResponse.body().carouselList;
 
                     if (carouselList != null && !carouselList.isEmpty()) {
@@ -282,19 +285,11 @@ public class LoginOptionsFragment extends BaseFragment {
         });
 
 
+
     }
 
 
     private void checkNewUpdate(){
-        appUpdateManager.getAppUpdateInfo().addOnSuccessListener(appUpdateInfo -> {
-            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
-                    && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)) {
-                try {
-                    appUpdateManager.startUpdateFlowForResult(appUpdateInfo, AppUpdateType.IMMEDIATE, requireActivity(), APP_UPDATE_REQUEST_CODE);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+
     }
 }

@@ -106,6 +106,8 @@ public class ValidateDialogFragment extends DialogFragment {
         String memberNo =binding.txtMemberNo.getText().toString();
         if (TextValidator.isEmpty(memberNo)){
             binding.tilMemberNo.setError(getString(R.string.required));
+        } if (memberNo.length()  < 7){
+            binding.tilMemberNo.setError("Please enter a valid National ID");
         }else {
             binding.tilMemberNo.setError(null);
             ProgressDialog progressDialog = ProgressDialog.show(getContext(), "",

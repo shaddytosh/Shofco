@@ -98,7 +98,7 @@
                     android:id="@+id/txt_national_id"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/national_id"
+                    android:hint="National ID (Optional)"
                     android:maxLength="9"
                     android:inputType="number"/>
             </com.google.android.material.textfield.TextInputLayout>
@@ -114,7 +114,6 @@
                 android:layout_marginTop="@dimen/size_8"
                 android:layout_marginStart="@dimen/size_20"
                 android:layout_marginEnd="@dimen/size_20"
-                android:layout_marginBottom="@dimen/size_8"
                 android:orientation="horizontal"
                 app:hintTextColor="@color/primary_to_white"
                 android:backgroundTint="@color/primary_to_white">

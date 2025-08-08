@@ -111,7 +111,8 @@ public class NextOfKinNew {
                 "Email: " + email + "\n" +
                 "Town: " + town + "\n" +
                 "Address: " + address + "\n" +
-                "Allocation: " + allocation;
+                "Allocation: " + allocation + "\n" +
+                "Kin Type: " + (kinType.equals("1") ? "Next Of Kin": "Beneficiary");
     }
 
     public String getKinType() {

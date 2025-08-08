@@ -4,12 +4,10 @@ package ke.co.shofcosacco.ui.onboarding;
 import static android.app.Activity.RESULT_OK;
 import static ke.co.shofcosacco.app.utils.Constants.STATUS_CODE_SUCCESS;
 
-import android.Manifest;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.ImageDecoder;
 import android.net.Uri;
@@ -28,32 +26,19 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.core.content.FileProvider;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.snackbar.BaseTransientBottomBar;
-import com.google.android.material.snackbar.Snackbar;
-import com.yalantis.ucrop.UCrop;
-
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import co.ke.shofcosacco.R;
@@ -92,6 +77,8 @@ public class RegisterTwoFragment extends BaseFragment implements CropImageHelper
     private String introducerName;
     private String introducerId;
     private String introducerPhoneNo;
+
+    private  AddNextOfKinRequest addNextOfKinRequest ;
 
 
 
@@ -378,7 +365,12 @@ public class RegisterTwoFragment extends BaseFragment implements CropImageHelper
 
             List<AddNextOfKinRequest.NextOfKin> nextOfKin = getNextOfKinList();
 
-            AddNextOfKinRequest addNextOfKinRequest =  new AddNextOfKinRequest(fullName, dateOfBirth,nationalId, telephone, email, town,
+            if (!isValidNextOfKinList(nextOfKin)) {
+                Toast.makeText(requireContext(), "You must add at least one Next of Kin and one Beneficiary.", Toast.LENGTH_LONG).show();
+                return;
+            }
+
+            addNextOfKinRequest =  new AddNextOfKinRequest(fullName, dateOfBirth,nationalId, telephone, email, town,
                      address, idFront,idBack, signature, passport, physicalAddress, countyCode, subCountyCode, wardCode, selectedGender,
                      selectedStatus, nextOfKin,branch, cluster, disability, specifyDisability, introducerName, introducerId, introducerPhoneNo,
                    _employerName, _employerAddress, _employerIncome,
@@ -397,34 +389,8 @@ public class RegisterTwoFragment extends BaseFragment implements CropImageHelper
 
             TextView positiveButton = customView.findViewById(R.id.positive_button);
             positiveButton.setOnClickListener(v -> {
-                ProgressDialog progressDialog = ProgressDialog.show(getContext(), "",
-                        "Registration ongoing. Please wait...", true);
-                authViewModel.registerOne(addNextOfKinRequest).observe(getViewLifecycleOwner(), apiResponse -> {
-                    progressDialog.dismiss();
-                    if (apiResponse != null && apiResponse.isSuccessful()) {
-                        if (apiResponse.body().success.equals(STATUS_CODE_SUCCESS)) {
-                            InputMethodManager imm = (InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-                            imm.hideSoftInputFromWindow(binding.getRoot().getWindowToken(), 0);
-                            Toast.makeText(requireContext(), apiResponse.body().description, Toast.LENGTH_SHORT).show();
 
-                            StkPushDialogFragment dialogFragment = new StkPushDialogFragment();
-                            Bundle args = new Bundle();
-                            args.putString("amount", apiResponse.body().amount);
-                            args.putString("phoneNumber", apiResponse.body().mobileNo);
-                            args.putString("message", apiResponse.body().description);
-                            args.putString("idNo", apiResponse.body().idNo);
-                            dialogFragment.setArguments(args);
-                            dialogFragment.show(getChildFragmentManager(), dialogFragment.getTag());
-
-                        } else {
-                            notSuccessDialog(apiResponse.body().description);
-                        }
-                    } else {
-
-                        Toast.makeText(requireContext(), Constants.API_ERROR, Toast.LENGTH_SHORT).show();
-
-                    }
-                });
+                declarationDialog();
                 alertDialog.dismiss();
             });
 
@@ -439,6 +405,61 @@ public class RegisterTwoFragment extends BaseFragment implements CropImageHelper
 
         }
 
+    }
+
+    private void submit() {
+        ProgressDialog progressDialog = ProgressDialog.show(getContext(), "",
+                "Registration ongoing. Please wait...", true);
+        authViewModel.registerOne(addNextOfKinRequest).observe(getViewLifecycleOwner(), apiResponse -> {
+            progressDialog.dismiss();
+            if (apiResponse != null && apiResponse.isSuccessful()) {
+                if (apiResponse.body().success.equals(STATUS_CODE_SUCCESS)) {
+                    InputMethodManager imm = (InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(binding.getRoot().getWindowToken(), 0);
+                    Toast.makeText(requireContext(), apiResponse.body().description, Toast.LENGTH_SHORT).show();
+
+                    StkPushDialogFragment dialogFragment = new StkPushDialogFragment();
+                    Bundle args = new Bundle();
+                    args.putString("amount", apiResponse.body().amount);
+                    args.putString("phoneNumber", apiResponse.body().mobileNo);
+                    args.putString("message", apiResponse.body().description);
+                    args.putString("idNo", apiResponse.body().idNo);
+                    dialogFragment.setArguments(args);
+                    dialogFragment.show(getChildFragmentManager(), dialogFragment.getTag());
+
+                    Onboarding onboarding = new Onboarding(requireContext());
+                    onboarding.clear();
+                    Onboarding2 onboarding2 = new Onboarding2(requireContext());
+                    onboarding2.clear();
+
+
+                } else {
+                    notSuccessDialog(apiResponse.body().description);
+                }
+            } else {
+
+                Toast.makeText(requireContext(), Constants.API_ERROR, Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+    }
+
+    private boolean isValidNextOfKinList(List<AddNextOfKinRequest.NextOfKin> kinList) {
+        boolean hasNextOfKin = false;
+        boolean hasBeneficiary = false;
+
+        for (AddNextOfKinRequest.NextOfKin kin : kinList) {
+            if ("1".equals(kin.getKinType())) {
+                hasNextOfKin = true;
+            } else if ("2".equals(kin.getKinType())) {
+                hasBeneficiary = true;
+            }
+
+            if (hasNextOfKin && hasBeneficiary) break; // Early exit
+        }
+
+        return hasNextOfKin && hasBeneficiary;
     }
 
     private List<AddNextOfKinRequest.NextOfKin> getNextOfKinList() {
@@ -613,7 +634,7 @@ public class RegisterTwoFragment extends BaseFragment implements CropImageHelper
                 if (!nextOfKinNewList.isEmpty()) {
                     binding.buttonNextOfKin.setText("Add Another Next of Kin");
                 } else {
-                    binding.buttonNextOfKin.setText("Add Next of Kin");
+                    binding.buttonNextOfKin.setText("Add Next of Kin/Benefiaciary");
                 }
 
                 if (data != null) {
@@ -633,6 +654,13 @@ public class RegisterTwoFragment extends BaseFragment implements CropImageHelper
                     nextOfKinsAdapter.notifyDataSetChanged();
                 }
                 break;
+            case 8000:
+                notSuccessDialog("You have rejected the declaration");
+                break;
+            case 9000:
+                submit();
+                break;
+
         }
     }
 
@@ -704,5 +732,13 @@ public class RegisterTwoFragment extends BaseFragment implements CropImageHelper
         }
 
     }
+
+    private void declarationDialog(){
+        DeclarationDialog dialogFragment = new DeclarationDialog();
+        Bundle args = new Bundle();
+        dialogFragment.setArguments(args);
+        dialogFragment.show(getChildFragmentManager(),dialogFragment.getTag());
+    }
+
 
 }

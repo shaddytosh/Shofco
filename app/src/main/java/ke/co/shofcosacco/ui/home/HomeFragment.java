@@ -56,6 +56,7 @@ import ke.co.shofcosacco.app.models.MiniStatement;
 import ke.co.shofcosacco.app.navigation.BaseFragment;
 import ke.co.shofcosacco.app.utils.BlurUtils;
 import ke.co.shofcosacco.app.utils.Constants;
+import ke.co.shofcosacco.ui.AppUpdate;
 import ke.co.shofcosacco.ui.auth.AuthViewModel;
 import ke.co.shofcosacco.ui.auth.LiveDataViewModel;
 import ke.co.shofcosacco.ui.main.MainFragmentDirections;
@@ -278,10 +279,14 @@ public class HomeFragment extends BaseFragment implements RecentTransactionsAdap
         carousel.setInfiniteCarousel(true);
         carousel.setTouchToPause(true);
 
-
         authViewModel.FnGetCoroselImages().observe(getViewLifecycleOwner(), listAPIResponse -> {
             if (listAPIResponse != null && listAPIResponse.isSuccessful()) {
                 if (listAPIResponse.body().statusCode != null && listAPIResponse.body().statusCode.equals(STATUS_CODE_SUCCESS)) {
+
+                    AppUpdate appUpdate = new AppUpdate(requireActivity());
+
+                    appUpdate.checkForUpdateAndProceed(listAPIResponse.body().currentVersion,listAPIResponse.body().forceUpdate);
+
                     List<ReportsResponse.Carousel> carouselList = listAPIResponse.body().carouselList;
 
                     if (carouselList != null && !carouselList.isEmpty()) {
